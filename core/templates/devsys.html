@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="pure-g-r content-ribbon" align="center">
+  <div class="pure-u-1">
+
+  <div class="content-ribbon" style="margin-left: 14rem;">
+    <a href="{% url 'logout_user' %}">
+        <button>Logout</button>
+    <a>
+  </div>
+    
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    <!--Colocar uma condição se usuário é cliente(html referente) ou funcionário(html referente) para mostrar os dados-->
+    <!--Ou poderia colocar uma condição na views onde chama esse template-->
+    <a href="{% url 'funcionarios' %}" style="text-decoration:none">
+      <button type="button">   <b>Funcionário</b>  </button>
+    </a>
+    
+    &nbsp  &nbsp  &nbsp 
+    <a href="{% url 'clientes' %}">
+      <button type="button">  <b>Cliente</b>   </button>
+    </a>
+  <br> <br> <br> <br>
+  </div>
+</div>
+{% endblock%}

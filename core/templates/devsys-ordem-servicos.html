@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  
+
+<div class="pure-g-r content-ribbon">
+  <div class="pure-u-1">
+
+    <div class="content-ribbon" style="margin-left: 14rem;">
+      <a href="{% url 'logout_user' %}">
+          <button>Logout</button>
+      <a>
+    </div>
+      <h2>Ordens de Serviços</h2>  
+      
+      
+      <a href="{% url 'funcionarios' %}" style="text-decoration: none;">
+        <button type="button">&lt;&lt; Voltar</button>
+      </a>
+      <a href="{% url 'ordem-servico' %}" style="text-decoration: none;">
+        <button type="button">Nova O.S.</button>
+      </a>
+  
+      
+    <ul style="font-size: 20px">
+        {% for ordem_servico in ordem_servicos %} 
+        
+          {% if ordem_servico.usuario_os %} 
+          <div class="content-ribbon" style="margin: 0 -2em 0 -4em;">
+            <fieldset>
+              <legend> <b>Dados da Ordem de Serviço</b> </legend>
+              <p>
+                <label>Data de Entrada:
+                <br>
+                {{ ordem_servico.get_dt_entrada_os }}
+                <br>
+                </label>
+              </p>
+              <p>
+                  <label>Descrição:
+                  <br>
+                  {{ ordem_servico.descricao }}         
+                  <br>
+                  </label>
+              </p>
+              <p>
+                <div {% if ordem_servico.get_ordem_servico_atrasada %}
+                    style="color:red"
+                 {% endif %}>
+                <label>Data Agendada:
+                <br>
+                {{ ordem_servico.get_dt_agenda_os }}          
+                <br>
+                </label>
+                </div>
+              </p>
+              <p>
+                <label>Data do Pagamento:
+                <br>
+                {{ ordem_servico.get_dt_pagamento_os }}
+                <br>
+                </label>
+              </p>
+              <p>
+                <label>Responsável:
+                <br>
+                {{ ordem_servico.responsavel }}
+                <br>
+                </label>
+              </p>
+              <p>
+                <label>Tipo(s) de Equipamento(s):
+                <br>
+                {{ ordem_servico.equipamento }}
+                <br>
+                </label>
+              </p>
+              
+            </fieldset>
+
+            <a href="ordem-servico/?id={{ ordem_servico.id }}" style="text-decoration:none">
+              <button type="button">Editar</button>
+            </a>
+            <br><br>
+          </div>
+          {% endif %}
+        {% endfor %}
+    </ul>
+  </div>
+ </div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pure-g-r content-ribbon">
+  <div class="pure-u-1">
+
+    <div class="content-ribbon" style="margin-left: 14rem;">
+      <a href="{% url 'logout_user' %}">
+          <button>Logout</button>
+      <a>
+    </div>
+
+      <h2>Bem vindo(a)!</h2> 
+       
+      <!-- <a href="cliente/" style="text-decoration:none">
+        <button type="button">Novo Cliente</button>
+      </a>-->
+    
+      <a href="{% url 'devsys' %}" style="text-decoration: none;">
+        <button type="button">&lt;&lt; Voltar</button>
+      </a>
+      <!--caminho-do-arquivo boleto no href-->
+      <a href="#">
+        <button type="button" style="text-decoration: none;">Boleto</button>
+      </a>
+    
+    <!--IF se cliente existir 'usuario_cli' mostra os dados -->
+    <ul style="font-size: 20px">
+        {% for cliente in clientes %} 
+          {% if cliente.usuario_cli %}
+          <div class="content-ribbon" style="margin: 0 -2em 0 -4em;">
+          <fieldset>
+            <legend>Dados do Cliente</legend>
+            <p>
+              <label>Nome:
+              <br>
+              {{ cliente.nome }}
+              <br>
+              </label>
+            </p>
+            <p>
+                <label>Telefone:
+                <br>
+                {{ cliente.celular }}            
+                <br>
+                </label>
+            </p>
+          </fieldset>
+
+          <fieldset>
+              <legend>Endereço</legend>
+              <p>
+                  <label>Rua:
+                  <br>
+                  {{ cliente.endereco }}
+                  <br>
+                  </label>
+              </p>
+              <p>
+                <label>Cidade:
+                <br>
+                {{ cliente.cidade }}
+                <br>
+                </label>
+              </p>
+              <p>
+                  <label>Cep:
+                  <br>
+                  {{ cliente.cep }}
+                  <br>
+                  </label>
+              </p>
+              <p>
+                <label>Estado:
+                <br>
+                {{ cliente.uf }}
+                <br>
+                </label>
+              </p>
+              
+          </fieldset>   
+          <br>
+          <!--vai para o html cliente.html com o id do cliente
+          verificar no sql shellou sqlite se tem o ID-->
+          <a href="cliente/?id={{ cliente.id }}" style="text-decoration:none">
+            <button type="button">Editar</button>
+          </a>
+          
+          <!-- Cliente não deleta <a href="cliente/delete/{{ cliente.id }}/">
+            <button type="button">Deletar</button>
+          </a>-->
+          </div>
+          {% endif %}
+        {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

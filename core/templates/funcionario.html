@@ -1,0 +1,108 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pure-g-r content-ribbon">
+  <div class="pure-u-1">
+    
+    <div class="content-ribbon" style="margin-left: 14rem;">
+        <a href="{% url 'logout_user' %}">
+            <button>Logout</button>
+        <a>
+    </div>
+    <div class="content-ribbon" style="margin: 0 -2em 0 -2em;">
+        <h2>Funcionário</h2>
+        <form action="submit" method="POST">{% csrf_token %}
+            
+            <fieldset>
+                <legend>Dados do Funcionário</legend>
+                <p>
+                    <label>Nome:
+                    <br> <!--hidden fica escondido 'id'-->
+                    <input type="number" name="id_funcionario" value="{{ funcionario.id }}" hidden> 
+                    <input type="text" name="nome" size="30" value="{{ funcionario.nome }}" required>
+                    <br>
+                    </label>
+                </p>
+                <p>
+                    <label>Telefone:
+                    <br>
+                    <input type="tel" name="fone1" size="30" value="{{ funcionario.fone1 }}" required>
+                    <br> <br>
+                    </label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>Endereço</legend>
+                <p>
+                    <label>Rua:
+                    <br>
+                    <textarea name="endereco" rows="4" cols="32" required>{{ funcionario.endereco }}</textarea>
+                    <br>
+                    </label>
+                </p>
+                <p>
+                    <label>Cep:
+                    <br>
+                    <input type="text" name="cep" size="22" value="{{ funcionario.cep }}" required>
+                    <br>
+                    </label>
+                </p>
+                <p>
+                    <label>Cidade:
+                    <br>
+                    <input type="text" name="cidade" size="22" value="{{ funcionario.cidade }}" required>
+                    <br>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        Estado:
+                        <select name="uf" multiple required> {{ funcionario.uf }} <!--o que estiver no value vai ser salvo no banco, selected para deixar marcado-->
+                            <option value="">Escolha um Estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíbao</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </label>
+                </p>
+                
+            </fieldset>     
+            <br> 
+            
+            <button type="submit">Salvar</button>
+            
+            <a href="/devsys/funcionarios">
+            <button type="button">Cancelar</button>
+            </a>
+        </form>
+    </div> 
+  </div>
+</div>
+
+
+{% endblock %}
