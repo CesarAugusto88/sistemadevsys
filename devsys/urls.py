@@ -50,7 +50,8 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/home/')),
     
 	path('contato/', views.contact, name='contact'),
-    
+    path('sistemas/', views.sistema, name='sistema'),
+
     #-----------------------------------------------------------------------
     # path('', views.index), #com a função em views
     # Com url normal redireciona para /devsys/

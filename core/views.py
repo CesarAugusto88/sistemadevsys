@@ -359,6 +359,9 @@ def home(request):
 def contact(request):
 	return render(request, 'contact.html')
 
+def sistema(request):
+	return render(request, 'sistema.html')
+
 
 
 # FUNÇÕES DE UPLOAD

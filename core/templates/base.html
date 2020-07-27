@@ -53,16 +53,18 @@
             <a class="nav-link" href="{% url 'login_user' %}">USUÁRIOS</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'sistema' %}">SISTEMAS</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'contact' %}">CONTATOS</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-
 <div class="content">
 	{% block content %}{% endblock %}  <!--serve como place holder para colocar conteúdo -->
-	<div class="footer" style="color: rgb(176, 147, 204);">
+	<div class="footer" style="background-color: #2980B8; color: #000000">
         <p>Copyright &copy; Sistema DevSys Desenvolvimento de Sistemas {% now "Y" as current_year %} {{ current_year }}</p>
     </div>
 </div>
