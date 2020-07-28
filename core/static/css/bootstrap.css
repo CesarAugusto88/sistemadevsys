@@ -17,7 +17,7 @@
   --cyan: #17a2b8;
   --white: #fff;
   --gray: #6c757d;
-  --gray-dark: #343a40;
+  --gray-dark: #2980b8;
   --primary: #007bff;
   --secondary: #6c757d;
   --success: #28a745;
@@ -25,7 +25,7 @@
   --warning: #ffc107;
   --danger: #dc3545;
   --light: #f8f9fa;
-  --dark: #343a40;
+  --dark: #2980b8;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -2678,7 +2678,7 @@ fieldset:disabled a.btn {
 
 .btn-dark {
   color: #fff;
-  background-color: #343a40;
+  background-color: #2980b8;
   border-color: #343a40;
 }
 
@@ -2694,7 +2694,7 @@ fieldset:disabled a.btn {
 
 .btn-dark.disabled, .btn-dark:disabled {
   color: #fff;
-  background-color: #343a40;
+  background-color: #2980b8;
   border-color: #343a40;
 }
 
@@ -2941,7 +2941,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-dark:hover {
   color: #fff;
-  background-color: #343a40;
+  background-color: #2980b8;
   border-color: #343a40;
 }
 
@@ -2957,7 +2957,7 @@ fieldset:disabled a.btn {
 .btn-outline-dark:not(:disabled):not(.disabled):active, .btn-outline-dark:not(:disabled):not(.disabled).active,
 .show > .btn-outline-dark.dropdown-toggle {
   color: #fff;
-  background-color: #343a40;
+  background-color: #2980b8;
   border-color: #343a40;
 }
 
@@ -5096,7 +5096,7 @@ a.badge-light:hover, a.badge-light:focus {
 
 .badge-dark {
   color: #fff;
-  background-color: #343a40;
+  background-color: #2980b8;
 }
 
 a.badge-dark:hover, a.badge-dark:focus {
@@ -6472,7 +6472,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #343a40 !important;
+  background-color: #2980b8 !important;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
