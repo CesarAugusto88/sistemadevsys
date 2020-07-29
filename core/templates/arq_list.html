@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
- 
+<div class="content-ribbon">
   {% block content_header %}
     <h2>Arquivos</h2>
     
@@ -12,45 +12,46 @@
       <a href="{% url 'upload_arq' %}" class="pure-button pure-button-primary">Upload arquivo</a>
     </p>
   {% endblock %}
-<div class="pure-u-1">
-  <table class="pure-table pure-table-horizontal">
-    <thead>
-      <tr>
-        <th>Imagem</th>
-        <th>Título</th>
-        <th>Assunto</th>
-        <th>Download</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for arq in arqs %}
+  <div class="pure-u-1">
+    <table class="pure-table pure-table-horizontal">
+      <thead>
         <tr>
-          <td>
-            {% if arq.imagem %}
-              <img src="{{ arq.imagem.url }}" alt="{{ arq.titulo }}" style="width:100px;">
-            {% else %}
-              <span class="pure-form-message">No imagem</span>
-            {% endif %}
-          </td>
-          <td>{{ arq.titulo }}</td>
-          <td>{{ arq.assunto }}</td>
-          <td>
-            <a href="{{ arq.arquivo.url }}" class="pure-button pure-button-active" target="_blank">
-              Download Arquivo
-            </a>
-          </td>
-          <td>
-            <form method="post" action="{% url 'delete_arq' arq.pk %}">
-              {% csrf_token %}
-              <!-- onclick deseja realmente deletar...-->
-              <button type="submit" class="pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
-            
-            </form>
-          </td>
+          <th>Imagem</th>
+          <th>Título</th>
+          <th>Assunto</th>
+          <th>Download</th>
+          <th>Delete</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {% for arq in arqs %}
+          <tr>
+            <td>
+              {% if arq.imagem %}
+                <img src="{{ arq.imagem.url }}" alt="{{ arq.titulo }}" style="width:100px;">
+              {% else %}
+                <span class="pure-form-message">No imagem</span>
+              {% endif %}
+            </td>
+            <td>{{ arq.titulo }}</td>
+            <td>{{ arq.assunto }}</td>
+            <td>
+              <a href="{{ arq.arquivo.url }}" class="pure-button pure-button-active" target="_blank">
+                Download Arquivo
+              </a>
+            </td>
+            <td>
+              <form method="post" action="{% url 'delete_arq' arq.pk %}">
+                {% csrf_token %}
+                <!-- onclick deseja realmente deletar...-->
+                <button type="submit" class="pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
+              
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

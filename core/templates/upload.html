@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="content-ribbon">
   <h2>Upload</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -10,4 +11,5 @@
   {% if url %}
     <p>Uploaded arquivo: <a href="{{ url }}">{{ url }}</a></p>
   {% endif %}
+</div>
 {% endblock %}

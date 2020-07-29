@@ -149,6 +149,12 @@
              </div>
            </div>
         </div>
+        
+        <script>
+            document.addEventListener("scroll", function(){
+                document.querySelector("#paralax").style.backgroundPosition = 'center '+window.pageYOffset+'px';
+             });
+        </script>
 
         <!-- SCRIPT GOOGLE ANALYTICS -->
         <script>
