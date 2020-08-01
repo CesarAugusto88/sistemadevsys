@@ -8,8 +8,6 @@
 
 ![GitHub](https://img.shields.io/github/license/CesarAugusto88/sistemadevsys)
 
-![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/CesarAugusto88/sistemadevsys)
-
 ##
 
 ##### Redes Sociais
