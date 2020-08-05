@@ -19,9 +19,12 @@
       <a href="{% url 'devsys' %}" style="text-decoration: none;">
         <button type="button">&lt;&lt; Voltar</button>
       </a>
-      <!--caminho-do-arquivo boleto no href-->
-      <a href="#">
-        <button type="button" style="text-decoration: none;">Boleto</button>
+      <!--caminho-do-arquivo boleto no href
+          Colocar para usar class Arq com upload de arquivos pdf para
+        o cliente imprimir os boletos-->
+
+      <a href="{% url 'bol_list' %}">
+        <button type="button" style="text-decoration: none;">Boletos</button>
       </a>
     
     <!--IF se cliente existir 'usuario_cli' mostra os dados -->
