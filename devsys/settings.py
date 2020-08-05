@@ -78,17 +78,16 @@ WSGI_APPLICATION = 'devsys.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'banco_devsys',
-        'USER': 'root',
-        'PASSWORD': 'Ads_12345',
-        'HOST': 'localhost',
+        'NAME': 'devsys01_sistema',
+        'USER': 'devsys01_root',
+        'PASSWORD': 'DevSys_123',
+        'HOST': '177.85.98.245',
         'PORT': '3306',
         'OPTIONS': {
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
     },
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
