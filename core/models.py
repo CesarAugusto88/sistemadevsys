@@ -1,23 +1,27 @@
-from django.db import models
-from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 
+from django.contrib.auth.models import User
+from django.db import models
+
+
 class DevSysManager(models.Manager):
-	# usar search()
-	def search(self, query):
-		# return self.get_queryset().all()
-		# busca com logico E. por padrão vírgula ',' é E
-		# return self.get_queryset().filter(
-		#	name__icontains=query, description__icontains=query)
-		# busca OU
-		return self.get_queryset().filter(
-			models.Q(dt_entrada__icontains=query) | \
-			models.Q(dt_agenda__icontains=query) | \
-			models.Q(descricao__icontains=query))        
+    # usar search()
+    def search(self, query):
+        # return self.get_queryset().all()
+        # busca com logico E. por padrão vírgula ',' é E
+        # return self.get_queryset().filter(
+        # 	name__icontains=query, description__icontains=query)
+        # busca OU
+        return self.get_queryset().filter(
+            models.Q(dt_entrada__icontains=query)
+            | models.Q(dt_agenda__icontains=query)
+            | models.Q(descricao__icontains=query)
+        )
 
 
 class Funcionario(models.Model):
     """ Tabela para cadastro com as informações do funcionário."""
+
     referencial = models.IntegerField(blank=True, null=True)
     nome = models.CharField(max_length=60)
     cpf = models.CharField(blank=True, null=True, max_length=20)
@@ -31,7 +35,7 @@ class Funcionario(models.Model):
     uf = models.CharField(blank=True, null=True, max_length=2)
     email = models.CharField(blank=True, null=True, max_length=60)
     endereco_co = models.CharField(blank=True, null=True, max_length=60)
-    bairro_co =  models.CharField(blank=True, null=True, max_length=30)
+    bairro_co = models.CharField(blank=True, null=True, max_length=30)
     cidade_co = models.CharField(blank=True, null=True, max_length=30)
     cep_co = models.CharField(blank=True, null=True, max_length=9)
     uf_co = models.CharField(blank=True, null=True, max_length=2)
@@ -49,14 +53,12 @@ class Funcionario(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     usuario_fun = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
     # classe Meta serve p modificar nomes para plural
     class Meta:
-        verbose_name = 'Funcionario'
-        verbose_name_plural = 'Funcionarios'
-        #ordenar
-        ordering = ['nome']
-
+        verbose_name = "Funcionario"
+        verbose_name_plural = "Funcionarios"
+        # ordenar
+        ordering = ["nome"]
 
     def __str__(self):
         """ Devolve uma representação em string do modelo."""
@@ -65,6 +67,7 @@ class Funcionario(models.Model):
 
 class Cliente(models.Model):
     """ Tabela para cadastro com as informações do cliente."""
+
     referencial = models.IntegerField(blank=True, null=True)
     nome = models.CharField(max_length=60)
     razao_social = models.CharField(max_length=60)
@@ -78,7 +81,7 @@ class Cliente(models.Model):
     uf = models.CharField(max_length=2)
     email = models.CharField(max_length=60)
     endereco_co = models.CharField(blank=True, null=True, max_length=60)
-    bairro_co =  models.CharField(blank=True, null=True, max_length=30)
+    bairro_co = models.CharField(blank=True, null=True, max_length=30)
     cidade_co = models.CharField(blank=True, null=True, max_length=30)
     cep_co = models.CharField(blank=True, null=True, max_length=9)
     uf_co = models.CharField(blank=True, null=True, max_length=2)
@@ -95,7 +98,7 @@ class Cliente(models.Model):
     dt_nascimento = models.DateTimeField(blank=True, null=True)
     dt_cadastro = models.DateTimeField(blank=True, null=True)
     ref_escola = models.IntegerField(blank=True, null=True)
-    ref_clisubgrupo= models.IntegerField(blank=True, null=True)
+    ref_clisubgrupo = models.IntegerField(blank=True, null=True)
     valor_permitido = models.FloatField(blank=True, null=True)
     dias_vencimento = models.FloatField(blank=True, null=True)
     complemento = models.CharField(blank=True, null=True, max_length=30)
@@ -105,7 +108,7 @@ class Cliente(models.Model):
     fax_r = models.CharField(blank=True, null=True, max_length=16)
     fone1_r = models.CharField(blank=True, null=True, max_length=16)
     fone2_r = models.CharField(blank=True, null=True, max_length=16)
-    bloqueado= models.CharField(blank=True, null=True, max_length=3)
+    bloqueado = models.CharField(blank=True, null=True, max_length=3)
     funcionario_cadastrou = models.IntegerField(blank=True, null=True)
     ativo = models.SmallIntegerField(blank=True, null=True)
     endereco_out = models.CharField(blank=True, null=True, max_length=60)
@@ -141,7 +144,9 @@ class Cliente(models.Model):
     profissao = models.CharField(blank=True, null=True, max_length=100)
     numero_co = models.CharField(blank=True, null=True, max_length=6)
     porc_desconto = models.FloatField(blank=True, null=True)
-    aviso_sobre_produtos = models.CharField(blank=True, null=True, max_length=3)
+    aviso_sobre_produtos = models.CharField(
+        blank=True, null=True, max_length=3
+    )
     estado_civil = models.CharField(blank=True, null=True, max_length=15)
     senha = models.CharField(blank=True, null=True, max_length=6)
     date_added = models.DateTimeField(auto_now_add=True)
@@ -149,11 +154,10 @@ class Cliente(models.Model):
 
     # classe Meta serve p modificar nomes para plural
     class Meta:
-        verbose_name = 'Cliente'
-        verbose_name_plural = 'Clientes'
-        #ordenar
-        ordering = ['nome']
-
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
+        # ordenar
+        ordering = ["nome"]
 
     def __str__(self):
         """ Devolve uma representação em string do modelo."""
@@ -162,19 +166,32 @@ class Cliente(models.Model):
 
 class Ordem_Servico(models.Model):
     """Tabela de ordem de serviço com referencia de cliente e funcionário."""
+
     referencial = models.IntegerField(blank=True, null=True)
     # ref_cliente = models.IntegerField()
     # ref_funcionario = models.IntegerField()
     # Criado foreinkey - Arrumar para aceitar nos templates
-    ref_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, verbose_name='Cliente', blank=True, null=True)
-    ref_funcionario = models.ForeignKey(Funcionario, on_delete=models.PROTECT, verbose_name='Funcionário', blank=True, null=True)
-    dt_entrada = models.DateTimeField(verbose_name='Data de Entrada')
+    ref_cliente = models.ForeignKey(
+        Cliente,
+        on_delete=models.PROTECT,
+        verbose_name="Cliente",
+        blank=True,
+        null=True,
+    )
+    ref_funcionario = models.ForeignKey(
+        Funcionario,
+        on_delete=models.PROTECT,
+        verbose_name="Funcionário",
+        blank=True,
+        null=True,
+    )
+    dt_entrada = models.DateTimeField(verbose_name="Data de Entrada")
     valor = models.FloatField(blank=True, null=True)
     descricao = models.CharField(max_length=255)
     efetuado = models.CharField(blank=True, null=True, max_length=255)
     ref_status = models.IntegerField(blank=True, null=True)
     ref_setor = models.IntegerField(blank=True, null=True)
-    dt_agenda = models.DateTimeField(verbose_name='Data Agendada')
+    dt_agenda = models.DateTimeField(verbose_name="Data Agendada")
     horario = models.CharField(blank=True, null=True, max_length=12)
     equipamento = models.CharField(blank=True, null=True, max_length=60)
     total = models.FloatField(blank=True, null=True)
@@ -218,42 +235,40 @@ class Ordem_Servico(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     usuario_os = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
     # classe Meta serve p/ modificar nomes para plural
     class Meta:
-        verbose_name = 'Ordem_Servico'
-        verbose_name_plural = 'Ordem_Servicos'
-        #ordenar
-        ordering = ['dt_entrada']
-
+        verbose_name = "Ordem_Servico"
+        verbose_name_plural = "Ordem_Servicos"
+        # ordenar
+        ordering = ["dt_entrada"]
 
     def __str__(self):
         """ Devolve uma representação em string do modelo."""
         return self.descricao
 
-    def get_dt_entrada_os (self):
+    def get_dt_entrada_os(self):
         """Mostra data de entrada formatada da OS."""
-        return self.dt_entrada.strftime('%d/%m/%Y %H h : %M min')
-    
+        return self.dt_entrada.strftime("%d/%m/%Y %H h : %M min")
+
     def get_data_input_os(self):
         """ Data de entrada de OS correta para template."""
-        return self.dt_entrada.strftime('%Y-%m-%dT%H:%M')
+        return self.dt_entrada.strftime("%Y-%m-%dT%H:%M")
 
-    def get_dt_agenda_os (self):
+    def get_dt_agenda_os(self):
         """Mostra data agendada formatada da OS."""
-        return self.dt_agenda.strftime('%d/%m/%Y %H h : %M min')
-    
+        return self.dt_agenda.strftime("%d/%m/%Y %H h : %M min")
+
     def get_agenda_input_os(self):
         """ Data agendada de OS correta para template."""
-        return self.dt_agenda.strftime('%Y-%m-%dT%H:%M')
+        return self.dt_agenda.strftime("%Y-%m-%dT%H:%M")
 
-    def get_dt_pagamento_os (self):
+    def get_dt_pagamento_os(self):
         """Mostra data do pagamento formatada da OS."""
-        return self.dt_agenda.strftime('%d/%m/%Y')
-    
+        return self.dt_agenda.strftime("%d/%m/%Y")
+
     def get_pagamento_input_os(self):
         """ Entrada da data do pagamento da OS correta para template."""
-        return self.dt_agenda.strftime('%Y-%m-%d')
+        return self.dt_agenda.strftime("%Y-%m-%d")
 
     def get_ordem_servico_atrasada(self):
         """ Mostra datas agendadas atrasadas em cor vermelha 
@@ -264,12 +279,19 @@ class Ordem_Servico(models.Model):
             return False
 
 
-# Class para arquivos upload/dowload 
+# Class para arquivos upload/dowload
 class Arq(models.Model):
     titulo = models.CharField(max_length=30)
     assunto = models.CharField(max_length=50)
-    arquivo = models.FileField(upload_to='arq/aquivos/')
-    imagem = models.ImageField(upload_to='arq/imagens/', null=True, blank=True)
+    arquivo = models.FileField(upload_to="arq/aquivos/")
+    imagem = models.ImageField(upload_to="arq/imagens/", null=True, blank=True)
+
+    # classe Meta serve p modificar nomes e plural
+    class Meta:
+        verbose_name = "Arquivo"
+        verbose_name_plural = "Arquivos"
+        # ordenar
+        ordering = ["titulo"]
 
     def __str__(self):
         return self.titulo
@@ -278,6 +300,30 @@ class Arq(models.Model):
         self.arquivo.delete()
         self.imagem.delete()
         super().delete(*args, **kwargs)
+
+
+# Class para boletos upload/dowload
+class Bol(models.Model):
+    titulo = models.CharField(max_length=30)
+    assunto = models.CharField(max_length=50)
+    boleto = models.FileField(upload_to="bol/boletos/")
+    imagem = models.ImageField(upload_to="bol/imagens/", null=True, blank=True)
+
+    # classe Meta serve p modificar nomes e plural
+    class Meta:
+        verbose_name = "Boleto"
+        verbose_name_plural = "Boletos"
+        # ordenar
+        ordering = ["titulo"]
+
+    def __str__(self):
+        return self.titulo
+
+    def delete(self, *args, **kwargs):
+        self.boleto.delete()
+        self.imagem.delete()
+        super().delete(*args, **kwargs)
+
 
 """ Para cadastrar visitantes e por FOTOS...
 class Visitante(models.Model):

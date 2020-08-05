@@ -1,10 +1,16 @@
 from django.contrib import admin
-from core.models import Funcionario, Cliente, Ordem_Servico, Arq
+
+from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico
+
 
 class Arq_Admin(admin.ModelAdmin):    
     list_display = ('titulo','assunto')
     search_fields = ['titulo']
 
+class Bol_Admin(admin.ModelAdmin):    
+    list_display = ('titulo','assunto')
+    search_fields = ['titulo']
+    
 
 class Func_Admin(admin.ModelAdmin):
     list_display = ('id','nome', 'cpf', 'cargo', 'fone1')
@@ -39,3 +45,4 @@ admin.site.register(Funcionario, Func_Admin)
 admin.site.register(Cliente, Cli_Admin)
 admin.site.register(Ordem_Servico, OS_Admin)
 admin.site.register(Arq, Arq_Admin)
+admin.site.register(Bol, Bol_Admin)
