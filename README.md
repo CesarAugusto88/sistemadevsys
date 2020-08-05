@@ -10,9 +10,9 @@
 
 ##
 
-##### Redes Sociais
-
 ![GitHub followers](https://img.shields.io/github/followers/CesarAugusto88?%20Follow&style=social)
+
+##
 
 ![Twitter Follow](https://img.shields.io/twitter/follow/cesaraugustodem?style=social)
 
