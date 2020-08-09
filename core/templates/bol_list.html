@@ -1,16 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base-cliente.html' %}
 
 {% block content %}
 <div class="content-ribbon">
   {% block content_header %}
     <h2>Boletos</h2>
-    
-    <a href="{% url 'clientes'  %}" style="text-decoration: none;">
-      <button type="button">&lt;&lt; Voltar</button>
+    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
+    href="{% url 'clientes'  %}">
+        <span class="icono-caretLeftSquare" aria-hidden="true"></span>
+        Voltar
     </a>
-    <p>
-      <a href="{% url 'upload_bol' %}" class="pure-button pure-button-primary">Upload arquivo</a>
-    </p>
+    <!--Retirar upload boleto e fazer pelo funcionario-->
+    <a class="navbar-brand pure-button pure-button-primary"
+    href="{% url 'upload_bol' %}" >
+      <span class="icono-document" aria-hidden="true"></span>
+      Upload boleto
+    </a>
+    
   {% endblock %}
   <div class="pure-u-1">
     <table class="pure-table pure-table-horizontal">

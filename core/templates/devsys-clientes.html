@@ -1,31 +1,29 @@
-{% extends "base.html" %}
+{% extends "base-cliente.html" %}
 
 {% block content %}
 <div class="pure-g-r content-ribbon">
   <div class="pure-u-1">
 
+    <!--
     <div class="content-ribbon" style="margin-left: 14rem;">
       <a href="{% url 'logout_user' %}">
           <button>Logout</button>
       <a>
-    </div>
+    </div>-->
 
       <h2>Bem vindo(a)!</h2> 
        
       <!-- <a href="cliente/" style="text-decoration:none">
         <button type="button">Novo Cliente</button>
-      </a>-->
+      </a>
     
       <a href="{% url 'devsys' %}" style="text-decoration: none;">
         <button type="button">&lt;&lt; Voltar</button>
-      </a>
+      </a>-->
+      
       <!--caminho-do-arquivo boleto no href
           Colocar para usar class Arq com upload de arquivos pdf para
         o cliente imprimir os boletos-->
-
-      <a href="{% url 'bol_list' %}">
-        <button type="button" style="text-decoration: none;">Boletos</button>
-      </a>
     
     <!--IF se cliente existir 'usuario_cli' mostra os dados -->
     <ul style="font-size: 20px">
@@ -86,8 +84,10 @@
           <!--vai para o html cliente.html com o id do cliente
           verificar no sql shellou sqlite se tem o ID-->
           <a href="cliente/?id={{ cliente.id }}" style="text-decoration:none">
-            <button type="button">Editar</button>
-          </a>
+            <button class="btn btn-info btn-sm" type="button">Editar
+              <span class="icono-rename" aria-hidden="true"></span>
+            </button>
+          </a> 
           
           <!-- Cliente não deleta <a href="cliente/delete/{{ cliente.id }}/">
             <button type="button">Deletar</button>

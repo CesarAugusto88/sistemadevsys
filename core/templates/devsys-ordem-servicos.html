@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base-funcionario.html" %}
 
 {% block content %}
 
@@ -7,21 +7,21 @@
 <div class="pure-g-r content-ribbon">
   <div class="pure-u-1">
 
-    <div class="content-ribbon" style="margin-left: 14rem;">
-      <a href="{% url 'logout_user' %}">
-          <button>Logout</button>
-      <a>
-    </div>
-      <h2>Ordens de Serviços</h2>  
-      
-      
-      <a href="{% url 'funcionarios' %}" style="text-decoration: none;">
-        <button type="button">&lt;&lt; Voltar</button>
+      <h2>Ordens de Serviços</h2>
+
+      <a class="navbar-brand" href="/devsys/funcionarios">
+        <button type="button" class="btn btn-primary btn-sm">
+          <span class="icono-caretLeftSquare" aria-hidden="true"></span>
+          Voltar
+        </button>
       </a>
-      <a href="{% url 'ordem-servico' %}" style="text-decoration: none;">
-        <button type="button">Nova O.S.</button>
+      
+      <a class="navbar-brand" href="{% url 'ordem-servico' %}">
+        <button class="btn btn-primary btn-sm" type="button">
+          Nova O.S.
+          <span class="icono-plus" aria-hidden="true"></span>  
+        </button>
       </a>
-  
       
     <ul style="font-size: 20px">
         {% for ordem_servico in ordem_servicos %} 
@@ -80,8 +80,10 @@
             </fieldset>
 
             <a href="ordem-servico/?id={{ ordem_servico.id }}" style="text-decoration:none">
-              <button type="button">Editar</button>
-            </a>
+              <button class="btn btn-info btn-sm" type="button">Editar
+                <span class="icono-rename" aria-hidden="true"></span>
+              </button>
+            </a> 
             <br><br>
           </div>
           {% endif %}

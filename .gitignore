@@ -132,3 +132,4 @@ staticfiles/
 tmp/
 core/migrations/*
 passenger_wsgi.py
+code.code-workspace

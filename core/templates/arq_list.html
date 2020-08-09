@@ -1,16 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'base-funcionario.html' %}
 
 {% block content %}
 <div class="content-ribbon">
   {% block content_header %}
     <h2>Arquivos</h2>
-    
-    <a href="{% url 'funcionarios'  %}" style="text-decoration: none;">
-      <button type="button">&lt;&lt; Voltar</button>
+    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
+    href="{% url 'funcionarios'  %}">
+        <span class="icono-caretLeftSquare" aria-hidden="true"></span>
+        Voltar
     </a>
-    <p>
-      <a href="{% url 'upload_arq' %}" class="pure-button pure-button-primary">Upload arquivo</a>
-    </p>
+    <a class="navbar-brand pure-button pure-button-primary"
+    href="{% url 'upload_arq' %}" >
+      <span class="icono-document" aria-hidden="true"></span>
+      Upload arquivo
+    </a>
+
   {% endblock %}
   <div class="pure-u-1">
     <table class="pure-table pure-table-horizontal">

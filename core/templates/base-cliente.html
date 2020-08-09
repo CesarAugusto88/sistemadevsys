@@ -17,26 +17,13 @@
     
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{% static 'css/business-frontpage.css' %}">
-    
+
     <!--https://saeedalipoor.github.io/icono/-->
     <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
-    
+       
 </head>
 
 <body>
-<!--
-<div class="header">
-    <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal">
-        <a class="pure-menu-heading" style="color: rgb(176, 147, 204);" href="{% url 'home' %}">SISTEMA DEVSYS</a>
-        <ul>
-            <li><a href="{% url 'home' %}">Início</a></li>
-            <li><a href="{% url 'login_user' %}">Usuário</a></li>
-            <li><a href="{% url 'contact' %}">Contato</a></li>
-        </ul>
-    </div>
-     
-</div>
--->
 <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -46,20 +33,30 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">INÍCIO
-              <span class="sr-only">(current)</span>
+          
+          <li class="nav-item">
+            <a class="navbar-brand" href="{% url 'bol_list' %}">
+              <button type="button" class="btn btn-sm">
+                Boletos
+                <span class="icono-list" aria-hidden="true"></span>  
+              </button>
             </a>
           </li>
-         
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'login_user' %}">USUÁRIOS</a>
+            <a class="navbar-brand" href="#">
+              <button type="button" class="btn btn-sm">
+              Arquivos
+              <span class="icono-file" aria-hidden="true"></span>
+              </button>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'sistema' %}">SISTEMAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contact' %}">CONTATOS</a>
+            <a class="navbar-brand" href="{% url 'logout_user' %}">
+                <button type="button" class="btn btn-sm">
+                  <span class="icono-signOut" aria-hidden="true"></span>
+                  Logout
+                </button>
+            <a>
           </li>
         </ul>
       </div>

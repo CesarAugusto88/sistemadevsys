@@ -1,16 +1,9 @@
-{% extends "base.html" %}
+{% extends "base-cliente.html" %}
 
 {% block content %}
 
 <div class="pure-g-r content-ribbon">
     <div class="pure-u-1">
-
-        <br><br><br>
-        <div style="position: fixed; right: 0; top: 4em; width: 8em;">
-            <a href="{% url 'logout_user' %}">
-                <button>Logout</button>
-            <a>
-        </div>
         
         <!--<div style="position: fixed; right: 0; top: 4em; width: 8em;">
             <a href="{% url 'logout_user' %}">
@@ -71,7 +64,7 @@
                 <p>
                     <label>
                         Estado:
-                        <select name="uf" multiple required> {{ cliente.uf }} <!--o que estiver no value vai ser salvo no banco, selected para deixar marcado-->
+                        <select name="uf"> {{ cliente.uf }} <!--o que estiver no value vai ser salvo no banco, selected para deixar marcado-->
                             <option value="">Escolha um Estado</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Amapá</option>
@@ -96,7 +89,7 @@
                             <option value="RO">Rondônia</option>
                             <option value="RR">Roraima</option>
                             <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
+                            <option value="SP" selected>São Paulo</option>
                             <option value="SE">Sergipe</option>
                             <option value="TO">Tocantins</option>
                         </select>
@@ -104,13 +97,19 @@
                 </p>
                 
             </fieldset>     
-            <br> 
-            
-            <button type="submit">Salvar</button>
-            
-            <a href="/devsys/clientes">
-            <button type="button">Cancelar</button>
-            </a>
+            <div class="navbar-brand">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <span class="icono-check" aria-hidden="true"></span>
+                    Salvar
+                </button>
+
+                <a class="navbar-brand" href="{% url 'clientes' %}">
+                    <button type="button" class="btn btn-primary btn-sm">
+                    <span class="icono-cross" aria-hidden="true"></span>
+                    Cancelar
+                    </button>
+                </a>
+            </div>
             
         </form>
         </div> 

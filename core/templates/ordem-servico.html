@@ -1,15 +1,9 @@
-{% extends "base.html" %}
+{% extends "base-funcionario.html" %}
 
 {% block content %}
 
 <div class="pure-g-r content-ribbon">
     <div class="pure-u-1">
-
-        <div class="content-ribbon" style="margin-left: 14rem;">
-            <a href="{% url 'logout_user' %}">
-                <button>Logout</button>
-            <a>
-        </div>
 
         <div class="content-ribbon" style="margin: 0 -2em 0 -2em;">
         <h2>Ordem de Serviço</h2>
@@ -66,13 +60,19 @@
                     <br>
                     
                 </fieldset>     
-                <br> <br>
+                <div class="navbar-brand">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <span class="icono-check" aria-hidden="true"></span>
+                        Salvar
+                    </button>
 
-                <button type="submit">Salvar</button>
-                    
-                <a href="{% url 'ordem-servicos' %}">
-                    <button type="button">Cancelar</button>
-                </a> 
+                    <a class="navbar-brand" href="{% url 'ordem-servicos' %}">
+                        <button type="button" class="btn btn-primary btn-sm">
+                        <span class="icono-cross" aria-hidden="true"></span>
+                        Cancelar
+                        </button>
+                    </a>
+                </div>
 
         </form>
     </div>

@@ -1,32 +1,14 @@
-{% extends "base.html" %}
+{% extends "base-funcionario.html" %}
 
 {% block content %}
 
-
 <div class="pure-g-r content-ribbon">
   <div class="pure-u-1">
-    <div class="content-ribbon" style="margin-left: 14rem;">
-      <a href="{% url 'logout_user' %}">
-          <button>Logout</button>
-      <a>
-    </div>
+    
     <h2>Bem Vindo(a)!</h2>  
     <!-- <a href="funcionario/" style="text-decoration:none">
       <button type="button">Novo funcionario</button>
     </a> -->
-
-    <a href="/devsys" style="text-decoration: none;">
-      <button type="button">&lt;&lt; Voltar</button>
-    </a>
-    <a href="/devsys/ordem-servicos" style="text-decoration: none;">
-      <button type="button">Ordem de Serviço</button>
-    </a>
-    <!-- Colocar o caminho da para a url do app arq que tenho construir-->
-    <a href="/devsys/arqs" style="text-decoration: none;">
-      <button type="button">Manipular Arquivos</button>
-    </a>
-
-
 
    <!-- IF se funcionário existir 'usuario_fun' mostra o conteúdo -->
     <ul style="font-size: 20px;">
@@ -37,16 +19,12 @@
             <legend>Dados do Funcionário</legend>
             <p>
               <label>Nome:
-              <br>
               {{ funcionario.nome }}
-              <br>
               </label>
             </p>
             <p>
                 <label>Telefone:
-                <br>
                 {{ funcionario.fone1 }}            
-                <br>
                 </label>
             </p>
           </fieldset>
@@ -55,42 +33,33 @@
               <legend>Endereço</legend>
               <p>
                   <label>Rua:
-                  <br>
                   {{ funcionario.endereco }}
-                  <br>
                   </label>
               </p>
               <p>
                 <label>Cidade:
-                <br>
                 {{ funcionario.cidade }}
-                <br>
                 </label>
               </p>
               <p>
                   <label>Cep:
-                  <br>
                   {{ funcionario.cep }}
-                  <br>
                   </label>
               </p>
               <p>
                 <label>Estado:
-                <br>
                 {{ funcionario.uf }}
-                <br>
                 </label>
               </p>
  
           </fieldset>   
           <br>
-
           <a href="funcionario/?id={{ funcionario.id }}" style="text-decoration:none">
-            <button type="button">Editar</button>
+            <button class="btn btn-info btn-sm" type="button">Editar
+              <span class="icono-rename" aria-hidden="true"></span>
+            </button>
           </a>  
-          <!-- <a href="funcionario/delete/{{ funcionario.id }}/">
-                    <button type="button">Deletar</button>
-          </a> --> 
+          
           </div>
           {% endif %}
         {% endfor %}

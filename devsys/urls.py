@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from core import views
 from django.views.generic import RedirectView
 
@@ -7,12 +7,13 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     # -----------------------------------------------------------------------
     path("admin/", admin.site.urls),
     path("devsys/", views.devsys, name="devsys"),
     # ------------funcionarios-----------------------------------------------
+    #Mudar urls para nao criar mais de um funcionario/ no mesmo login
+
     path("devsys/funcionarios", views.lista_funcionarios, name="funcionarios"),
     path("devsys/lista/<int:id_funcionario>/", views.json_lista_funcionario),
     path("devsys/funcionario/", views.funcionario),
@@ -54,6 +55,7 @@ urlpatterns = [
         name="class_upload_arq",
     ),
     # -----------cliente-----------------------------------------------------
+    #Mudar urls para nao criar mais de um cliente/ no mesmo login
     path("devsys/clientes", views.lista_clientes, name="clientes"),
     path("devsys/lista/<int:id_cliente>/", views.json_lista_cliente),
     path("devsys/cliente/", views.cliente),
@@ -89,10 +91,12 @@ urlpatterns = [
     path("login/", views.login_user, name="login_user"),
     path("login/submit", views.submit_login),
     path("logout/", views.logout_user, name="logout_user"),
-]
 
-# Upload - verificar, talvez o código não precise:
-if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
-    )
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# tentar pegar da views funções que chama 500.html e 404.html
+
+# Do projeto Upload. Verificar para DEBUG:
+#if settings.DEBUG:
+#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

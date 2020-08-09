@@ -1,15 +1,9 @@
-
-{% extends "base.html" %}
+{% extends "base-funcionario.html" %}
 
 {% block content %}
 <div class="pure-g-r content-ribbon">
   <div class="pure-u-1">
     
-    <div class="content-ribbon" style="margin-left: 14rem;">
-        <a href="{% url 'logout_user' %}">
-            <button>Logout</button>
-        <a>
-    </div>
     <div class="content-ribbon" style="margin: 0 -2em 0 -2em;">
         <h2>Funcionário</h2>
         <form action="submit" method="POST">{% csrf_token %}
@@ -18,17 +12,14 @@
                 <legend>Dados do Funcionário</legend>
                 <p>
                     <label>Nome:
-                    <br> <!--hidden fica escondido 'id'-->
+                    <!--hidden fica escondido 'id'-->
                     <input type="number" name="id_funcionario" value="{{ funcionario.id }}" hidden> 
                     <input type="text" name="nome" size="30" value="{{ funcionario.nome }}" required>
-                    <br>
                     </label>
                 </p>
                 <p>
                     <label>Telefone:
-                    <br>
                     <input type="tel" name="fone1" size="30" value="{{ funcionario.fone1 }}" required>
-                    <br> <br>
                     </label>
                 </p>
             </fieldset>
@@ -37,29 +28,23 @@
                 <legend>Endereço</legend>
                 <p>
                     <label>Rua:
-                    <br>
                     <textarea name="endereco" rows="4" cols="32" required>{{ funcionario.endereco }}</textarea>
-                    <br>
                     </label>
                 </p>
                 <p>
                     <label>Cep:
-                    <br>
                     <input type="text" name="cep" size="22" value="{{ funcionario.cep }}" required>
-                    <br>
                     </label>
                 </p>
                 <p>
                     <label>Cidade:
-                    <br>
                     <input type="text" name="cidade" size="22" value="{{ funcionario.cidade }}" required>
-                    <br>
                     </label>
                 </p>
                 <p>
                     <label>
                         Estado:
-                        <select name="uf" multiple required> {{ funcionario.uf }} <!--o que estiver no value vai ser salvo no banco, selected para deixar marcado-->
+                        <select name="uf"> {{ funcionario.uf }} <!--o que estiver no value vai ser salvo no banco, selected para deixar marcado-->
                             <option value="">Escolha um Estado</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Amapá</option>
@@ -84,7 +69,7 @@
                             <option value="RO">Rondônia</option>
                             <option value="RR">Roraima</option>
                             <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
+                            <option value="SP" selected>São Paulo</option>
                             <option value="SE">Sergipe</option>
                             <option value="TO">Tocantins</option>
                         </select>
@@ -92,13 +77,20 @@
                 </p>
                 
             </fieldset>     
-            <br> 
+            <div class="navbar-brand">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <span class="icono-check" aria-hidden="true"></span>
+                    Salvar
+                </button>
+
+                <a class="navbar-brand" href="{% url 'funcionarios' %}">
+                    <button type="button" class="btn btn-primary btn-sm">
+                    <span class="icono-cross" aria-hidden="true"></span>
+                    Cancelar
+                    </button>
+                </a>
+            </div>
             
-            <button type="submit">Salvar</button>
-            
-            <a href="/devsys/funcionarios">
-            <button type="button">Cancelar</button>
-            </a>
         </form>
     </div> 
   </div>
