@@ -6,6 +6,7 @@ from django.views.generic import RedirectView
 # do projeto Upload
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve 
 
 urlpatterns = [
     # -----------------------------------------------------------------------
@@ -91,6 +92,8 @@ urlpatterns = [
     path("login/", views.login_user, name="login_user"),
     path("login/submit", views.submit_login),
     path("logout/", views.logout_user, name="logout_user"),
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
