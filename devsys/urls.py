@@ -98,8 +98,6 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-# tentar pegar da views funções que chama 500.html e 404.html
-
 # Do projeto Upload. Verificar para DEBUG:
 #if settings.DEBUG:
 #    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
