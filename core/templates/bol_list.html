@@ -21,7 +21,7 @@
           <th>Título</th>
           <th>Assunto</th>
           <th>Download</th>
-          <th>Delete</th>
+
         </tr>
       </thead>
       <tbody>
@@ -41,14 +41,21 @@
                 Download Boleto
               </a>
             </td>
+
+            {% comment %}
+            <!-- retirado exclusão por cliente...-->
             <td>
+
               <form method="post" action="{% url 'delete_bol' bol.pk %}">
                 {% csrf_token %}
-                <!-- onclick deseja realmente deletar...-->
+                
                 <button type="submit" class="pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
               
               </form>
+            
             </td>
+            {% endcomment %}
+            
           </tr>
         {% endfor %}
       </tbody>
