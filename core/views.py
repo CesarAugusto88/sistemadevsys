@@ -444,11 +444,40 @@ def json_lista_cliente(request, id_usuario):
     # safe=False porque nao é dicionário.
     return JsonResponse(list(cliente), safe=False)
 
+@login_required(login_url="/login/")
+def clientes(request):
+    """ Lista clientes."""
+    #pegar somente usuario admin
+    usuario_admin = request.user
+
+    try:
+        # Mesmo objeto em html
+        cliente = Cliente.objects.all()
+
+    except Exception:
+        raise Http404()
+    if usuario_admin:
+        dados = {"clientes": cliente}
+        # variáveis usadas no html:
+        # Colocar IF para verificar cliente e assim mostrar os dados... Mesmo para funcionario.
+    # com elif ou message no empty for template
+    # melhor aqui no views pois ja está validando
+    elif not cliente:
+        messages.info(request, "Você não é um(a) administrador(a)!")
+        return redirect("/devsys/")
+
+    else:
+        raise Http404()
+
+    return render(request, "upload_boletos_clientes.html", dados)
+
 
 # FUNÇÕES DE UPLOAD - Boletos - construindo - *somente para cliente logado
 
 @login_required(login_url="/login/")
 def uploadb(request):
+    """Função para carregar o arquivo boleto para o cliente.
+    Essa função é chamada pelo funcionário (específico) lançar o boleto"""
     context = {}
     if request.method == "POST":
         uploaded_file = request.FILES["document"]
@@ -457,7 +486,7 @@ def uploadb(request):
         context["url"] = fs.url(name)
     return render(request, "uploadb.html", context)
 
-
+# TODO: pegar e colocar cada boleto específico de cada cliente
 @login_required(login_url="/login/")
 def bol_list(request):
     bols = Bol.objects.all()

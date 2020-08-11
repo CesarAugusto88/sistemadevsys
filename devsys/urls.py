@@ -68,6 +68,8 @@ urlpatterns = [
     path("devsys/bols/", views.bol_list, name="bol_list"),
     path("devsys/bols/upload/", views.upload_bol, name="upload_bol"),
     path("devsys/bols/<int:pk>/", views.delete_bol, name="delete_bol"),
+    # -- Urls com views para listar todos os clientes do banco.
+    path("devsys/bols/clientes", views.clientes, name="todos_clientes"),
     # Verificar para retirar class/...:
     path(
         "devsys/class/bols/",

@@ -1,0 +1,30 @@
+{% extends "base-funcionario.html" %}
+
+{% block content %}
+<div class="pure-g-r content-ribbon">
+  <div class="pure-u-1">
+    
+    <div class="content-ribbon" style="margin: 0 -2em 0 -2em;">
+        <h2>Clientes</h2>
+        <div class="pure-u-1">
+            {% for cliente in clientes %}
+                <ul>
+                    <li>
+                    {{ cliente.nome }} - (Não está vinculado com o ID do cliente)
+                    <!--TODO: vincular para cada cliente específico cada boleto-->        
+                    <a class="navbar-brand pure-button pure-button-primary"
+                        href="{% url 'upload_bol' %}" >
+                        <span class="icono-document" aria-hidden="true"></span>
+                        Teste - Upload boleto
+                    </a>              
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+                
+    </div> 
+  </div>
+</div>
+
+
+{% endblock %}
