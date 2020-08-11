@@ -33,6 +33,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="navbar-brand" href="http://devsys.com.br/webmail">
+              <button type="button" class="btn btn-sm">
+                WebMail
+                <span class="icono-mail" aria-hidden="true"></span>
+              </button> 
+            </a>
+          </li>
           
           <li class="nav-item">
             <a class="navbar-brand" href="/devsys/ordem-servicos">
@@ -51,8 +59,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <!--Apenas para usuário específico gerar boletos-->
-            <a class="navbar-brand" href="#">
+            <!--Apenas para usuário específico gerar boletos
+                Carregar uma nova pagina html com todos clientes
+                e para cada um carregar o boleto-->
+            <a class="navbar-brand" href="{% url 'todos_clientes' %}">
               <button class="btn btn-sm" type="button">Lançar Boletos
                 <span class="icono-document" aria-hidden="true"></span>
               </button>
