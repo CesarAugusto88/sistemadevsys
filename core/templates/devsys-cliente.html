@@ -27,23 +27,19 @@
     
     <!--IF se cliente existir 'usuario_cli' mostra os dados -->
     <ul style="font-size: 20px">
-        {% for cliente in clientes %} 
+        {% for cliente in cliente %} 
           {% if cliente.usuario_cli %}
           <div class="content-ribbon" style="margin: 0 -2em 0 -4em;">
           <fieldset>
             <legend>Dados do Cliente</legend>
             <p>
               <label>Nome:
-              <br>
-              {{ cliente.nome }}
-              <br>
+                {{ cliente.nome }}
               </label>
             </p>
             <p>
                 <label>Telefone:
-                <br>
                 {{ cliente.celular }}            
-                <br>
                 </label>
             </p>
           </fieldset>
@@ -52,38 +48,33 @@
               <legend>Endereço</legend>
               <p>
                   <label>Rua:
-                  <br>
                   {{ cliente.endereco }}
-                  <br>
                   </label>
               </p>
               <p>
                 <label>Cidade:
-                <br>
                 {{ cliente.cidade }}
-                <br>
                 </label>
               </p>
               <p>
                   <label>Cep:
-                  <br>
                   {{ cliente.cep }}
-                  <br>
                   </label>
               </p>
               <p>
                 <label>Estado:
-                <br>
                 {{ cliente.uf }}
-                <br>
                 </label>
               </p>
               
           </fieldset>   
           <br>
-          <!--vai para o html cliente.html com o id do cliente
-          verificar no sql shellou sqlite se tem o ID-->
-          <a href="cliente/?id={{ cliente.id }}" style="text-decoration:none">
+          {% comment %}
+            vai para o html cliente.html com o id do cliente
+            verificar no sql shell ou sqlite se tem o ID
+            Usa rota devsys/clie/ da views.cliente
+          {% endcomment %}
+          <a href="clie/?id={{ cliente.id }}" style="text-decoration:none">
             <button class="btn btn-info btn-sm" type="button">Editar
               <span class="icono-rename" aria-hidden="true"></span>
             </button>

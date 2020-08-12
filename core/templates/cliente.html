@@ -23,17 +23,14 @@
                 <legend>Dados do Cliente</legend>
                 <p>
                     <label>Nome:
-                    <br> <!--hidden fica escondido 'id'-->
+                    <!--hidden fica escondido 'id'-->
                     <input type="number" name="id_cliente" value="{{ cliente.id }}" hidden> 
                     <input type="text" name="nome" size="30" value="{{ cliente.nome }}" required>
-                    <br>
                     </label>
                 </p>
                 <p>
                     <label>Telefone:
-                    <br>
                     <input type="tel" name="celular" size="30" value="{{ cliente.celular }}" required>
-                    <br> <br>
                     </label>
                 </p>
             </fieldset>
@@ -42,23 +39,17 @@
                 <legend>Endereço</legend>
                 <p>
                     <label>Rua:
-                    <br>
                     <textarea name="endereco" rows="4" cols="32" required>{{ cliente.endereco }}</textarea>
-                    <br>
                     </label>
                 </p>
                 <p>
                     <label>Cep:
-                    <br>
                     <input type="text" name="cep" size="22" value="{{ cliente.cep }}" required>
-                    <br>
                     </label>
                 </p>
                 <p>
                     <label>Cidade:
-                    <br>
                     <input type="text" name="cidade" size="22" value="{{ cliente.cidade }}" required>
-                    <br>
                     </label>
                 </p>
                 <p>
@@ -103,7 +94,7 @@
                     Salvar
                 </button>
 
-                <a class="navbar-brand" href="{% url 'clientes' %}">
+                <a class="navbar-brand" href="{% url 'cliente' %}">
                     <button type="button" class="btn btn-primary btn-sm">
                     <span class="icono-cross" aria-hidden="true"></span>
                     Cancelar

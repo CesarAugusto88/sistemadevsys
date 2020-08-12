@@ -5,7 +5,7 @@
   {% block content_header %}
     <h2>Arquivos</h2>
     <a class="navbar-brand pure-button pure-button-primary btn-sm" 
-    href="{% url 'funcionarios'  %}">
+    href="{% url 'funcionario'  %}">
         <span class="icono-caretLeftSquare" aria-hidden="true"></span>
         Voltar
     </a>
@@ -17,7 +17,7 @@
 
   {% endblock %}
   <div class="pure-u-1">
-    <table class="pure-table pure-table-horizontal">
+    <table class="pure-table pure-table-bordered">
       <thead>
         <tr>
           <th>Imagem</th>
@@ -48,7 +48,7 @@
               <form method="post" action="{% url 'delete_arq' arq.pk %}">
                 {% csrf_token %}
                 <!-- onclick deseja realmente deletar...-->
-                <button type="submit" class="pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
+                <button type="submit" class="navbar-brand pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
               
               </form>
             </td>
