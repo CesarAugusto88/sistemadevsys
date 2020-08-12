@@ -58,23 +58,30 @@ def submit_login(request):
     return redirect("/login/")
 
 
-# devsys
+# devsys - enviar direto para user (funcionario/cliente)
 @login_required(login_url="/login/")
 def devsys(request):
-    """ devsys."""
+    """ Devsys. Verifica se é funcionario ou cliente."""
+    usuario = request.user
+    # select * from Funcionario where usuario_fun = usuario;
+    funcionario = Funcionario.objects.filter(usuario_fun=usuario)
 
-    return render(request, "devsys.html")
+    if funcionario:
+        return redirect("/devsys/funcionario")
+    else:
+        return redirect("/devsys/cliente")
+
+    #return render(request, "devsys.html")
 
 
 # VERIFICAR -> FAZER USUARIO SEPARADO 'usuario_funcionario' 'usuario_cliente' ????????
 # PARA ACESSAR SOMENTE DA TABELA CORRESPONDENTE COM SOMENTE SEUS DADOS(hacker pode ver com ids)
-# FUNCIONÁRIOS
 
-# Função reconhece se é funcionário ou não
-# (Poderia reconhecer o login e entrar no ambiente correto)
+# FUNCIONÁRIOS
+# Mudado nome de lista_funcionarios para dados_funcionario
 @login_required(login_url="/login/")
-def lista_funcionarios(request):
-    """ Lista dos funcionários."""
+def dados_funcionario(request):
+    """ Lista dados do funcionário."""
 
     usuario_fun = request.user
     try:
@@ -84,18 +91,14 @@ def lista_funcionarios(request):
         raise Http404()
 
     if funcionario:
-        # funcionario = Funcionario.objects.all()
         # variáveis usadas no html:
-        dados = {"funcionarios": funcionario}
-
-    elif not funcionario:
-        messages.info(request, "Você não é um(a) funcionário(a)!")
-        return redirect("/devsys/")
+        #Mudando variáveis e rotas...
+        dados = {"funcionario": funcionario}
 
     else:
         raise Http404()
 
-    return render(request, "devsys-funcionarios.html", dados)
+    return render(request, "devsys-funcionario.html", dados)
 
 
 @login_required(login_url="/login/")
@@ -142,7 +145,7 @@ def submit_funcionario(request):
                 uf=uf,
                 usuario_fun=usuario_fun,
             )
-    return redirect("/devsys/funcionarios")
+    return redirect("/devsys/funcionario")
 
 
 # REDIRECIONAR CORRETAMENTE - OK
@@ -241,7 +244,7 @@ def submit_ordem_servico(request):
                 ordem_servico.responsavel = responsavel
                 ordem_servico.equipamento = equipamento
                 ordem_servico.save()
-        # senão, cria!
+        # senão, cria! Usado na mesma função.
         else:
             Ordem_Servico.objects.create(
                 dt_entrada=dt_entrada,
@@ -347,8 +350,8 @@ class UploadArqView(CreateView):
 # Função mostra se é cliente ou não
 # (Poderia reconhecer o login e entrar no seu ambiente correto)
 @login_required(login_url="/login/")
-def lista_clientes(request):
-    """ Lista dos clientes."""
+def dados_cliente(request):
+    """ Mostra dados do cliente."""
 
     usuario_cli = request.user
 
@@ -359,19 +362,14 @@ def lista_clientes(request):
     except Exception:
         raise Http404()
     if cliente:
-        dados = {"clientes": cliente}
         # variáveis usadas no html:
-        # Colocar IF para verificar cliente e assim mostrar os dados... Mesmo para funcionario.
-    # com elif ou message no empty for template
-    # melhor aqui no views pois ja está validando
-    elif not cliente:
-        messages.info(request, "Você não é um(a) cliente!")
-        return redirect("/devsys/")
+        dados = {"cliente": cliente}
+        
 
     else:
         raise Http404()
 
-    return render(request, "devsys-clientes.html", dados)
+    return render(request, "devsys-cliente.html", dados)
 
 
 @login_required(login_url="/login/")
@@ -415,7 +413,7 @@ def submit_cliente(request):
                 uf=uf,
                 usuario_cli=usuario_cli,
             )
-    return redirect("/devsys/clientes")
+    return redirect("/devsys/cliente")
 
 
 @login_required(login_url="/login/")

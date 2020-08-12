@@ -15,13 +15,13 @@ urlpatterns = [
     # ------------funcionarios-----------------------------------------------
     #Mudar urls para nao criar mais de um funcionario/ no mesmo login
 
-    path("devsys/funcionarios", views.lista_funcionarios, name="funcionarios"),
+    path("devsys/funcionario", views.dados_funcionario, name="funcionario"),
     path("devsys/lista/<int:id_funcionario>/", views.json_lista_funcionario),
-    path("devsys/funcionario/", views.funcionario),
-    path("devsys/funcionario/submit", views.submit_funcionario),
+    path("devsys/func/", views.funcionario),
+    path("devsys/func/submit", views.submit_funcionario),
     path(
-        "devsys/funcionario/delete/<int:id_funcionario>/",
-        views.delete_funcionario,
+        "devsys/func/delete/<int:id_funcionario>/",
+        views.delete_funcionario, name="del_funcionario"
     ),
     # ----------ordem de serviço --------------------------------------------
     path(
@@ -57,11 +57,11 @@ urlpatterns = [
     ),
     # -----------cliente-----------------------------------------------------
     #Mudar urls para nao criar mais de um cliente/ no mesmo login
-    path("devsys/clientes", views.lista_clientes, name="clientes"),
+    path("devsys/cliente", views.dados_cliente, name="cliente"),
     path("devsys/lista/<int:id_cliente>/", views.json_lista_cliente),
-    path("devsys/cliente/", views.cliente),
-    path("devsys/cliente/submit", views.submit_cliente),
-    path("devsys/cliente/delete/<int:id_cliente>/", views.delete_cliente),
+    path("devsys/clie/", views.cliente),
+    path("devsys/clie/submit", views.submit_cliente),
+    path("devsys/clie/delete/<int:id_cliente>/", views.delete_cliente, name="del_cliente"),
 
     # ------------Boletos-Cliente-------------------------------------------
     path("devsys/uploadb/", views.uploadb, name="uploadb"),
@@ -70,6 +70,7 @@ urlpatterns = [
     path("devsys/bols/<int:pk>/", views.delete_bol, name="delete_bol"),
     # -- Urls com views para listar todos os clientes do banco.
     path("devsys/bols/clientes", views.clientes, name="todos_clientes"),
+
     # Verificar para retirar class/...:
     path(
         "devsys/class/bols/",
