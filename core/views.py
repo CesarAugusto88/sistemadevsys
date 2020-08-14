@@ -12,14 +12,44 @@ from django.urls import reverse_lazy
 # Upload/download
 from django.views.generic import CreateView, ListView, TemplateView
 
-from core.models import Bol, Cliente, Funcionario, Ordem_Servico
+from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico
 
 from .forms import ArqForm, BolForm
-from .models import Arq, Bol
 
-# def index(request):
-#    return redirect('/agenda/')
+# Projeto Btre -----------------------------
+from django.contrib import messages, auth
+from django.contrib.auth.models import User
 
+# TODO: DEVO TER UMA OUTRA FUNÇÃO PARA CHAMAR 'register.html'
+def register(request):
+  if request.method == 'POST':
+    # Get form values
+    username = request.POST['usuario']
+    password = request.POST['senha']
+    password2 = request.POST['senha2']
+
+    # Check if passwords match
+    if password == password2:
+      # Check username
+      if User.objects.filter(username=username).exists():
+        messages.error(request, 'That username is taken')
+        return redirect('register')
+      else:
+        # Looks good
+        user = User.objects.create_user(username=username, password=password)
+        # Login after register
+        # auth.login(request, user)
+        # messages.success(request, 'You are now logged in')
+        # return redirect('index')
+        user.save()
+        messages.success(request, 'You are now registered and can log in')
+        return redirect('login')
+    else:
+      messages.error(request, 'Passwords do not match')
+      return redirect('register')
+  else:
+    return render(request, 'devsys/funcionario')
+# --------------------------------------------------------------------------------
 
 def home(request):
     # return HttpResponse('Hello World!')
@@ -160,7 +190,7 @@ def delete_funcionario(request, id_funcionario):
         funcionario.delete()
     else:
         raise Http404()
-    return redirect("/")  # REDIRECIONAR CORRETAMENTE
+    return redirect("/devsys")  # REDIRECIONAR CORRETAMENTE
 
 
 # retornar JsonResponse para trabalhar com JavaScript, Ajax...
@@ -364,7 +394,6 @@ def dados_cliente(request):
     if cliente:
         # variáveis usadas no html:
         dados = {"cliente": cliente}
-        
 
     else:
         raise Http404()
@@ -427,7 +456,7 @@ def delete_cliente(request, id_cliente):
         cliente.delete()
     else:
         raise Http404()
-    return redirect("/devsys/clientes")
+    return redirect("/devsys")
 
 
 # retornar JsonResponse para trabalhar com JavaScript, Ajax...
@@ -455,14 +484,8 @@ def clientes(request):
     except Exception:
         raise Http404()
     if usuario_admin:
+        # variável usada no html:
         dados = {"clientes": cliente}
-        # variáveis usadas no html:
-        # Colocar IF para verificar cliente e assim mostrar os dados... Mesmo para funcionario.
-    # com elif ou message no empty for template
-    # melhor aqui no views pois ja está validando
-    elif not cliente:
-        messages.info(request, "Você não é um(a) administrador(a)!")
-        return redirect("/devsys/")
 
     else:
         raise Http404()

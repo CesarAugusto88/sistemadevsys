@@ -56,12 +56,14 @@ urlpatterns = [
         name="class_upload_arq",
     ),
     # -----------cliente-----------------------------------------------------
-    #Mudar urls para nao criar mais de um cliente/ no mesmo login
     path("devsys/cliente", views.dados_cliente, name="cliente"),
     path("devsys/lista/<int:id_cliente>/", views.json_lista_cliente),
     path("devsys/clie/", views.cliente),
     path("devsys/clie/submit", views.submit_cliente),
     path("devsys/clie/delete/<int:id_cliente>/", views.delete_cliente, name="del_cliente"),
+    # Registrar/cadastrar cliente
+    path("devsys/cliente/register", views.register, name="register"),
+
 
     # ------------Boletos-Cliente-------------------------------------------
     path("devsys/uploadb/", views.uploadb, name="uploadb"),
