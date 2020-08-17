@@ -4,14 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
     <meta name="author" content="">
     
     <title>DevSys</title>
     <link rel="icon" href="{% static 'images/DEVSYS-FAVICON.png' %}">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     
@@ -21,50 +19,41 @@
     <!--https://saeedalipoor.github.io/icono/-->
     <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
     
+    <!--<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">-->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    
 </head>
 
 <body>
-<!--
-<div class="header">
-    <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal">
-        <a class="pure-menu-heading" style="color: rgb(176, 147, 204);" href="{% url 'home' %}">SISTEMA DEVSYS</a>
-        <ul>
-            <li><a href="{% url 'home' %}">Início</a></li>
-            <li><a href="{% url 'login_user' %}">Usuário</a></li>
-            <li><a href="{% url 'contact' %}">Contato</a></li>
-        </ul>
-    </div>
-     
-</div>
--->
+
 <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">Sistema DEVSYS</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">INÍCIO
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-         
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login_user' %}">USUÁRIOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'sistema' %}">SISTEMAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contact' %}">CONTATOS</a>
-          </li>
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">Sistema DEVSYS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home' %}">INÍCIO
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login_user' %}">USUÁRIOS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sistema' %}">SISTEMAS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">CONTATOS</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 <div class="content">
 	{% block content %}{% endblock %}  <!--serve como place holder para colocar conteúdo -->
 	<div class="footer" style="background-color: #2980B8; color: #000000">
@@ -75,7 +64,7 @@
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
-<script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script> 
+<!--<script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>-->
 <!--Final do body-->
 </body>
 </html>
