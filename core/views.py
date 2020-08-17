@@ -20,7 +20,7 @@ from .forms import ArqForm, BolForm
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 
-# TODO: DEVO TER UMA OUTRA FUNÇÃO PARA CHAMAR 'register.html'
+# TODO: DEVO TER UMA OUTRA FUNÇÃO PARA CHAMAR 'register.html' ?
 def register(request):
   if request.method == 'POST':
     # Get form values
