@@ -48,7 +48,7 @@
               <form method="post" action="{% url 'delete_arq' arq.pk %}">
                 {% csrf_token %}
                 <!-- onclick deseja realmente deletar...-->
-                <button type="submit" class="navbar-brand pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
+                <button type="submit" class="navbar-brand pure-button" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
               
               </form>
             </td>
