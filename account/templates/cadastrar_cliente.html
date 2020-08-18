@@ -1,0 +1,82 @@
+{% extends 'base-funcionario.thml' %}
+
+{% block content %}
+<div class="container">
+    <form action="submit" method="post">{% csrf_token %}
+        <h1>Cadastro Cliente</h1>
+        <fieldset>
+            <legend>Dados de cadastro (Cliente)</legend>
+            <p>
+                <label>Nome:
+                <input type="number" name="id_cliente" value="{{ cliente.id }}" hidden> 
+                <input type="text" name="nome" size="30" value="{{ cliente.nome }}" required>
+                </label>
+            </p>
+            <p>
+                <label>Razão Social:
+                <input type="text" name="razao_social" size="30" value="{{ cliente.razao_social}}" required>
+                </label>
+            </p>
+            <p>
+                <label>Tipo de Pessoa (F/J):
+                <input type="text" name="tipo_pessoa" size="30" value="{{ cliente.tipo_pessoa}}" required>
+                </label>
+            </p>
+            <p>
+                <label>CPF/CNPJ:
+                <input type="text" name="cpf_cnpj" size="30" value="{{ cliente.cpf_cnpj}}" required>
+                </label>
+            </p>
+            <p>
+                <label>RG IE:
+                <input type="text" name="rg_ie" size="20" value="{{ cliente.rg_ie}}" required>
+                </label>
+            </p>
+
+            <p>
+                <label for="endereco"> Endereço: </label><br>
+                <textarea id="endereco" name="endereco" rows="4" cols="34"  required>{{ cliente.endereco }}</textarea>
+            </p>
+            <p>
+                <label>Cidade:
+                <input type="text" name="cidade" size="30" value="{{ cliente.cidade }}" required>
+                </label>
+            </p>
+            <p>
+                <label>CEP:
+                <input type="text" name="cep" size="30" value="{{ cliente.cep }}" required>
+                </label>
+            </p>
+            <p>
+                <label>UF:
+                <input type="text" name="uf" size="5" value="{{ cliente.uf }}" required>
+                </label>
+            </p>
+            <p>
+                <label>E-mail:
+                <input type="email" name="email" value="{{ cliente.email }}" required> 
+                </label>
+            </p>
+            <p>
+                <label>Telefone:
+                <input type="tel" name="fone1" value="{{ cliente.fone1 }}" required> 
+                </label>
+            </p>
+            <p>
+                <label>Usuário Cliente:
+                <!--Usuario Cliente: colocar depois e incluir de user cadastrado para incluir cliente-->
+                <input type="number" name="id_usuario_cli" value="{{ usuario_cli.id }}" hidden> 
+                <input type="text" name="{{ usuario_cli }}"  value="{{ cliente.usuario_cli }}" required>
+                </label>
+            </p>
+        </fieldset>
+        <div class="navbar-brand">
+            <button type="submit" class="btn btn-primary btn-sm">
+                <span class="icono-check" aria-hidden="true"></span>
+                Cadastrar
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

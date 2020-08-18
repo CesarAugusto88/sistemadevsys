@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
     <meta name="author" content="">
     
@@ -15,36 +15,37 @@
     
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{% static 'css/business-frontpage.css' %}">
-
+    
     <!--https://saeedalipoor.github.io/icono/-->
     <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
     
+    <!--<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">-->
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-
-       
+    
 </head>
 
 <body>
 <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="http://devsys.com.br/webmail">WebMail</a>
+      <a class="navbar-brand" href="https://devsys.com.br/webmail">WebMail</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="sr-only">(current)</span>
+        <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           
-          <li class="nav-item">
-            <a class="navbar-brand" href="/devsys/ordem-servicos">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'ordem-servicos' %}">
               <button type="button" class="btn btn-sm">
                 Ordem de Serviço
-                <span class="icono-list" aria-hidden="true"></span>  
+                <span class="icono-list" aria-hidden="true">(current)</span>  
               </button>
             </a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand" href="/devsys/arqs">
+            <a class="nav-link" href="/devsys/arqs">
               <button type="button" class="btn btn-sm">
               Manipular Arquivos
               <span class="icono-file" aria-hidden="true"></span>
@@ -55,24 +56,33 @@
             <!--Apenas para usuário específico gerar boletos
                 Carregar uma nova pagina html com todos clientes
                 e para cada um carregar o boleto-->
-            <a class="navbar-brand" href="{% url 'register' %}">
-              <button class="btn btn-sm" type="button">Cadastrar Cliente
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cadastrar Usuário
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'account:registrar' %}">Cliente</a>
+                    <a class="dropdown-item" href="#">Funcionário</a>
+                  </div>
+                </div>
+            <!-- <a class="navbar-brand" href="{% url 'account:registrar' %}">
+              <button class="btn btn-sm" type="button">Cadastrar Usuário
                 <span class="icono-plusCircle" aria-hidden="true"></span>
               </button>
-            </a>
+            </a> -->
           </li>
           <li class="nav-item">
             <!--Apenas para usuário específico gerar boletos
                 Carregar uma nova pagina html com todos clientes
                 e para cada um carregar o boleto-->
-            <a class="navbar-brand" href="{% url 'todos_clientes' %}">
+            <a class="nav-link" href="{% url 'todos_clientes' %}">
               <button class="btn btn-sm" type="button">Lançar Boletos
                 <span class="icono-document" aria-hidden="true"></span>
               </button>
             </a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand" href="{% url 'logout_user' %}">
+            <a class="nav-link" href="{% url 'logout_user' %}">
                 <button type="button" class="btn btn-sm">
                   <span class="icono-signOut" aria-hidden="true"></span>
                   Logout
@@ -83,16 +93,15 @@
       </div>
     </div>
   </nav>
-<div class="content">
-	{% block content %}{% endblock %}  <!--serve como place holder para colocar conteúdo -->
-	<div class="footer" style="background-color: #2980B8; color: #000000">
-        <p>Copyright &copy; Sistema DevSys Desenvolvimento de Sistemas {% now "Y" as current_year %} {{ current_year }}</p>
-    </div>
-</div>
-<!-- Bootstrap core JavaScript -->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-
-<!--Final do body-->
+  <div class="content">
+    {% block content %}{% endblock %}  <!--serve como place holder para colocar conteúdo -->
+    <div class="footer" style="background-color: #2980B8; color: #000000">
+          <p>Copyright &copy; Sistema DevSys Desenvolvimento de Sistemas {% now "Y" as current_year %} {{ current_year }}</p>
+      </div>
+  </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <!--Final do body-->
 </body>
 </html>

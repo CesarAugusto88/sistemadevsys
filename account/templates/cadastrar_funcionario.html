@@ -1,0 +1,62 @@
+{% extends 'base-funcionario.thml' %}
+
+{% block content %}
+<div class="container">
+    <form action="submit" method="post">{% csrf_token %}
+        <h1>Cadastro Funcionário</h1>
+        <fieldset>
+            <legend>Dados de cadastro (Funcionário)</legend>
+            <p>
+                <label>Nome:
+                <input type="number" name="id_funcionario" value="{{ funcionario.id }}" hidden> 
+                <input type="text" name="nome" size="30" value="{{ funcionario.nome }}" required>
+                </label>
+            </p>
+
+            <p>
+                <label for="endereco"> Endereço: </label><br>
+                <textarea id="endereco" name="endereco" rows="4" cols="34"  required>{{ funcionario.endereco }}</textarea>
+            </p>
+            <p>
+                <label>Cidade:
+                <input type="text" name="cidade" size="30" value="{{ funcionario.cidade }}" required>
+                </label>
+            </p>
+            <p>
+                <label>CEP:
+                <input type="text" name="cep" size="30" value="{{ funcionario.cep }}" required>
+                </label>
+            </p>
+            <p>
+                <label>UF:
+                <input type="text" name="uf" size="5" value="{{ funcionario.uf }}" required>
+                </label>
+            </p>
+            <p>
+                <label>E-mail:
+                <input type="email" name="email" value="{{ funcionario.email }}" required> 
+                </label>
+            </p>
+            <p>
+                <label>Telefone:
+                <input type="tel" name="fone1" value="{{ funcionario.fone1 }}" required> 
+                </label>
+            </p>
+            <p>
+                <label>Usuário funcionario:
+                <!--Usuario funcionario: colocar depois e incluir de user cadastrado para incluir funcionario-->
+                <input type="number" name="id_usuario_cli" value="{{ usuario_cli.id }}" hidden> 
+                <input type="text" name="{{ usuario_cli }}"  value="{{ funcionario.usuario_cli }}" required>
+                </label>
+            </p>
+        </fieldset>
+        <div class="navbar-brand">
+            <button type="submit" class="btn btn-primary btn-sm">
+                <span class="icono-check" aria-hidden="true"></span>
+                Cadastrar
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

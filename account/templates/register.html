@@ -1,0 +1,88 @@
+{% extends 'base-funcionario.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>|Cadastrar Usuário|</h1>
+    <form method="post">
+        {% csrf_token %}
+    
+        <div>
+            {{form_usuario.username.errors}}
+            <label>Username: </label>
+            {{form_usuario.username}}
+        </div>
+    
+        <div>
+            {{form_usuario.password1.errors}}
+            <label>Senha: </label>
+            {{form_usuario.password1}}
+        </div>
+    
+        <div>
+            {{form_usuario.password2.errors}}
+            <label>Confirmação de senha: </label>
+            {{form_usuario.password2}}
+        </div>
+    
+        <div>
+            <input type="submit" value="Cadastrar" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+    <!-- Usado Função em views ao invés de classe.
+        <form action="." method="post">{% csrf_token %}
+
+        <h2>Cadastro</h2>
+        <fieldset>
+            <legend>Dados de cadastro (Cliente)</legend>
+            <p>
+                <label>Nome:
+                <input type="number" name="id_cliente" value="{{ cliente.id }}" hidden> 
+                <input type="text" name="nome" size="30" value="{{ cliente.nome }}" required>
+                </label>
+            </p>
+            <p>
+                <label>Telefone:
+                <input type="tel" name="celular" value="{{ cliente.celular }}" required> 
+                </label>
+            </p>
+
+            <p>
+                <label for="endereco"> Endereço: </label><br>
+                <textarea id="endereco" name="endereco" rows="4" cols="34"  required>{{ cliente.endereco }}</textarea>
+            </p>
+            <p>
+                <label>Cidade:
+                <input type="text" name="cidade" size="30" value="{{ cliente.cidade }}" required>
+                </label>
+            </p>
+            <p>
+                <label>Cidade:
+                <input type="text" name="cep" size="30" value="{{ cliente.cep }}" required>
+                </label>
+            </p>
+            <p>
+                <label>UF:
+                <input type="text" name="uf" size="5" value="{{ cliente.uf }}" required>
+                </label>
+            </p>
+            <p>
+                <label>Usuario Cliente:
+                <input type="text" name="nome" size="30" value="{{ cliente.usuario_cli }}" >
+                </label>
+            </p>
+            <br>
+        </fieldset> 
+
+        
+        {{ form.as_p }} --Como pegar esse form cadastro user e colocar no usuario_cli como no admin...--
+
+        <input class="btn btn-primary" type="submit" value="Registrar">
+        --Colocar mensagem de cadastrado com sucesso--   
+        
+    </form>
+    
+-->
+
+{% endblock %}

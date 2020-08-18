@@ -16,41 +16,6 @@ from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico
 
 from .forms import ArqForm, BolForm
 
-# Projeto Btre -----------------------------
-from django.contrib import messages, auth
-from django.contrib.auth.models import User
-
-# TODO: DEVO TER UMA OUTRA FUNÇÃO PARA CHAMAR 'register.html' ?
-def register(request):
-  if request.method == 'POST':
-    # Get form values
-    username = request.POST['usuario']
-    password = request.POST['senha']
-    password2 = request.POST['senha2']
-
-    # Check if passwords match
-    if password == password2:
-      # Check username
-      if User.objects.filter(username=username).exists():
-        messages.error(request, 'That username is taken')
-        return redirect('register')
-      else:
-        # Looks good
-        user = User.objects.create_user(username=username, password=password)
-        # Login after register
-        # auth.login(request, user)
-        # messages.success(request, 'You are now logged in')
-        # return redirect('index')
-        user.save()
-        messages.success(request, 'You are now registered and can log in')
-        return redirect('login')
-    else:
-      messages.error(request, 'Passwords do not match')
-      return redirect('register')
-  else:
-    return render(request, 'devsys/funcionario')
-# --------------------------------------------------------------------------------
-
 def home(request):
     # return HttpResponse('Hello World!')
     # Usando render
@@ -82,9 +47,7 @@ def submit_login(request):
         if usuario is not None:
             login(request, usuario)
             return redirect("/devsys/")
-
         messages.error(request, "Usuário ou senha inválida.")
-
     return redirect("/login/")
 
 
@@ -140,7 +103,7 @@ def funcionario(request):
 
     return render(request, "funcionario.html", dados)
 
-
+# edita funcionario
 @login_required(login_url="/login/")
 def submit_funcionario(request):
     if request.POST:
@@ -165,16 +128,7 @@ def submit_funcionario(request):
 
                 funcionario.save()
         # Evento.objects.filter(id=id_funcionario).update(nome=nome, endereco=endereco,fone1=fone1)
-        else:
-            Funcionario.objects.create(
-                nome=nome,
-                fone1=fone1,
-                endereco=endereco,
-                cidade=cidade,
-                cep=cep,
-                uf=uf,
-                usuario_fun=usuario_fun,
-            )
+        
     return redirect("/devsys/funcionario")
 
 
@@ -215,7 +169,6 @@ def lista_ordem_servicos(request):
 
     usuario = request.user
 
-    # já esta verificando em lista de funcionários. OK
     try:
         # Mesmo objeto em html
         # verificar se é um funcionário.
@@ -409,7 +362,7 @@ def cliente(request):
         dados["cliente"] = Cliente.objects.get(id=id_cliente)
     return render(request, "cliente.html", dados)
 
-
+# editar cliente
 @login_required(login_url="/login/")
 def submit_cliente(request):
     if request.POST:
@@ -432,16 +385,7 @@ def submit_cliente(request):
                 cliente.cep = cep
                 cliente.uf = uf
                 cliente.save()
-        else:
-            Cliente.objects.create(
-                nome=nome,
-                celular=celular,
-                endereco=endereco,
-                cidade=cidade,
-                cep=cep,
-                uf=uf,
-                usuario_cli=usuario_cli,
-            )
+        
     return redirect("/devsys/cliente")
 
 
