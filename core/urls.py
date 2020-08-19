@@ -18,16 +18,15 @@ urlpatterns = [
     #path("admin/", admin.site.urls),
     path("devsys/", views.devsys, name="devsys"),
     # ------------funcionarios-----------------------------------------------
-    #Mudar urls para nao criar mais de um funcionario/ no mesmo login
 
     path("devsys/funcionario", views.dados_funcionario, name="funcionario"),
     path("devsys/lista/<int:id_funcionario>/", views.json_lista_funcionario),
     path("devsys/func/", views.funcionario),
     path("devsys/func/submit", views.submit_funcionario),
-    path(
-        "devsys/func/delete/<int:id_funcionario>/",
-        views.delete_funcionario, name="del_funcionario"
-    ),
+    #path(
+    #    "devsys/func/delete/<int:id_funcionario>/",
+    #    views.delete_funcionario, name="del_funcionario"
+    #),
     # ----------ordem de serviço --------------------------------------------
     path(
         "devsys/ordem-servicos",
@@ -65,9 +64,7 @@ urlpatterns = [
     path("devsys/lista/<int:id_cliente>/", views.json_lista_cliente),
     path("devsys/clie/", views.cliente),
     path("devsys/clie/submit", views.submit_cliente),
-    path("devsys/clie/delete/<int:id_cliente>/", views.delete_cliente, name="del_cliente"),
-    # Registrar/cadastrar cliente
-    # path("devsys/cliente/register", views.register, name="register"),
+    #path("devsys/clie/delete/<int:id_cliente>/", views.delete_cliente, name="del_cliente"),
 
 
     # ------------Boletos-Cliente-------------------------------------------

@@ -96,10 +96,16 @@ def dados_funcionario(request):
 
 @login_required(login_url="/login/")
 def funcionario(request):
-    id_funcionario = request.GET.get("id")
     dados = {}
+    #pegar usuário solicitando
+    usuario = request.user
+    id_funcionario = request.GET.get("id")
     if id_funcionario:
-        dados["funcionario"] = Funcionario.objects.get(id=id_funcionario)
+        funcionario = Funcionario.objects.get(id=id_funcionario)
+        # se o mesmo funcionario.usuario_fun id igual ao usuario
+        # solicitando para restringir qualquer user ver os dados com o id
+        if funcionario.usuario_fun == usuario:
+            dados["funcionario"] = Funcionario.objects.get(id=id_funcionario)
 
     return render(request, "funcionario.html", dados)
 
@@ -328,16 +334,11 @@ class UploadArqView(CreateView):
 # -------Cliente--------------------------
 # Cliente vai ver seus dados e pode editar, fazer o mesmo para funcionários...
 
-# CLIENTES - **** Somente cliente logado e usuario ADMIN ****
 
-# Função mostra se é cliente ou não
-# (Poderia reconhecer o login e entrar no seu ambiente correto)
 @login_required(login_url="/login/")
 def dados_cliente(request):
     """ Mostra dados do cliente."""
-
     usuario_cli = request.user
-
     try:
         # Mesmo objeto em html
         cliente = Cliente.objects.filter(usuario_cli=usuario_cli)
@@ -347,7 +348,6 @@ def dados_cliente(request):
     if cliente:
         # variáveis usadas no html:
         dados = {"cliente": cliente}
-
     else:
         raise Http404()
 
@@ -356,15 +356,22 @@ def dados_cliente(request):
 
 @login_required(login_url="/login/")
 def cliente(request):
-    id_cliente = request.GET.get("id")
     dados = {}
+    # pegar usuario solicitando
+    usuario = request.user
+    id_cliente = request.GET.get("id")
     if id_cliente:
-        dados["cliente"] = Cliente.objects.get(id=id_cliente)
+        cliente = Cliente.objects.get(id=id_cliente)
+        # se o mesmo cliente.usuario_cliid igual ao usuario
+        # solicitando para restringir qualquer user ver os dados com o id
+        if cliente.usuario_cli == usuario:
+            dados["cliente"] = Cliente.objects.get(id=id_cliente)
     return render(request, "cliente.html", dados)
 
 # editar cliente
 @login_required(login_url="/login/")
 def submit_cliente(request):
+
     if request.POST:
         nome = request.POST.get("nome")
         celular = request.POST.get("celular")
@@ -437,7 +444,7 @@ def clientes(request):
     return render(request, "upload_boletos_clientes.html", dados)
 
 
-# FUNÇÕES DE UPLOAD - Boletos - construindo - *somente para cliente logado
+# FUNÇÕES DE UPLOAD 
 
 @login_required(login_url="/login/")
 def uploadb(request):
