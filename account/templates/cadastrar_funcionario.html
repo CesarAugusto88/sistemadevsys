@@ -42,11 +42,14 @@
                 <input type="tel" name="fone1" value="{{ funcionario.fone1 }}" required> 
                 </label>
             </p>
+            <!--O caminho para cadastrar ForeinKey é usar o ID-->
             <p>
-                <label>Usuário funcionario:
-                <!--Usuario funcionario: colocar depois e incluir de user cadastrado para incluir funcionario-->
-                <input type="number" name="id_usuario_cli" value="{{ usuario_cli.id }}" hidden> 
-                <input type="text" name="{{ usuario_cli }}"  value="{{ funcionario.usuario_cli }}" required>
+                <label>ID Usuários Funcionário:
+                    <select type="number" name="usuario_fun_id" > 
+                        {% for user in usuario %}
+                        <option value="{{ user.id }}">{{ user.id }}</option>
+                        {% endfor %}
+                    </select>
                 </label>
             </p>
         </fieldset>

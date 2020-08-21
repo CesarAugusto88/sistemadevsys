@@ -33,9 +33,10 @@ urlpatterns = [
         views.lista_ordem_servicos,
         name="ordem-servicos",
     ),
-    path(
-        "devsys/lista/<int:id_ordem_servico>/", views.json_lista_ordem_servico
-    ),
+    # não usando.
+    # path(
+    #     "devsys/lista/<int:id_ordem_servico>/", views.json_lista_ordem_servico
+    # ),
     path("devsys/ordem-servico/", views.ordem_servico, name="ordem-servico"),
     path("devsys/ordem-servico/submit", views.submit_ordem_servico),
     path(

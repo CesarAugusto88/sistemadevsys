@@ -1,4 +1,4 @@
-{% extends 'base-funcionario.thml' %}
+{% extends 'base-funcionario.html' %}
 
 {% block content %}
 <div class="container">
@@ -62,11 +62,15 @@
                 <input type="tel" name="fone1" value="{{ cliente.fone1 }}" required> 
                 </label>
             </p>
+            <!--O caminho para cadastrar ForeinKey é usar o ID-->
             <p>
-                <label>Usuário Cliente:
-                <!--Usuario Cliente: colocar depois e incluir de user cadastrado para incluir cliente-->
-                <input type="number" name="id_usuario_cli" value="{{ usuario_cli.id }}" hidden> 
-                <input type="text" name="{{ usuario_cli }}"  value="{{ cliente.usuario_cli }}" required>
+                <label>ID Usuários Cliente:
+                    
+                    <select type="number" name="usuario_cli_id" > 
+                        {% for user in usuario %}
+                        <option value="{{ user.id }}">{{ user.id }}</option>
+                        {% endfor %}
+                    </select>
                 </label>
             </p>
         </fieldset>

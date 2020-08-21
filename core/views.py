@@ -198,7 +198,7 @@ def lista_ordem_servicos(request):
 
     return render(request, "devsys-ordem-servicos.html", dados)
 
-
+# mostra ordem de serviço
 @login_required(login_url="/login/")
 def ordem_servico(request):
     id_ordem_servico = request.GET.get("id")
@@ -208,7 +208,7 @@ def ordem_servico(request):
         dados["ordem_servico"] = Ordem_Servico.objects.get(id=id_ordem_servico)
     return render(request, "ordem-servico.html", dados)
 
-
+# submit ordem de serviço
 @login_required(login_url="/login/")
 def submit_ordem_servico(request):
     if request.POST:
