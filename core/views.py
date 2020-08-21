@@ -141,6 +141,7 @@ def submit_funcionario(request):
 # REDIRECIONAR CORRETAMENTE - OK
 @login_required(login_url="/login/")
 def delete_funcionario(request, id_funcionario):
+    # Fazer verificações como esta nas outras funções.
     usuario_fun = request.user
     try:
         funcionario = Funcionario.objects.get(id=id_funcionario)
@@ -424,7 +425,8 @@ def json_lista_cliente(request, id_usuario):
 
 @login_required(login_url="/login/")
 def clientes(request):
-    """ Lista clientes."""
+    """ Lista clientes. Usado para mostrar Lançar Boletos pelo funcionário.
+        Pegar id do cliente específico para mostrar o boleto no cliente."""
     #pegar somente usuario admin
     usuario_admin = request.user
 
