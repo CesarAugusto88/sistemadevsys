@@ -1,8 +1,9 @@
-{% extends 'base-cliente.html' %}
+{% extends 'base-funcionario.html' %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
+<!--Upload de funcionario para cliente-->
 <div class="content-ribbon">
   <h2>Upload boleto</h2>
   <form method="post" enctype="multipart/form-data">
@@ -12,7 +13,7 @@
   </form>
   <br>
   <p>
-    <a href="{% url 'bol_list' %}"  class="pure-button pure-button-primary">Cancelar</a>
+    <a href="{% url 'todos_clientes' %}"  class="pure-button pure-button-primary">Cancelar</a>
   </p>
 </div>
 {% endblock %}

@@ -75,7 +75,7 @@ def submit_register_cliente(request):
     return redirect("/devsys/funcionario")
 
 
-# --------Registro Funcionário-------------
+# --------Registro Funcionário      -------------
 @login_required(login_url="/login/")
 def register_func(request):
     if request.method == "POST":
@@ -91,8 +91,8 @@ def register_func(request):
 @login_required(login_url="/login/")
 def register_funcionario(request):
     id_funcionario = request.GET.get("id")
+    # ordena pelo ultimo, no caso o ID do ultimo cadastrado
     usuario = User.objects.all().order_by('-username')
-    # print(id_ordem_servico)
     dados = {}
     if id_funcionario:
         dados["funcionario"] = Funcionario.objects.get(id=id_funcionario)

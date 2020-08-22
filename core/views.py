@@ -446,7 +446,7 @@ def clientes(request):
     return render(request, "upload_boletos_clientes.html", dados)
 
 
-# FUNÇÕES DE UPLOAD 
+# FUNÇÕES DE UPLOAD - Boletos
 
 @login_required(login_url="/login/")
 def uploadb(request):
