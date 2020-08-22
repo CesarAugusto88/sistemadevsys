@@ -75,7 +75,6 @@ def devsys(request):
 @login_required(login_url="/login/")
 def dados_funcionario(request):
     """ Lista dados do funcionário."""
-
     usuario_fun = request.user
     try:
         funcionario = Funcionario.objects.filter(usuario_fun=usuario_fun)
@@ -83,6 +82,7 @@ def dados_funcionario(request):
     except Exception:
         raise Http404()
 
+    #if funcionario:
     if funcionario:
         # variáveis usadas no html:
         #Mudando variáveis e rotas...
@@ -221,7 +221,7 @@ def submit_ordem_servico(request):
         responsavel = request.POST.get("responsavel")
         usuario_os = request.user
 
-        # django atribui 'id' no inicio do nome da tabela automaticamente ou so 'id'?
+        # django atribui 'id' no inicio do nome da tabela automaticamente
         id_ordem_servico = request.POST.get("id_ordem_servico")
         # para editar pega o id_ordem_serviço no template HTML
         if id_ordem_servico:

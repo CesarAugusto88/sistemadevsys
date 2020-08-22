@@ -10,7 +10,8 @@ urlpatterns = [
     path('registrar/func', views.register_func, name='registrar_funcionario'),
     # Cadastra cliente/funcionario
     path('cadastro/cliente', views.register_cliente, name='cad_cliente'),
-    path('cadastro/funcionario', views.register_funcionario, name='cad_funcionario'),
+    path('funcionario', views.register_funcionario, name='cad_funcionario'),
     path('cadastro/submit', views.submit_register_cliente),
-    path('cadastro/submit', views.submit_register_funcionario),
+    # não ta cadastrando para login
+    path('submit', views.submit_register_funcionario),
 ]
