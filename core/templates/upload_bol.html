@@ -9,6 +9,16 @@
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
+    <!--O caminho para cadastrar ForeinKey é usar o ID-->
+    <p>
+      <label>ID Cliente:
+          <select type="number" name="id" >
+              {% for cliente in cliente %}
+              <option value="{{ cliente.id}}">{{ cliente.id}}</option>
+              {% endfor %}
+          </select>
+      </label>
+    </p>
     <button type="submit" class="pure-button pure-button-primary">Upload boleto</button>
   </form>
   <br>

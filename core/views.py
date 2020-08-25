@@ -354,7 +354,7 @@ def dados_cliente(request):
 
     return render(request, "devsys-cliente.html", dados)
 
-
+#não recebe parâmetro id?
 @login_required(login_url="/login/")
 def cliente(request):
     dados = {}
@@ -423,20 +423,22 @@ def json_lista_cliente(request, id_usuario):
     # safe=False porque nao é dicionário.
     return JsonResponse(list(cliente), safe=False)
 
+# Todos clientes - pegar user id
 @login_required(login_url="/login/")
 def clientes(request):
-    """ Lista clientes. Usado para mostrar Lançar Boletos pelo funcionário.
-        Pegar id do cliente específico para mostrar o boleto no cliente."""
-    #pegar somente usuario admin
-    usuario_admin = request.user
-
+    """ Lista clientes. Usado para mostrar 'Lançar Boletos' pelo funcionário.
+        Pegar id do cliente específico para mostrar o boleto no cliente - Função uploadb.
+        Mostrar id e pegar mesmo id no uploadb. Como pegar id do user e do cliente??
+        E mostrar só no cliete especifico?"""
+    usuario = request.user
     try:
-        # Mesmo objeto em html
+        # Pegar foreingkey usuario_cli
+        #cliente = Cliente.objects.get(usuario_cli==)
         cliente = Cliente.objects.all()
 
     except Exception:
         raise Http404()
-    if usuario_admin:
+    if usuario:
         # variável usada no html:
         dados = {"clientes": cliente}
 
@@ -450,21 +452,39 @@ def clientes(request):
 
 @login_required(login_url="/login/")
 def uploadb(request):
-    """Função para carregar o arquivo boleto para o cliente.
+    """Função para carregar o arquivo boleto para o 'cliente'.
     Essa função é chamada pelo funcionário (específico) lançar o boleto"""
     context = {}
+    cliente = Cliente.objects.all()
     if request.method == "POST":
         uploaded_file = request.FILES["document"]
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
         context["url"] = fs.url(name)
-    return render(request, "uploadb.html", context)
+    return render(request, "uploadb.html", {'cliente': cliente}, context)
 
 # TODO: pegar e colocar cada boleto específico de cada cliente
 @login_required(login_url="/login/")
 def bol_list(request):
-    bols = Bol.objects.all()
-    return render(request, "bol_list.html", {"bols": bols})
+    usuario = request.user
+    dados = {}
+    try:
+        cliente = Cliente.objects.filter(usuario_cli=usuario)
+        
+    except Exception:
+        raise Http404()
+    if cliente:
+        # __in pode manipular querysets maiores que um (múltiplos registros de uma tabela).
+        #Isso pode ser encontrado na seção de relacionamentos django Many-to_one da documentação. 
+        #docs.djangoproject.com/en/2.0/topics/db/examples/many_to_one/
+        bols = Bol.objects.filter(cliente__in=cliente)
+        
+        # se precisar dos dados do cliente
+        dados = {"cliente": cliente}
+    else:
+        raise Http404()
+
+    return render(request, "bol_list.html", {"bols": bols}, dados)
 
 
 @login_required(login_url="/login/")

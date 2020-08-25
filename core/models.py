@@ -33,7 +33,7 @@ class Funcionario(models.Model):
     cidade = models.CharField(blank=True, null=True, max_length=30)
     cep = models.CharField(blank=True, null=True, max_length=9)
     uf = models.CharField(blank=True, null=True, max_length=2)
-    email = models.CharField(blank=True, null=True, max_length=60)
+    email = models.EmailField(null=False, blank=False)
     endereco_co = models.CharField(blank=True, null=True, max_length=60)
     bairro_co = models.CharField(blank=True, null=True, max_length=30)
     cidade_co = models.CharField(blank=True, null=True, max_length=30)
@@ -79,7 +79,7 @@ class Cliente(models.Model):
     ref_cidade = models.IntegerField(blank=True, null=True)
     cep = models.CharField(max_length=9)
     uf = models.CharField(max_length=2)
-    email = models.CharField(max_length=60)
+    email = models.EmailField(null=False, blank=False)
     endereco_co = models.CharField(blank=True, null=True, max_length=60)
     bairro_co = models.CharField(blank=True, null=True, max_length=30)
     cidade_co = models.CharField(blank=True, null=True, max_length=30)
@@ -137,7 +137,7 @@ class Cliente(models.Model):
     simples_nacional = models.CharField(blank=True, null=True, max_length=3)
     ref_pesquisa = models.IntegerField(blank=True, null=True)
     comissao = models.CharField(blank=True, null=True, max_length=3)
-    email2 = models.CharField(blank=True, null=True, max_length=60)
+    email2 = models.EmailField(null=False, blank=False)
     sexo = models.CharField(blank=True, null=True, max_length=9)
     nacionalidade = models.CharField(blank=True, null=True, max_length=40)
     cidade_nasci = models.CharField(blank=True, null=True, max_length=120)
@@ -308,6 +308,10 @@ class Bol(models.Model):
     assunto = models.CharField(max_length=50)
     boleto = models.FileField(upload_to="bol/boletos/")
     imagem = models.ImageField(upload_to="bol/imagens/", null=True, blank=True)
+    # referência para cada Cliente ter seus proprios boletos
+    cliente = models.ForeignKey(
+        "Cliente", on_delete=models.PROTECT, related_name='boletos'
+        )
 
     # classe Meta serve p modificar nomes e plural
     class Meta:
@@ -317,7 +321,7 @@ class Bol(models.Model):
         ordering = ["titulo"]
 
     def __str__(self):
-        return self.titulo
+        return self.cliente.nome
 
     def delete(self, *args, **kwargs):
         self.boleto.delete()
