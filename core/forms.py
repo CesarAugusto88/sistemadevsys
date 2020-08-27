@@ -11,4 +11,4 @@ class ArqForm(forms.ModelForm):
 class BolForm(forms.ModelForm):
     class Meta:
         model = Bol
-        fields = ('titulo', 'assunto', 'boleto', 'imagem')
+        fields = ('titulo', 'assunto', 'boleto', 'imagem', 'cliente')
