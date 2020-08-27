@@ -428,8 +428,7 @@ def json_lista_cliente(request, id_usuario):
 def clientes(request):
     """ Lista clientes. Usado para mostrar 'Lançar Boletos' pelo funcionário.
         Pegar id do cliente específico para mostrar o boleto no cliente - Função uploadb.
-        Mostrar id e pegar mesmo id no uploadb. Como pegar id do user e do cliente??
-        E mostrar só no cliete especifico?"""
+        Mostrar id e pegar mesmo id no uploadb."""
     usuario = request.user
     try:
         # Pegar foreingkey usuario_cli
@@ -489,11 +488,12 @@ def bol_list(request):
 
 @login_required(login_url="/login/")
 def upload_bol(request):
+    """ Cria formulário de boleto e envia objeto cliente para pegar id. """
     if request.method == "POST":
         form = BolForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("bol_list")
+            return redirect("todos_clientes")
     else:
         form = BolForm()
     return render(request, "upload_bol.html", {"form": form})
