@@ -1,0 +1,74 @@
+{% extends 'base-cliente.html' %}
+
+{% block content %}
+<div class="content-ribbon">
+  {% block content_header %}
+    <h2>Chamados</h2>
+    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
+    href="{% url 'cliente'  %}">
+        <span class="icono-caretLeftSquare" aria-hidden="true"></span>
+        Voltar
+    </a>   
+    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
+    href="{% url 'upload_chamado' %}">
+        <span class="icono-plus" aria-hidden="true"></span>
+        Novo Chamado
+    </a>   
+    
+  {% endblock %}
+  <div class="pure-u-1">
+    <table class="pure-table pure-table-bordered">
+      <thead>
+        <tr>
+          <th>Imagem</th>
+          <th>Título</th>
+          <th>Assunto</th>
+          <th>Descrição</th>
+          <th>Download</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for chamado in chamados %}
+          <tr>
+            <td>
+              {% if chamado.imagem %}
+                <img src="{{ chamado.imagem.url }}" alt="{{ chamado.titulo }}" style="width:100px;">
+              {% else %}
+                <span class="pure-form-message">No imagem</span>
+              {% endif %}
+            </td>
+            <td>{{ chamado.titulo }}</td>
+            <td>{{ chamado.assunto }}</td>
+            <td>{{ chamado.descricao }}</td>
+            <td>
+              {% if chamado.arquivo %}
+              <a href="{{ chamado.arquivo.url }}" class="pure-button pure-button-active" target="_blank">
+                Download
+              </a>
+              {% else %}
+                <span class="pure-form-message">No arquivo</span>
+              {% endif %}
+            </td>
+
+            {% comment %}
+            <!-- retirado exclusão por cliente...-->
+            <td>
+
+              <form method="post" action="{% url 'delete_chamado' chamado.pk %}">
+                {% csrf_token %}
+                
+                <button type="submit" class="pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
+              
+              </form>
+            
+            </td>
+            {% endcomment %}
+            
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -12,9 +12,9 @@ from django.urls import reverse_lazy
 # Upload/download
 from django.views.generic import CreateView, ListView, TemplateView
 
-from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico
+from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico, Chamado
 
-from .forms import ArqForm, BolForm
+from .forms import ArqForm, BolForm, ChamadoForm
 
 def home(request):
     # return HttpResponse('Hello World!')
@@ -462,7 +462,7 @@ def uploadb(request):
         context["url"] = fs.url(name)
     return render(request, "uploadb.html", {'cliente': cliente}, context)
 
-# TODO: pegar e colocar cada boleto específico de cada cliente
+
 @login_required(login_url="/login/")
 def bol_list(request):
     usuario = request.user
@@ -518,3 +518,79 @@ class UploadBolView(CreateView):
     form_class = BolForm
     success_url = reverse_lazy("class_bol_list")
     template_name = "upload_bol.html"
+
+
+
+# FUNÇÕES DE UPLOAD - Chamado
+
+@login_required(login_url="/login/")
+def uploadchamado(request):
+    """Função para carregar o arquivo do cliente.
+    Essa função é chamada pelo cliente(específico) enviar o arquivo/chamado para o funcionário"""
+    context = {}
+    funcionario = Funcionario.objects.all()
+    if request.method == "POST":
+        uploaded_file = request.FILES["document"]
+        fs = FileSystemStorage()
+        name = fs.save(uploaded_file.name, uploaded_file)
+        context["url"] = fs.url(name)
+    return render(request, "uploadchamado.html", {'funcionario': funcionario}, context)
+
+@login_required(login_url="/login/")
+def chamado_list(request):
+    usuario = request.user
+    dados = {}
+    try:
+        cliente = Cliente.objects.filter(usuario_cli=usuario)
+        funcionario = Funcionario.objects.all()
+    except Exception:
+        raise Http404()
+
+    #NÃO ESTÁ PEGANDO O CLIENTE ESPECÍFICO QUE LANÇOU OS CHAMADOS
+    # VERIFICAR TAMBÉM EM OUTRA FUNÇÕES
+    if cliente:
+        # __in pode manipular querysets maiores que um (múltiplos registros de uma tabela).
+        #Isso pode ser encontrado na seção de relacionamentos django Many-to_one da documentação. 
+        #docs.djangoproject.com/en/2.0/topics/db/examples/many_to_one/
+        chamados = Chamado.objects.filter(funcionario__in=funcionario)
+        
+        # se precisar dos dados do cliente
+        dados = {"cliente": cliente}
+    else:
+        raise Http404()
+
+    return render(request, "chamado_list.html", {"chamados": chamados}, dados)
+
+
+@login_required(login_url="/login/")
+def upload_chamado(request):
+    """ Cria formulário do chamado e envia objeto cliente para pegar id. """
+    if request.method == "POST":
+        form = ChamadoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("chamado_list")
+    else:
+        form = ChamadoForm()
+    return render(request, "upload_chamado.html", {"form": form})
+
+
+@login_required(login_url="/login/")
+def delete_chamado(request, pk):
+    if request.method == "POST":
+        chamado = Chamado.objects.get(pk=pk)
+        chamado.delete()
+    return redirect("chamado_list")
+
+
+class ChamadoListView(ListView):
+    model = Chamado
+    template_name = "class_chamado_list.html"
+    context_object_name = "chamados"
+
+
+class UploadChamadoView(CreateView):
+    model = Chamado
+    form_class = ChamadoForm
+    success_url = reverse_lazy("class_chamado_list")
+    template_name = "upload_chamado.html"

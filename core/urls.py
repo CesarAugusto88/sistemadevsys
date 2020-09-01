@@ -73,6 +73,7 @@ urlpatterns = [
     path("devsys/bols/", views.bol_list, name="bol_list"),
     path("devsys/bols/upload/", views.upload_bol, name="upload_bol"),
     # path("devsys/bols/<int:pk>/", views.delete_bol, name="delete_bol"),
+
     # -- Urls com views para listar todos os clientes do banco.
     path("devsys/bols/clientes", views.clientes, name="todos_clientes"),
 
@@ -88,6 +89,25 @@ urlpatterns = [
         name="class_upload_bol",
     ),
     
+    # Rotas Chamado
+    # ------------Chamados-Cliente-------------------------------------------
+    path("devsys/uploadchamado/", views.uploadchamado, name="uploadchamado"),
+    path("devsys/chamados/", views.chamado_list, name="chamado_list"),
+    path("devsys/chamados/uploadchamados/", views.upload_chamado, name="upload_chamado"),
+    # path("devsys/chamados/<int:pk>/", views.delete_chamados, name="delete_chamados"),
+
+    # Verificar para retirar class/...:
+    path(
+        "devsys/class/chamados/",
+        views.ChamadoListView.as_view(),
+        name="class_chamado_list",
+    ),
+    path(
+        "devsys/class/chamados/upload/",
+        views.UploadBolView.as_view(),
+        name="class_upload_chamado",
+    ),
+
     # -----------------------------------------------------------------------
     # path('', views.index), #com a função em views
     # Com url normal redireciona para /devsys/
@@ -97,7 +117,7 @@ urlpatterns = [
     path("login/submit", views.submit_login),
     path("logout/", views.logout_user, name="logout_user"),
     
-
+    # Rotas para funcionar DEBUG=False
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 
