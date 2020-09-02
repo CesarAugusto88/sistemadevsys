@@ -185,7 +185,7 @@ class Ordem_Servico(models.Model):
         blank=True,
         null=True,
     )
-    dt_entrada = models.DateTimeField(verbose_name="Data de Entrada")
+    dt_entrada = models.DateTimeField("Data de Entrada", auto_now=True)
     valor = models.FloatField(blank=True, null=True)
     descricao = models.CharField(max_length=255)
     efetuado = models.CharField(blank=True, null=True, max_length=255)

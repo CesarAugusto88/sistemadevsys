@@ -32,16 +32,16 @@
               <legend> <b>Dados da Ordem de Serviço</b> </legend>
               <p>
                 <label>Data de Entrada:
-                <br>
+
                 {{ ordem_servico.get_dt_entrada_os }}
-                <br>
+
                 </label>
               </p>
               <p>
                   <label>Descrição:
-                  <br>
-                  {{ ordem_servico.descricao }}         
-                  <br>
+
+                  {{ ordem_servico.descricao }}
+                  
                   </label>
               </p>
               <p>
@@ -49,31 +49,29 @@
                     style="color:red"
                  {% endif %}>
                 <label>Data Agendada:
-                <br>
-                {{ ordem_servico.get_dt_agenda_os }}          
-                <br>
+
+                {{ ordem_servico.get_dt_agenda_os }}
+
                 </label>
                 </div>
               </p>
               <p>
                 <label>Data do Pagamento:
-                <br>
                 {{ ordem_servico.get_dt_pagamento_os }}
-                <br>
                 </label>
               </p>
               <p>
                 <label>Responsável:
-                <br>
+
                 {{ ordem_servico.responsavel }}
-                <br>
+
                 </label>
               </p>
               <p>
                 <label>Tipo(s) de Equipamento(s):
-                <br>
+
                 {{ ordem_servico.equipamento }}
-                <br>
+
                 </label>
               </p>
               

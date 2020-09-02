@@ -10,41 +10,41 @@
         <form action="submit" method="POST">{% csrf_token %}
             <fieldset>
                 <legend>Dados da Ordem de Serviço</legend>
-                <p>
+                <!--<p>
                     <label>Data de Entrada:
-                    <br>
+
                     <input type="number" name="id_ordem_servico" value="{{ ordem_servico.id }}" hidden> 
                     <input type="datetime-local" name="dt_entrada" value="{{ ordem_servico.get_data_input_os }}" required>
-                    <br><br>    
-                    </label>
-                </p>
+
+                </label>
+                </p>-->
                 <p>
                     <label>Descrição:
-                    <br>
-                    <!--textarea a variável tem que estar entre o maior e menor > < -->
+
+                        <!--textarea a variável tem que estar entre o maior e menor > < -->
                     <textarea name="descricao" rows="4" cols="34"  required>{{ ordem_servico.descricao }}</textarea>
-                    <br>
-                    </label>
+
+                </label>
                 </p>
                 <p>
                     <label>Data Agendada:
-                    <br>
-                    <input type="datetime-local" name="dt_agenda" value="{{ ordem_servico.get_agenda_input_os }}" required>
-                    <br> <br>
+
+                        <input type="datetime-local" name="dt_agenda" value="{{ ordem_servico.get_agenda_input_os }}" required>
+
                     </label>
                 </p>
                 <p>
                     <label>Data do Pagamento: <!--Fazer def get_pagamento_input_os em model para entrada e mostrar... -->
-                    <br>
-                    <input type="date" name="dt_pagamento" value="{{ ordem_servico.get_pagamento_input_os }}" required>
-                    <br> <br>
+
+                        <input type="date" name="dt_pagamento" value="{{ ordem_servico.get_pagamento_input_os }}" required>
+
                     </label>
                 </p>
                 <p>
                     <label>Responsável:
-                    <br>
-                    <input type="text" name="responsavel" size="30" value="{{ ordem_servico.responsavel }}" required>
-                    <br>
+
+                        <input type="text" name="responsavel" size="30" value="{{ ordem_servico.responsavel }}" required>
+
                     </label>
                 </p>
                 
