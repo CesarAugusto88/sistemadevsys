@@ -137,7 +137,7 @@ class Cliente(models.Model):
     simples_nacional = models.CharField(blank=True, null=True, max_length=3)
     ref_pesquisa = models.IntegerField(blank=True, null=True)
     comissao = models.CharField(blank=True, null=True, max_length=3)
-    email2 = models.EmailField(null=False, blank=False)
+    email2 = models.EmailField(null=True, blank=True)
     sexo = models.CharField(blank=True, null=True, max_length=9)
     nacionalidade = models.CharField(blank=True, null=True, max_length=40)
     cidade_nasci = models.CharField(blank=True, null=True, max_length=120)
@@ -334,9 +334,10 @@ class Chamado(models.Model):
     titulo = models.CharField(max_length=30)
     assunto = models.CharField(max_length=50)
     descricao = models.CharField(max_length=254)
-    arquivo = models.FileField(upload_to="chamado/arquivos/", null=True, blank=True)
-    imagem = models.ImageField(upload_to="chamado/imagens/", null=True, blank=True)
-    
+    date_added = models.DateTimeField(auto_now_add=True)
+    arquivo = models.FileField(
+        upload_to="chamado/arquivos/", null=True, blank=True
+        )
     # referência do cliente para o funcionário dos chamados
     funcionario = models.ForeignKey(
         "Funcionario", on_delete=models.PROTECT, related_name='chamados'
@@ -347,14 +348,14 @@ class Chamado(models.Model):
         verbose_name = "Chamado"
         verbose_name_plural = "Chamados"
         # ordenar
-        ordering = ["titulo"]
+        ordering = ["date_added"]
 
     def __str__(self):
         return self.funcionario.nome
 
     def delete(self, *args, **kwargs):
         self.arquivo.delete()
-        self.imagem.delete()
+
         super().delete(*args, **kwargs)
 
 """ Para cadastrar visitantes e por FOTOS...

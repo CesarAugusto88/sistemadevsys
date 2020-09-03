@@ -16,4 +16,4 @@ class BolForm(forms.ModelForm):
 class ChamadoForm(forms.ModelForm):
     class Meta:
         model = Chamado
-        fields = ('titulo', 'assunto', 'descricao', 'arquivo', 'imagem', 'funcionario')
+        fields = ('titulo', 'assunto', 'descricao', 'arquivo', 'funcionario')

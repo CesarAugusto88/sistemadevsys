@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico
+from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico, Chamado
+
+
+class Chamado_Admin(admin.ModelAdmin):    
+    list_display = ('titulo','assunto', 'date_added')
+    search_fields = ['titulo']
 
 
 class Arq_Admin(admin.ModelAdmin):    
@@ -41,6 +46,7 @@ class Vis_Admin(admin.ModelAdmin):
 admin.site.register(Visitante, Vis_Admin)
 """
 
+admin.site.register(Chamado, Chamado_Admin)
 admin.site.register(Funcionario, Func_Admin)
 admin.site.register(Cliente, Cli_Admin)
 admin.site.register(Ordem_Servico, OS_Admin)

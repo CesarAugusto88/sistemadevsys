@@ -20,7 +20,6 @@
     <table class="pure-table pure-table-bordered">
       <thead>
         <tr>
-          <th>Imagem</th>
           <th>Título</th>
           <th>Assunto</th>
           <th>Descrição</th>
@@ -31,13 +30,6 @@
       <tbody>
         {% for chamado in chamados %}
           <tr>
-            <td>
-              {% if chamado.imagem %}
-                <img src="{{ chamado.imagem.url }}" alt="{{ chamado.titulo }}" style="width:100px;">
-              {% else %}
-                <span class="pure-form-message">No imagem</span>
-              {% endif %}
-            </td>
             <td>{{ chamado.titulo }}</td>
             <td>{{ chamado.assunto }}</td>
             <td>{{ chamado.descricao }}</td>
