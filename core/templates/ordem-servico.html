@@ -10,14 +10,14 @@
         <form action="submit" method="POST">{% csrf_token %}
             <fieldset>
                 <legend>Dados da Ordem de Serviço</legend>
-                <!--<p>
+                <!--<p> não está entrando - pega 'auto_now_add'
                     <label>Data de Entrada:
-
-                    <input type="number" name="id_ordem_servico" value="{{ ordem_servico.id }}" hidden> 
-                    <input type="datetime-local" name="dt_entrada" value="{{ ordem_servico.get_data_input_os }}" required>
-
+                    <input type="datetime-local" name="dt_entrada" value=" ordem_servico-get.dt_entrada_input_os " required>
                 </label>
                 </p>-->
+                
+                <!--****Precisa de id para editar****-->
+                <input type="number" name="id_ordem_servico" value="{{ ordem_servico.id }}" hidden>
                 <p>
                     <label>Descrição:
                         <br>
@@ -27,7 +27,7 @@
                 </label>
                 </p>
                 <p>
-                    <label>Data Agendada:
+                    <label> <strong>Data Agendada:</strong>
 
                         <input type="datetime-local" name="dt_agenda" value="{{ ordem_servico.get_agenda_input_os }}" required>
 
