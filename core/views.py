@@ -14,7 +14,7 @@ from django.views.generic import CreateView, ListView, TemplateView
 
 from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico, Chamado
 
-from .forms import ArqForm, BolForm, ChamadoForm
+from .forms import ArqForm, BolForm , ChamadoForm
 
 def home(request):
     # return HttpResponse('Hello World!')
@@ -199,7 +199,7 @@ def lista_ordem_servicos(request):
 
     return render(request, "devsys-ordem-servicos.html", dados)
 
-# mostra ordem de serviço
+# mostra campos ordem de serviço (nova os) 
 @login_required(login_url="/login/")
 def ordem_servico(request):
     id_ordem_servico = request.GET.get("id")
@@ -213,7 +213,7 @@ def ordem_servico(request):
 @login_required(login_url="/login/")
 def submit_ordem_servico(request):
     if request.POST:
-        dt_entrada = request.POST.get("dt_entrada")
+        
         descricao = request.POST.get("descricao")
         dt_agenda = request.POST.get("dt_agenda")
         dt_pagamento = request.POST.get("dt_pagamento")
@@ -227,7 +227,7 @@ def submit_ordem_servico(request):
         if id_ordem_servico:
             ordem_servico = Ordem_Servico.objects.get(id=id_ordem_servico)
             if ordem_servico.usuario_os == usuario_os:
-                ordem_servico.dt_entrada = dt_entrada
+                
                 ordem_servico.descricao = descricao
                 ordem_servico.dt_agenda = dt_agenda
                 ordem_servico.dt_pagamento = dt_pagamento
@@ -237,7 +237,7 @@ def submit_ordem_servico(request):
         # senão, cria! Usado na mesma função.
         else:
             Ordem_Servico.objects.create(
-                dt_entrada=dt_entrada,
+                
                 descricao=descricao,
                 dt_agenda=dt_agenda,
                 dt_pagamento=dt_pagamento,
@@ -479,11 +479,11 @@ def bol_list(request):
         bols = Bol.objects.filter(cliente__in=cliente)
         
         # se precisar dos dados do cliente
-        dados = {"cliente": cliente}
+        dados = {"bols": bols, "cliente": cliente}
     else:
         raise Http404()
 
-    return render(request, "bol_list.html", {"bols": bols}, dados)
+    return render(request, "bol_list.html", dados)
 
 
 @login_required(login_url="/login/")
@@ -520,9 +520,11 @@ class UploadBolView(CreateView):
     template_name = "upload_bol.html"
 
 
-
-# FUNÇÕES DE UPLOAD - Chamado
-
+# -------------------------CHAMADO---------------------------------------------
+# Funções acima TODO: igual de boleto de funcionario para cliente (inverso)
+# Mostrar no cliente também. Primeiro fazer para mostrar somente no 
+# cliente específico.
+# FUNÇÕES DE UPLOAD
 @login_required(login_url="/login/")
 def uploadchamado(request):
     """Função para carregar o arquivo do cliente.
@@ -594,3 +596,106 @@ class UploadChamadoView(CreateView):
     form_class = ChamadoForm
     success_url = reverse_lazy("class_chamado_list")
     template_name = "upload_chamado.html"
+
+
+# FUNÇÕES CHAMADO - como ordem de serviço
+"""
+@login_required(login_url="/login/")
+def lista_chamados(request):
+    usuario = request.user
+    try:
+        cliente = Cliente.objects.filter(usuario_cli=usuario)
+
+    except Exception:
+        raise Http404()
+    if cliente:
+        # Com essa função de mostrar somente maiores ou menores da para esconder os registros
+        # PARA APARECER AS ORDENS DE SERVIÇOS SOMENTE MAIORES -> (__gt) QUE A DATA ATUAL
+
+        chamado = Chamado.objects.filter(
+            usuario_ch=usuario
+        )
+        dados = {"chamados": chamado}
+    else:
+        raise Http404()
+
+    return render(request, "devsys-chamados.html", dados)
+
+
+# mostra campos chamado (nova os) 
+@login_required(login_url="/login/")
+def chamado(request):
+    id_chamado = request.GET.get("id")
+    dados = {}
+    if id_chamado:
+        #dados["chamado"] = Chamado.objects.get(id=id_chamado)
+        chamado = Chamado.objects.get(id=id_chamado)
+        funcionario = Funcionario.objects.all()
+        dados = {
+            'chamado': chamado, 'funcionario': funcionario
+        }
+    return render(request, "chamado.html", dados)
+
+# submit chamado
+@login_required(login_url="/login/")
+def submit_chamado(request):
+    if request.POST:
+        dt_entrada = request.POST.get("dt_entrada")
+        titulo = request.POST.get("titulo")
+        assunto = request.POST.get("assunto")
+        descricao = request.POST.get("descricao")
+        arquivo = request.POST.get("arquivo")
+        funcionario = request.POST.get("funcionario")
+        usuario_ch = request.user
+        id_chamado = request.POST.get("id_chamado")
+        if id_chamado:
+            chamado = Chamado.objects.get(id=id_chamado)
+            if chamado.usuario_ch == usuario_ch:
+                chamado.dt_entrada = dt_entrada
+                chamado.titulo = titulo
+                chamado.assunto = assunto
+                chamado.descricao = descricao
+                chamado.arquivo = arquivo
+                chamado.funcionario.id_funcionario = funcionario # funcionario.id_funcionario?
+                chamado.save()
+        # senão, cria! Usado na mesma função.
+        else:
+            Chamado.objects.create(
+                dt_entrada=dt_entrada,
+                titulo=titulo,
+                assunto=assunto,
+                descricao=descricao,
+                funcionario=funcionario,
+                arquivo=arquivo,
+                usuario_ch=usuario_ch,
+            )
+
+    return redirect("/devsys/chamados")
+
+
+@login_required(login_url="/login/")
+def delete_chamado(request, id_chamado):
+    usuario_ch = request.user
+    try:
+        chamado = Chamado.objects.get(id=id_chamado)
+    except Exception:
+        raise Http404()
+    if usuario_ch == chamado.usuario_ch:
+        chamado.delete()
+    else:
+        raise Http404()
+    return redirect("/devsys/chamados")
+
+
+# retornar JsonResponse para trabalhar com JavaScript, Ajax...
+# para pegar por usuário (id), sem decorator
+# @login_required(login_url='/login/')
+def json_lista_chamado(request, id_usuario_ch):
+    # request.user
+    usuario_ch = User.objects.get(id=id_usuario_ch)
+    chamado = Chamado.objects.filter(usuario_ch=usuario_ch).values(
+        "id", "dt_entrada"
+    )
+    # safe=False porque nao é dicionário.
+    return JsonResponse(list(chamado), safe=False)
+"""

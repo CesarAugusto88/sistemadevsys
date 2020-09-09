@@ -17,3 +17,4 @@ class ChamadoForm(forms.ModelForm):
     class Meta:
         model = Chamado
         fields = ('titulo', 'assunto', 'descricao', 'arquivo', 'funcionario')
+

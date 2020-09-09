@@ -185,7 +185,8 @@ class Ordem_Servico(models.Model):
         blank=True,
         null=True,
     )
-    dt_entrada = models.DateTimeField("Data de Entrada", auto_now=True)
+    dt_entrada = models.DateTimeField("Data de Entrada", auto_now_add=True)
+    dt_atualizada = models.DateTimeField("Data Atualizada", auto_now=True)
     valor = models.FloatField(blank=True, null=True)
     descricao = models.CharField(max_length=255)
     efetuado = models.CharField(blank=True, null=True, max_length=255)
@@ -240,19 +241,20 @@ class Ordem_Servico(models.Model):
         verbose_name = "Ordem_Servico"
         verbose_name_plural = "Ordem_Servicos"
         # ordenar
-        ordering = ["dt_entrada"]
+        ordering = ["dt_atualizada"]
 
     def __str__(self):
         """ Devolve uma representação em string do modelo."""
         return self.descricao
-
+    #Entrada
     def get_dt_entrada_os(self):
         """Mostra data de entrada formatada da OS."""
         return self.dt_entrada.strftime("%d/%m/%Y %H h : %M min")
 
-    def get_data_input_os(self):
-        """ Data de entrada de OS correta para template."""
-        return self.dt_entrada.strftime("%Y-%m-%dT%H:%M")
+    #Atualizada
+    def get_dt_atualizada_os(self):
+        """Mostra data atualizada formatada da OS."""
+        return self.dt_atualizada.strftime("%d/%m/%Y %H h : %M min")
 
     def get_dt_agenda_os(self):
         """Mostra data agendada formatada da OS."""
@@ -330,6 +332,7 @@ class Bol(models.Model):
 
 
 # Class para chamado feito pelo cliente
+"""
 class Chamado(models.Model):
     titulo = models.CharField(max_length=30)
     assunto = models.CharField(max_length=50)
@@ -342,7 +345,7 @@ class Chamado(models.Model):
     funcionario = models.ForeignKey(
         "Funcionario", on_delete=models.PROTECT, related_name='chamados'
         )
-
+    usuario_ch = models.ForeignKey(User, on_delete=models.CASCADE)
     # classe Meta serve p modificar nomes e plural
     class Meta:
         verbose_name = "Chamado"
@@ -356,7 +359,38 @@ class Chamado(models.Model):
     def delete(self, *args, **kwargs):
         self.arquivo.delete()
 
-        super().delete(*args, **kwargs)
+        super().delete(*args, **kwargs)"""
+
+class Chamado(models.Model):
+    """Tabela de ordem de serviço com referencia de cliente e funcionário."""
+    dt_entrada = models.DateTimeField("Data de Entrada", auto_now=True)
+    titulo = models.CharField(max_length=30)
+    assunto = models.CharField(max_length=50)
+    descricao = models.CharField(max_length=254)
+    arquivo = models.FileField(
+        upload_to="chamado/arquivos/", null=True, blank=True
+        )
+    # referência do cliente para o funcionário dos chamados
+    funcionario = models.ForeignKey(
+        "Funcionario", on_delete=models.PROTECT, related_name='chamados'
+        )
+    # classe Meta serve p modificar nomes e plural
+    class Meta:
+        verbose_name = "Chamado"
+        verbose_name_plural = "Chamados"
+        # ordenar
+        ordering = ["dt_entrada"]
+
+    def __str__(self):
+        return self.funcionario.nome
+
+
+    def get_dt_entrada_ch(self):
+        """Mostra data de entrada formatada."""
+        return self.dt_entrada.strftime("%d/%m/%Y %H h : %M min")
+
+
+
 
 """ Para cadastrar visitantes e por FOTOS...
 class Visitante(models.Model):

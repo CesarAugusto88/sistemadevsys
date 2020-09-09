@@ -39,11 +39,11 @@ urlpatterns = [
     # ),
     path("devsys/ordem-servico/", views.ordem_servico, name="ordem-servico"),
     path("devsys/ordem-servico/submit", views.submit_ordem_servico),
-    path(
-        "devsys/ordem-servico/delete/<int:id_ordem_servico>/",
-        views.delete_ordem_servico,
-        name="id-ordem-servico",
-    ),
+    #path(
+    #    "devsys/ordem-servico/delete/<int:id_ordem_servico>/",
+    #    views.delete_ordem_servico,
+    #    name="id-ordem-servico",
+    #),
     # Upload - Arquivos
     path("devsys/upload/", views.upload, name="upload"),
     path("devsys/arqs/", views.arq_list, name="arq_list"),
@@ -88,7 +88,6 @@ urlpatterns = [
         views.UploadBolView.as_view(),
         name="class_upload_bol",
     ),
-    
     # Rotas Chamado
     # ------------Chamados-Cliente-------------------------------------------
     path("devsys/uploadchamado/", views.uploadchamado, name="uploadchamado"),
@@ -107,7 +106,6 @@ urlpatterns = [
         views.UploadBolView.as_view(),
         name="class_upload_chamado",
     ),
-
     # -----------------------------------------------------------------------
     # path('', views.index), #com a função em views
     # Com url normal redireciona para /devsys/

@@ -4,7 +4,7 @@ from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico, Chamado
 
 
 class Chamado_Admin(admin.ModelAdmin):    
-    list_display = ('titulo','assunto', 'date_added')
+    list_display = ('titulo','assunto', 'dt_entrada')
     search_fields = ['titulo']
 
 
@@ -32,9 +32,9 @@ class Cli_Admin(admin.ModelAdmin):
     search_fields = ['nome', 'id']
 
 class OS_Admin(admin.ModelAdmin):
-    list_display = ('id', 'valor', 'descricao', 'dt_entrada', 'responsavel')
-    list_filter = ('dt_entrada',)
-    ordering = ['dt_entrada']
+    list_display = ('id', 'valor', 'descricao', 'dt_atualizada', 'responsavel')
+    list_filter = ('dt_atualizada',)
+    ordering = ['dt_atualizada']
     search_fields = ['dt_agenda', 'descricao', 'id']
 
 """ tabela no models (colocar Visitante no import)
