@@ -372,7 +372,10 @@ class Chamado(models.Model):
         )
     # referência do cliente para o funcionário dos chamados
     funcionario = models.ForeignKey(
-        "Funcionario", on_delete=models.PROTECT, related_name='chamados'
+        "Funcionario", on_delete=models.PROTECT, related_name='funcionario'
+        )
+    cliente = models.ForeignKey(
+        "Cliente", on_delete=models.PROTECT, related_name='cliente'
         )
     # classe Meta serve p modificar nomes e plural
     class Meta:
@@ -382,7 +385,7 @@ class Chamado(models.Model):
         ordering = ["dt_entrada"]
 
     def __str__(self):
-        return self.funcionario.nome
+        return f"{self.cliente.nome}{self.funcionario.nome}"
 
 
     def get_dt_entrada_ch(self):

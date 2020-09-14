@@ -527,54 +527,70 @@ class UploadBolView(CreateView):
 # FUNÇÕES DE UPLOAD
 @login_required(login_url="/login/")
 def uploadchamado(request):
-    """Função para carregar o arquivo do cliente.
-    Essa função é chamada pelo cliente(específico) enviar o arquivo/chamado para o funcionário"""
+    """Essa função carrega o arquivo do cliente
+       É chamada pelo cliente(específico) enviar o arquivo/chamado para o funcionário"""
     context = {}
-    funcionario = Funcionario.objects.all()
+
     if request.method == "POST":
         uploaded_file = request.FILES["document"]
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
         context["url"] = fs.url(name)
-    return render(request, "uploadchamado.html", {'funcionario': funcionario}, context)
+    return render(request, "uploadchamado.html", context)
 
 @login_required(login_url="/login/")
 def chamado_list(request):
     usuario = request.user
     dados = {}
     try:
-        cliente = Cliente.objects.filter(usuario_cli=usuario)
-        funcionario = Funcionario.objects.all()
+        cliente = Cliente.objects.get(usuario_cli=usuario)
+        # funcionario = Funcionario.objects.all()
     except Exception:
         raise Http404()
 
     #NÃO ESTÁ PEGANDO O CLIENTE ESPECÍFICO QUE LANÇOU OS CHAMADOS
     # VERIFICAR TAMBÉM EM OUTRA FUNÇÕES
     if cliente:
-        # __in pode manipular querysets maiores que um (múltiplos registros de uma tabela).
-        #Isso pode ser encontrado na seção de relacionamentos django Many-to_one da documentação. 
-        #docs.djangoproject.com/en/2.0/topics/db/examples/many_to_one/
-        chamados = Chamado.objects.filter(funcionario__in=funcionario)
+        #OK esta pegando so os chamados referentes ao cliente que criou
+        #***É preciso atribuir automaticamente o cliente_ch***
+        chamados = Chamado.objects.filter(cliente=cliente)
+        #print(cliente.nome)
         
         # se precisar dos dados do cliente
-        dados = {"cliente": cliente}
+        dados = {"cliente": cliente, "chamados": chamados}
     else:
         raise Http404()
 
-    return render(request, "chamado_list.html", {"chamados": chamados}, dados)
+    return render(request, "chamado_list.html", dados)
 
 
 @login_required(login_url="/login/")
-def upload_chamado(request):
-    """ Cria formulário do chamado e envia objeto cliente para pegar id. """
+def criar_chamado(request):
+    """ Cria formulário do chamado e envia objeto cliente para pegar id.
+    """
+    usuario = request.user
+    # é preciso pegar usuario com 'get' para atribuir em cliente de chamado.
+    usuario_cli = Cliente.objects.get(usuario_cli=usuario)
+    #print(usuario_cli)
     if request.method == "POST":
         form = ChamadoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            titulo = form.cleaned_data['titulo']
+            assunto = form.cleaned_data['assunto']
+            descricao = form.cleaned_data['descricao']
+            arquivo = form.cleaned_data['arquivo']
+            funcionario = form.cleaned_data['funcionario']
+            #cliente = form.cleaned_data['cliente']
+            novo = Chamado(
+                titulo=titulo, assunto=assunto, descricao=descricao,
+                arquivo=arquivo, funcionario=funcionario, cliente=usuario_cli #aceitar usuario request
+            )
+            novo.save()
+            #form.save()
             return redirect("chamado_list")
     else:
         form = ChamadoForm()
-    return render(request, "upload_chamado.html", {"form": form})
+    return render(request, "criar_chamado.html", {"form": form})
 
 
 @login_required(login_url="/login/")
@@ -595,107 +611,4 @@ class UploadChamadoView(CreateView):
     model = Chamado
     form_class = ChamadoForm
     success_url = reverse_lazy("class_chamado_list")
-    template_name = "upload_chamado.html"
-
-
-# FUNÇÕES CHAMADO - como ordem de serviço
-"""
-@login_required(login_url="/login/")
-def lista_chamados(request):
-    usuario = request.user
-    try:
-        cliente = Cliente.objects.filter(usuario_cli=usuario)
-
-    except Exception:
-        raise Http404()
-    if cliente:
-        # Com essa função de mostrar somente maiores ou menores da para esconder os registros
-        # PARA APARECER AS ORDENS DE SERVIÇOS SOMENTE MAIORES -> (__gt) QUE A DATA ATUAL
-
-        chamado = Chamado.objects.filter(
-            usuario_ch=usuario
-        )
-        dados = {"chamados": chamado}
-    else:
-        raise Http404()
-
-    return render(request, "devsys-chamados.html", dados)
-
-
-# mostra campos chamado (nova os) 
-@login_required(login_url="/login/")
-def chamado(request):
-    id_chamado = request.GET.get("id")
-    dados = {}
-    if id_chamado:
-        #dados["chamado"] = Chamado.objects.get(id=id_chamado)
-        chamado = Chamado.objects.get(id=id_chamado)
-        funcionario = Funcionario.objects.all()
-        dados = {
-            'chamado': chamado, 'funcionario': funcionario
-        }
-    return render(request, "chamado.html", dados)
-
-# submit chamado
-@login_required(login_url="/login/")
-def submit_chamado(request):
-    if request.POST:
-        dt_entrada = request.POST.get("dt_entrada")
-        titulo = request.POST.get("titulo")
-        assunto = request.POST.get("assunto")
-        descricao = request.POST.get("descricao")
-        arquivo = request.POST.get("arquivo")
-        funcionario = request.POST.get("funcionario")
-        usuario_ch = request.user
-        id_chamado = request.POST.get("id_chamado")
-        if id_chamado:
-            chamado = Chamado.objects.get(id=id_chamado)
-            if chamado.usuario_ch == usuario_ch:
-                chamado.dt_entrada = dt_entrada
-                chamado.titulo = titulo
-                chamado.assunto = assunto
-                chamado.descricao = descricao
-                chamado.arquivo = arquivo
-                chamado.funcionario.id_funcionario = funcionario # funcionario.id_funcionario?
-                chamado.save()
-        # senão, cria! Usado na mesma função.
-        else:
-            Chamado.objects.create(
-                dt_entrada=dt_entrada,
-                titulo=titulo,
-                assunto=assunto,
-                descricao=descricao,
-                funcionario=funcionario,
-                arquivo=arquivo,
-                usuario_ch=usuario_ch,
-            )
-
-    return redirect("/devsys/chamados")
-
-
-@login_required(login_url="/login/")
-def delete_chamado(request, id_chamado):
-    usuario_ch = request.user
-    try:
-        chamado = Chamado.objects.get(id=id_chamado)
-    except Exception:
-        raise Http404()
-    if usuario_ch == chamado.usuario_ch:
-        chamado.delete()
-    else:
-        raise Http404()
-    return redirect("/devsys/chamados")
-
-
-# retornar JsonResponse para trabalhar com JavaScript, Ajax...
-# para pegar por usuário (id), sem decorator
-# @login_required(login_url='/login/')
-def json_lista_chamado(request, id_usuario_ch):
-    # request.user
-    usuario_ch = User.objects.get(id=id_usuario_ch)
-    chamado = Chamado.objects.filter(usuario_ch=usuario_ch).values(
-        "id", "dt_entrada"
-    )
-    # safe=False porque nao é dicionário.
-    return JsonResponse(list(chamado), safe=False)
-"""
+    template_name = "criar_chamado.html"

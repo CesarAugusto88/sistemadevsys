@@ -92,7 +92,7 @@ urlpatterns = [
     # ------------Chamados-Cliente-------------------------------------------
     path("devsys/uploadchamado/", views.uploadchamado, name="uploadchamado"),
     path("devsys/chamados/", views.chamado_list, name="chamado_list"),
-    path("devsys/chamados/uploadchamados/", views.upload_chamado, name="upload_chamado"),
+    path("devsys/chamados/criarchamados/", views.criar_chamado, name="criar_chamado"),
     # path("devsys/chamados/<int:pk>/", views.delete_chamados, name="delete_chamados"),
 
     # Verificar para retirar class/...:
