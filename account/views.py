@@ -75,7 +75,7 @@ def submit_register_cliente(request):
     return redirect("/devsys/funcionario")
 
 
-# --------Registro Funcionário      -------------
+# --------Registro Funcionário-------------
 @login_required(login_url="/login/")
 def register_func(request):
     if request.method == "POST":
