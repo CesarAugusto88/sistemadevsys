@@ -18,7 +18,7 @@
 
 ##
 
-![GitHub.io](https://img.shields.io/badge/Github.io-CesarAugusto88.io-red)
+![GitHub.io](https://img.shields.io/badge/Github.io-CesarAugusto88.github.io-red)
 
 ## Project Leaders
 

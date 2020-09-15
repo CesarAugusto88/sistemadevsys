@@ -1,22 +1,8 @@
-
-{% extends 'base-cliente.html' %}
+{% extends 'base-funcionario.html' %}
 
 {% block content %}
 <div class="content-ribbon">
-  {% block content_header %}
-    <h2>Chamados</h2>
-    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
-    href="{% url 'cliente'  %}">
-        <span class="icono-caretLeftSquare" aria-hidden="true"></span>
-        Voltar
-    </a>   
-    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
-    href="{% url 'criar_chamado' %}">
-        <span class="icono-plus" aria-hidden="true"></span>
-        Novo Chamado
-    </a>   
-    
-  {% endblock %}
+  <h2>Chamados</h2>    
   <div class="pure-u-1">
     <table class="pure-table pure-table-bordered">
       <thead>

@@ -538,6 +538,7 @@ def uploadchamado(request):
         context["url"] = fs.url(name)
     return render(request, "uploadchamado.html", context)
 
+#Lista Chamado dos clientes
 @login_required(login_url="/login/")
 def chamado_list(request):
     usuario = request.user
@@ -562,6 +563,24 @@ def chamado_list(request):
         raise Http404()
 
     return render(request, "chamado_list.html", dados)
+
+#Lista Chamado para funcionários
+@login_required(login_url="/login/")
+def chamado_list_fun(request):
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+        chamados = Chamado.objects.filter(funcionario=funcionario)
+        dados = {"funcionario": funcionario, "chamados": chamados}
+    else:
+        raise Http404()
+
+    return render(request, "chamado_list_fun.html", dados)
+
 
 
 @login_required(login_url="/login/")
