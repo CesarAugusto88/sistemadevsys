@@ -45,7 +45,7 @@
                 </label>
               </p>
               <p>
-                  <label><strong>Data Agendada:</strong>
+                  <label>Descrição:
 
                   {{ ordem_servico.descricao }}
                   
@@ -55,7 +55,7 @@
                 <div {% if ordem_servico.get_ordem_servico_atrasada %}
                     style="color:red"
                  {% endif %}>
-                <label>Data Agendada:
+                <label><strong>Data Agendada:</strong>
 
                 {{ ordem_servico.get_dt_agenda_os }}
 
