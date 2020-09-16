@@ -65,7 +65,6 @@
                     <a class="dropdown-item" href="{% url 'account:registrar_funcionario' %}">Funcionário</a>
                   </div>
                 </div>
-
           </li>
           <li class="nav-item">
             <!--Apenas para usuário específico gerar boletos
@@ -82,6 +81,14 @@
               <button type="button" class="btn btn-sm">
                 Chamados
                 <span class="icono-list" aria-hidden="true"></span>  
+              </button>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'account:alterar_senha_fun' %}">
+              <button type="button" class="btn btn-sm">
+              Alterar Senha
+              <span class="icono-chain" aria-hidden="true"></span>
               </button>
             </a>
           </li>

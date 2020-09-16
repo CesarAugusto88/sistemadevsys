@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
@@ -119,3 +119,27 @@ def submit_register_funcionario(request):
             usuario_fun_id=usuario_fun_id
         )
     return redirect("/devsys/funcionario")
+
+@login_required(login_url='/login/')
+def alterar_senha_cli(request):
+    if request.method == "POST":
+        form_senha = PasswordChangeForm(request.user, request.POST)
+        if form_senha.is_valid():
+            user = form_senha.save()
+            update_session_auth_hash(request, user)
+            return redirect('/login/')
+    else:
+        form_senha = PasswordChangeForm(request.user)
+    return render(request, 'alterar_senha_cli.html', {'form_senha': form_senha})
+
+@login_required(login_url='/login/')
+def alterar_senha_fun(request):
+    if request.method == "POST":
+        form_senha = PasswordChangeForm(request.user, request.POST)
+        if form_senha.is_valid():
+            user = form_senha.save()
+            update_session_auth_hash(request, user)
+            return redirect('/login/')
+    else:
+        form_senha = PasswordChangeForm(request.user)
+    return render(request, 'alterar_senha_fun.html', {'form_senha': form_senha})
