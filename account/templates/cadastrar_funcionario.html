@@ -1,65 +1,16 @@
 {% extends 'base-funcionario.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
-<div class="container">
-    <form action="submit" method="post">{% csrf_token %}
-        <h1>Cadastro Funcionário</h1>
-        <fieldset>
-            <legend>Dados de cadastro (Funcionário)</legend>
-            <p>
-                <label>Nome:
-                <input type="number" name="id_funcionario" value="{{ funcionario.id }}" hidden> 
-                <input type="text" name="nome" size="30" value="{{ funcionario.nome }}" required>
-                </label>
-            </p>
 
-            <p>
-                <label for="endereco"> Endereço: </label><br>
-                <textarea id="endereco" name="endereco" rows="4" cols="34"  required>{{ funcionario.endereco }}</textarea>
-            </p>
-            <p>
-                <label>Cidade:
-                <input type="text" name="cidade" size="30" value="{{ funcionario.cidade }}" required>
-                </label>
-            </p>
-            <p>
-                <label>CEP:
-                <input type="text" name="cep" size="30" value="{{ funcionario.cep }}" required>
-                </label>
-            </p>
-            <p>
-                <label>UF:
-                <input type="text" name="uf" size="5" value="{{ funcionario.uf }}" required>
-                </label>
-            </p>
-            <p>
-                <label>E-mail:
-                <input type="email" name="email" value="{{ funcionario.email }}" required> 
-                </label>
-            </p>
-            <p>
-                <label>Telefone:
-                <input type="tel" name="fone1" value="{{ funcionario.fone1 }}" required> 
-                </label>
-            </p>
-            <!--O caminho para cadastrar ForeinKey é usar o ID-->
-            <p>
-                <label>Usuários Funcionário:
-                    <select type="number" name="usuario_fun_id" > 
-                        {% for user in usuario %}
-                            <option value="{{ user.id }}">{{ user.username }}</option>
-                        {% endfor %}
-                    </select>
-                </label>
-            </p>
-        </fieldset>
-        <div class="navbar-brand">
-            <button type="submit" class="btn btn-primary btn-sm">
-                <span class="icono-check" aria-hidden="true"></span>
-                Cadastrar
-            </button>
-        </div>
-    </form>
+<div class="content-ribbon">
+  <h2>Cadastrar Funcionário</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+
+    <button type="submit" class="pure-button pure-button-primary">Cadastrar</button>
+  </form>
 </div>
-
 {% endblock %}
