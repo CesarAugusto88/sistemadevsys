@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Arq, Bol, Chamado
+from .models import Arq, Bol, Chamado, Cliente, Funcionario
 
 
 class ArqForm(forms.ModelForm):
@@ -18,3 +18,17 @@ class ChamadoForm(forms.ModelForm):
         model = Chamado
         fields = ('titulo', 'assunto', 'descricao', 'arquivo', 'funcionario')
 
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = (
+            'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie',
+            'endereco', 'cep', 'uf', 'email', 'fone1', 'usuario_cli'
+            )
+
+class FuncionarioForm(forms.ModelForm):
+    class Meta:
+        model = Funcionario
+        fields = (
+            'nome', 'endereco', 'email', 'fone1', 'usuario_fun'
+            )

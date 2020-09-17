@@ -331,36 +331,7 @@ class Bol(models.Model):
         super().delete(*args, **kwargs)
 
 
-# Class para chamado feito pelo cliente
-"""
-class Chamado(models.Model):
-    titulo = models.CharField(max_length=30)
-    assunto = models.CharField(max_length=50)
-    descricao = models.CharField(max_length=254)
-    date_added = models.DateTimeField(auto_now_add=True)
-    arquivo = models.FileField(
-        upload_to="chamado/arquivos/", null=True, blank=True
-        )
-    # referência do cliente para o funcionário dos chamados
-    funcionario = models.ForeignKey(
-        "Funcionario", on_delete=models.PROTECT, related_name='chamados'
-        )
-    usuario_ch = models.ForeignKey(User, on_delete=models.CASCADE)
-    # classe Meta serve p modificar nomes e plural
-    class Meta:
-        verbose_name = "Chamado"
-        verbose_name_plural = "Chamados"
-        # ordenar
-        ordering = ["date_added"]
-
-    def __str__(self):
-        return self.funcionario.nome
-
-    def delete(self, *args, **kwargs):
-        self.arquivo.delete()
-
-        super().delete(*args, **kwargs)"""
-
+# Chamado feito por um cliente
 class Chamado(models.Model):
     """Tabela de ordem de serviço com referencia de cliente e funcionário."""
     dt_entrada = models.DateTimeField("Data de Entrada", auto_now=True)
@@ -387,6 +358,9 @@ class Chamado(models.Model):
     def __str__(self):
         return f"{self.cliente.nome}{self.funcionario.nome}"
 
+    def delete(self, *args, **kwargs):
+        self.arquivo.delete()
+        super().delete(*args, **kwargs)
 
     def get_dt_entrada_ch(self):
         """Mostra data de entrada formatada."""

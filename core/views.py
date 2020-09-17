@@ -354,7 +354,7 @@ def dados_cliente(request):
 
     return render(request, "devsys-cliente.html", dados)
 
-#não recebe parâmetro id?
+
 @login_required(login_url="/login/")
 def cliente(request):
     dados = {}
@@ -521,9 +521,7 @@ class UploadBolView(CreateView):
 
 
 # -------------------------CHAMADO---------------------------------------------
-# Funções acima TODO: igual de boleto de funcionario para cliente (inverso)
-# Mostrar no cliente também. Primeiro fazer para mostrar somente no 
-# cliente específico.
+
 # FUNÇÕES DE UPLOAD
 @login_required(login_url="/login/")
 def uploadchamado(request):
@@ -594,18 +592,18 @@ def criar_chamado(request):
     if request.method == "POST":
         form = ChamadoForm(request.POST, request.FILES)
         if form.is_valid():
-            titulo = form.cleaned_data['titulo']
-            assunto = form.cleaned_data['assunto']
-            descricao = form.cleaned_data['descricao']
-            arquivo = form.cleaned_data['arquivo']
-            funcionario = form.cleaned_data['funcionario']
-            #cliente = form.cleaned_data['cliente']
-            novo = Chamado(
-                titulo=titulo, assunto=assunto, descricao=descricao,
-                arquivo=arquivo, funcionario=funcionario, cliente=usuario_cli #aceitar usuario request
-            )
+            novo = Chamado(cliente=usuario_cli, **form.cleaned_data)
+            # titulo = form.cleaned_data['titulo']
+            # assunto = form.cleaned_data['assunto']
+            # descricao = form.cleaned_data['descricao']
+            # arquivo = form.cleaned_data['arquivo']
+            # funcionario = form.cleaned_data['funcionario']
+            # #cliente = form.cleaned_data['cliente']
+            # novo = Chamado(
+            #     titulo=titulo, assunto=assunto, descricao=descricao,
+            #     arquivo=arquivo, funcionario=funcionario, cliente=usuario_cli #aceitar usuario request
+            # )
             novo.save()
-            #form.save()
             return redirect("chamado_list")
     else:
         form = ChamadoForm()
