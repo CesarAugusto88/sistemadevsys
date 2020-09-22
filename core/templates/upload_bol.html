@@ -5,16 +5,16 @@
 {% block content %}
 <!--Upload de funcionario para cliente-->
 <div class="content-ribbon">
-  <h2>Upload boleto</h2>
+  <h2>Upload boleto/arquivo</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
 
-    <button type="submit" class="pure-button pure-button-primary">Upload boleto</button>
+    <button type="submit" class="pure-button pure-button-primary">Upload boleto/arquivo</button>
   </form>
   <br>
   <p>
-    <a href="{% url 'todos_clientes' %}"  class="pure-button pure-button-primary">Cancelar</a>
+    <a href="{% url 'bol_clientes' %}"  class="pure-button pure-button-primary">Cancelar</a>
   </p>
 </div>
 {% endblock %}

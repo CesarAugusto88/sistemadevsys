@@ -7,7 +7,7 @@
     <table class="pure-table pure-table-bordered">
       <thead>
         <tr>
-          <th>Título</th>
+          <th>Nome do Cliente</th>
           <th>Assunto</th>
           <th>Descrição</th>
           <th>Download</th>
@@ -17,7 +17,7 @@
       <tbody>
         {% for chamado in chamados %}
           <tr>
-            <td>{{ chamado.titulo }}</td>
+            <td>{{ chamado.nome_cliente }}</td>
             <td>{{ chamado.assunto }}</td>
             <td>{{ chamado.descricao }}</td>
             <td>

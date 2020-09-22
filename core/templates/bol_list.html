@@ -3,14 +3,12 @@
 {% block content %}
 <div class="content-ribbon">
   {% block content_header %}
-    <h2>Boletos</h2>
+    <h2>Boletos/Arquivos</h2>
     <a class="navbar-brand pure-button pure-button-primary btn-sm" 
     href="{% url 'cliente'  %}">
         <span class="icono-caretLeftSquare" aria-hidden="true"></span>
         Voltar
     </a>
-    <!--Retirado upload boleto para fazer pelo funcionario-->
-    
     
   {% endblock %}
   <div class="pure-u-1">
@@ -38,7 +36,7 @@
             <td>{{ bol.assunto }}</td>
             <td>
               <a href="{{ bol.boleto.url }}" class="pure-button pure-button-active" target="_blank">
-                Download Boleto
+                Download Boleto/Arquivo
               </a>
             </td>
 

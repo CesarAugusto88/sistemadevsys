@@ -423,23 +423,24 @@ def json_lista_cliente(request, id_usuario):
     # safe=False porque nao é dicionário.
     return JsonResponse(list(cliente), safe=False)
 
-# Todos clientes - pegar user id
+# boletos clientes - pegar user id
 @login_required(login_url="/login/")
-def clientes(request):
+def bol_clientes(request):
     """ Lista clientes. Usado para mostrar 'Lançar Boletos' pelo funcionário.
         Pegar id do cliente específico para mostrar o boleto no cliente - Função uploadb.
         Mostrar id e pegar mesmo id no uploadb."""
     usuario = request.user
     try:
         # Pegar foreingkey usuario_cli
-        #cliente = Cliente.objects.get(usuario_cli==)
-        cliente = Cliente.objects.all()
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
 
     except Exception:
         raise Http404()
-    if usuario:
+    if funcionario:
         # variável usada no html:
-        dados = {"clientes": cliente}
+        bols = Bol.objects.all()
+        cliente = Cliente.objects.all()
+        dados = {"bols": bols, "cliente": cliente}
 
     else:
         raise Http404()
@@ -493,7 +494,7 @@ def upload_bol(request):
         form = BolForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("todos_clientes")
+            return redirect("bol_clientes")
     else:
         form = BolForm()
     return render(request, "upload_bol.html", {"form": form})
@@ -539,6 +540,7 @@ def uploadchamado(request):
 #Lista Chamado dos clientes
 @login_required(login_url="/login/")
 def chamado_list(request):
+    """ Lista Chamado Cliente """
     usuario = request.user
     dados = {}
     try:
@@ -565,6 +567,7 @@ def chamado_list(request):
 #Lista Chamado para funcionários
 @login_required(login_url="/login/")
 def chamado_list_fun(request):
+    """ Lista Chamado Para Funcionário Específico. """
     usuario = request.user
     dados = {}
     try:
@@ -609,6 +612,16 @@ def criar_chamado(request):
         form = ChamadoForm()
     return render(request, "criar_chamado.html", {"form": form})
 
+# Update Chamado
+@login_required(login_url="/login/")
+def update_chamado(request, id):
+    """ Atualiza Chamado."""
+    chamado = Chamado.objects.get(id=id)
+    form = ChamadoForm(request.POST or None, instance=chamado)
+    if form.is_valid():
+        form.save()
+        return redirect("chamado_list")
+    return render(request, "chamado_update.html", {"form": form, 'chamado': chamado})
 
 @login_required(login_url="/login/")
 def delete_chamado(request, pk):

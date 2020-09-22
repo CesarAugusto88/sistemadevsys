@@ -4,8 +4,8 @@ from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico, Chamado
 
 
 class Chamado_Admin(admin.ModelAdmin):    
-    list_display = ('titulo','assunto', 'dt_entrada')
-    search_fields = ['titulo']
+    list_display = ('nome_cliente','assunto', 'dt_entrada')
+    search_fields = ['nome_cliente']
 
 
 class Arq_Admin(admin.ModelAdmin):    

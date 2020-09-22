@@ -308,7 +308,7 @@ class Arq(models.Model):
 class Bol(models.Model):
     titulo = models.CharField(max_length=30)
     assunto = models.CharField(max_length=50)
-    boleto = models.FileField(upload_to="bol/boletos/")
+    boleto = models.FileField("Boleto/Arquivo", upload_to="bol/boletos/")
     imagem = models.ImageField(upload_to="bol/imagens/", null=True, blank=True)
     # referência para cada Cliente ter seus proprios boletos
     cliente = models.ForeignKey(
@@ -335,9 +335,9 @@ class Bol(models.Model):
 class Chamado(models.Model):
     """Tabela de ordem de serviço com referencia de cliente e funcionário."""
     dt_entrada = models.DateTimeField("Data de Entrada", auto_now=True)
-    titulo = models.CharField(max_length=30)
+    nome_cliente = models.CharField("Nome do cliente", max_length=30)
     assunto = models.CharField(max_length=50)
-    descricao = models.CharField(max_length=254)
+    descricao = models.TextField(verbose_name = 'Descrição')
     arquivo = models.FileField(
         upload_to="chamado/arquivos/", null=True, blank=True
         )

@@ -75,7 +75,7 @@ urlpatterns = [
     # path("devsys/bols/<int:pk>/", views.delete_bol, name="delete_bol"),
 
     # -- Urls com views para listar todos os clientes do banco.
-    path("devsys/bols/clientes", views.clientes, name="todos_clientes"),
+    path("devsys/bols/clientes", views.bol_clientes, name="bol_clientes"),
 
     # Verificar para retirar class/...:
     path(
@@ -95,6 +95,7 @@ urlpatterns = [
     #visualizar a lista de chamados pelo funcionario também
     path("devsys/chamados/funcionario", views.chamado_list_fun, name="chamado_list_fun"),
     path("devsys/chamados/criarchamados/", views.criar_chamado, name="criar_chamado"),
+    path("devsys/chamados/update/<int:id>/", views.update_chamado, name="update_chamado"),
     # path("devsys/chamados/<int:pk>/", views.delete_chamados, name="delete_chamados"),
 
     # Verificar para retirar class/...:
