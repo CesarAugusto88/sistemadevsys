@@ -144,6 +144,6 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 #Configurations e-mail
 EMAIL_HOST = 'http://mail.devsys.com.br'
 EMAIL_PORT = 2079
-EMAIL_HOST_USER = 'cesar@devsys.com.br'
-EMAIL_HOST_PASSWORD = 'Cesar_DevSys'
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True

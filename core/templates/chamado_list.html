@@ -26,7 +26,7 @@
           <th>Descrição</th>
           <th>Download</th>
           <th>Update</th>
-
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -46,26 +46,20 @@
             </td>
             <td>
               <a href="{% url 'update_chamado' chamado.id %}" style="text-decoration:none">
-                <button class="btn btn-info btn-sm" type="button">Update
-                  <span class="icono-rename" aria-hidden="true"></span>
+                <button class="btn btn-info btn-sm" type="button">
+                  Update
                 </button>
               </a>
             </td>
-
-            {% comment %}
-            <!-- retirado exclusão por cliente...-->
+            <!-- exclusão por cliente...-->
             <td>
-
-              <form method="post" action="{% url 'delete_chamado' chamado.pk %}"> <!--Deve ser 'pk' em urls também-->
+              <form method="post" action="{% url 'delete_chamado' chamado.id %}"> <!--Deve ser 'pk' em urls também-->
                 {% csrf_token %}
-                
-                <button type="submit" class="pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
-              
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">
+                  Delete
+                </button>
               </form>
-            
             </td>
-            {% endcomment %}
-            
           </tr>
         {% endfor %}
       </tbody>

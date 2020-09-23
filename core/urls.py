@@ -93,12 +93,11 @@ urlpatterns = [
     # ------------Chamados-Cliente-------------------------------------------
     path("devsys/uploadchamado/", views.uploadchamado, name="uploadchamado"),
     path("devsys/chamados/", views.chamado_list, name="chamado_list"),
-    #visualizar a lista de chamados pelo funcionario também
-    path("devsys/chamados/funcionario", views.chamado_list_fun, name="chamado_list_fun"),
     path("devsys/chamados/criarchamados/", views.criar_chamado, name="criar_chamado"),
     path("devsys/chamados/update/<int:id>/", views.update_chamado, name="update_chamado"),
-    # path("devsys/chamados/<int:pk>/", views.delete_chamados, name="delete_chamados"),
-
+    path("devsys/chamados/delete/<int:id>/", views.delete_chamado, name="delete_chamado"),
+    #visualizar a lista de chamados pelo funcionario também
+    path("devsys/chamados/funcionario", views.chamado_list_fun, name="chamado_list_fun"),
     # Verificar para retirar class/...:
     path(
         "devsys/class/chamados/",

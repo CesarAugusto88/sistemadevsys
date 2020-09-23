@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 class DevSysManager(models.Manager):
@@ -349,6 +351,23 @@ class Chamado(models.Model):
     cliente = models.ForeignKey(
         "Cliente", on_delete=models.PROTECT, related_name='cliente'
         )
+
+    #Emails
+    def save(self, *args, **kwargs):
+        super(Chamado, self).save(*args, **kwargs)
+        data = {'cliente': self.nome_cliente}
+        plain_text = render_to_string('emails/cliente.txt', data)
+        html_email = render_to_string('emails/cliente.html', data)
+        send_mail(
+            'Chamado enviado.',
+            plain_text,
+            'cesar@devsys.com.br',
+            ['contato@devsys.com.br', 'cesarcosta.augustos@gmail.com'],
+            html_message=html_email,
+            fail_silently=True, #False erro
+        )
+        print(plain_text)
+    
     # classe Meta serve p modificar nomes e plural
     class Meta:
         verbose_name = "Chamado"
@@ -364,22 +383,6 @@ class Chamado(models.Model):
     def get_dt_entrada_ch(self):
         """Mostra data de entrada formatada."""
         return self.dt_entrada.strftime("%d/%m/%Y %H h : %M min")
-    
-    #Emails
-    def save(self, *args, **kwargs):
-        super(Cliente, self).save(*args, **kwargs)
-        data = {'cliente': self.nome}
-        plain_text = render_to_string('emails/cliente.txt', data)
-        html_email = render_to_string('emails/cliente.html', data)
-        send_mail(
-            'Chamado enviado.',
-            plain_text,
-            'cesar@devsys.com.br',
-            ['contato@devsys.com.br'],
-            html_message=html_email,
-            fail_silently=True, #False erro
-        )
-        print(plain_text)
 
     def __str__(self):
         return f"{self.cliente.nome} {self.funcionario.nome}"

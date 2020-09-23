@@ -634,9 +634,9 @@ def update_chamado(request, id):
     return render(request, "chamado_update.html", {"form": form, 'chamado': chamado})
 
 @login_required(login_url="/login/")
-def delete_chamado(request, pk):
+def delete_chamado(request, id):
     if request.method == "POST":
-        chamado = Chamado.objects.get(pk=pk)
+        chamado = Chamado.objects.get(id=id)
         chamado.delete()
     return redirect("chamado_list")
 
