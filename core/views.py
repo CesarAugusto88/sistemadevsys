@@ -452,7 +452,7 @@ def bol_clientes(request):
 
 @login_required(login_url="/login/")
 def uploadb(request):
-    """Função para carregar o arquivo boleto para o 'cliente'.
+    """Função para carregar o boleto/arquivo para o 'cliente'.
     Essa função é chamada pelo funcionário (específico) lançar o boleto"""
     context = {}
     cliente = Cliente.objects.all()
@@ -499,13 +499,23 @@ def upload_bol(request):
         form = BolForm()
     return render(request, "upload_bol.html", {"form": form})
 
+#Update arquivo/boleto. ERRO Não coloca e nao troca arquivos
+@login_required(login_url="/login/")
+def update_bol(request, id):
+    """ Atualiza Arquivo/boleto."""
+    bol = Bol.objects.get(id=id)
+    form = BolForm(request.POST or None, instance=bol)
+    if form.is_valid():
+        form.save()
+        return redirect("bol_clientes")
+    return render(request, "bol_update.html", {"form": form, 'bol': bol})
 
 @login_required(login_url="/login/")
 def delete_bol(request, pk):
     if request.method == "POST":
         bol = Bol.objects.get(pk=pk)
         bol.delete()
-    return redirect("bol_list")
+    return redirect("bol_clientes")
 
 
 class BolListView(ListView):

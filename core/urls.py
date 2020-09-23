@@ -68,11 +68,12 @@ urlpatterns = [
     #path("devsys/clie/delete/<int:id_cliente>/", views.delete_cliente, name="del_cliente"),
 
 
-    # ------------Boletos-Cliente-------------------------------------------
+    # ------------Arquivos/Boletos para Cliente------------------------------
     path("devsys/uploadb/", views.uploadb, name="uploadb"),
     path("devsys/bols/", views.bol_list, name="bol_list"),
-    path("devsys/bols/upload/", views.upload_bol, name="upload_bol"),
-    # path("devsys/bols/<int:pk>/", views.delete_bol, name="delete_bol"),
+    path("devsys/bol/upload/", views.upload_bol, name="upload_bol"),
+    path("devsys/bol/update/<int:id>/", views.update_bol, name="update_bol"),
+    path("devsys/bol/delete/<int:pk>/", views.delete_bol, name="delete_bol"),
 
     # -- Urls com views para listar todos os clientes do banco.
     path("devsys/bols/clientes", views.bol_clientes, name="bol_clientes"),

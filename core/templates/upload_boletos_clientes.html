@@ -36,26 +36,46 @@
                 <th>Título</th>
                 <th>Assunto</th>
                 <th>Download</th>
-    
+                <th>Update</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             {% for bol in bols %}
                 <tr>
-                <td>
-                    {% if bol.imagem %}
-                    <img src="{{ bol.imagem.url }}" alt="{{ bol.titulo }}" style="width:100px;">
-                    {% else %}
-                    <span class="pure-form-message">No imagem</span>
-                    {% endif %}
-                </td>
-                <td>{{ bol.titulo }}</td>
-                <td>{{ bol.assunto }}</td>
-                <td>
-                    <a href="{{ bol.boleto.url }}" class="pure-button pure-button-active" target="_blank">
-                    Download Boleto/Arquivo
-                    </a>
-                </td>
+                    <td>
+                        {% if bol.imagem %}
+                        <img src="{{ bol.imagem.url }}" alt="{{ bol.titulo }}" style="width:100px;">
+                        {% else %}
+                        <span class="pure-form-message">No imagem</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ bol.titulo }}</td>
+                    <td>{{ bol.assunto }}</td>
+                    <td>
+                        <a href="{{ bol.boleto.url }}" class="pure-button pure-button-active" target="_blank">
+                        Download Boleto/Arquivo
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'update_bol' bol.id %}" style="text-decoration:none">
+                          <button class="btn btn-info btn-sm" type="button">Update
+                            <span class="icono-rename" aria-hidden="true"></span>
+                          </button>
+                        </a>
+                    </td>
+                      <!-- retirado exclusão...-->
+                    <td>
+        
+                    <form method="post" action="{% url 'delete_bol' bol.pk %}"> <!--Deve ser 'pk' em urls também-->
+                        {% csrf_token %}
+                        
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
+                    
+                    </form>
+                    
+                    </td>
+
                 </tr>
             {% endfor %}
             </tbody>

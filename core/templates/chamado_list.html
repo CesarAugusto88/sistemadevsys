@@ -56,7 +56,7 @@
             <!-- retirado exclusão por cliente...-->
             <td>
 
-              <form method="post" action="{% url 'delete_chamado' chamado.pk %}">
+              <form method="post" action="{% url 'delete_chamado' chamado.pk %}"> <!--Deve ser 'pk' em urls também-->
                 {% csrf_token %}
                 
                 <button type="submit" class="pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
