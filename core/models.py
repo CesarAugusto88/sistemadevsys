@@ -306,6 +306,7 @@ class Arq(models.Model):
 
 # Class para boletos upload/dowload
 class Bol(models.Model):
+    """Boleto/arquivo enviado do funcionário para o cliente."""
     titulo = models.CharField(max_length=30)
     assunto = models.CharField(max_length=50)
     boleto = models.FileField("Boleto/Arquivo", upload_to="bol/boletos/")
@@ -354,10 +355,8 @@ class Chamado(models.Model):
         verbose_name_plural = "Chamados"
         # ordenar
         ordering = ["dt_entrada"]
-
-    def __str__(self):
-        return f"{self.cliente.nome}{self.funcionario.nome}"
-
+    
+    #delete
     def delete(self, *args, **kwargs):
         self.arquivo.delete()
         super().delete(*args, **kwargs)
@@ -365,8 +364,25 @@ class Chamado(models.Model):
     def get_dt_entrada_ch(self):
         """Mostra data de entrada formatada."""
         return self.dt_entrada.strftime("%d/%m/%Y %H h : %M min")
+    
+    #Emails
+    def save(self, *args, **kwargs):
+        super(Cliente, self).save(*args, **kwargs)
+        data = {'cliente': self.nome}
+        plain_text = render_to_string('emails/cliente.txt', data)
+        html_email = render_to_string('emails/cliente.html', data)
+        send_mail(
+            'Chamado enviado.',
+            plain_text,
+            'cesar@devsys.com.br',
+            ['contato@devsys.com.br'],
+            html_message=html_email,
+            fail_silently=True, #False erro
+        )
+        print(plain_text)
 
-
+    def __str__(self):
+        return f"{self.cliente.nome} {self.funcionario.nome}"
 
 
 """ Para cadastrar visitantes e por FOTOS...

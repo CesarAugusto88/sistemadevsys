@@ -140,3 +140,10 @@ LOGIN_URL = '/devsys/'
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 #STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+#Configurations e-mail
+EMAIL_HOST = 'http://mail.devsys.com.br'
+EMAIL_PORT = 2079
+EMAIL_HOST_USER = 'cesar@devsys.com.br'
+EMAIL_HOST_PASSWORD = 'Cesar_DevSys'
+EMAIL_USE_TLS = True
