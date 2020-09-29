@@ -375,9 +375,12 @@ class Chamado(models.Model):
         # )
         # print(plain_text)
         subject = "Chamado Enviado/Alterado"
-        to = "cesar@devsys.com.br"
+        to = "contato@devsys.com.br"
         send_mail(
             subject, plain_text, settings.EMAIL_HOST_USER, [to], html_email
+        )
+        mail_admins(
+            subject, plain_text, settings.EMAIL_HOST_USER
         )
     
     # classe Meta serve p modificar nomes e plural
