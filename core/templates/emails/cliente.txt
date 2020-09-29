@@ -1,1 +1,1 @@
-Cliente {{ cliente }} enviou ou alterou um chamado. O chamado tem a seguinte descrição: {{ descricao }}
+Cliente {{ cliente }} enviou ou alterou um chamado para o funcionário {{ funcionario }}. O chamado tem a seguinte descrição: {{ descricao }}

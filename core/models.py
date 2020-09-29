@@ -356,7 +356,9 @@ class Chamado(models.Model):
     #Emails
     def save(self, *args, **kwargs):
         super(Chamado, self).save(*args, **kwargs)
-        data = {'cliente': self.nome_cliente, 'descricao': self.descricao}
+        data = {
+            'cliente': self.nome_cliente, 'descricao': self.descricao, 'funcionario': self.funcionario.nome
+        }
         plain_text = render_to_string('emails/cliente.txt', data)
         html_email = render_to_string('emails/cliente.html', data)
         # send_mail(
