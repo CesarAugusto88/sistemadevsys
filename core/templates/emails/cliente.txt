@@ -1,1 +1,1 @@
-Cliente {{ cliente }} enviou um chamado.
+Cliente {{ cliente }} enviou ou alterou um chamado. O camado tem a seguinte descrição: {{ descricao }}
