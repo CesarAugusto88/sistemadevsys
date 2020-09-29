@@ -2,8 +2,9 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.mail import send_mail
+from django.core.mail import send_mail, mail_admins
 from django.template.loader import render_to_string
+from devsys import settings
 
 
 class DevSysManager(models.Manager):
@@ -358,15 +359,26 @@ class Chamado(models.Model):
         data = {'cliente': self.nome_cliente}
         plain_text = render_to_string('emails/cliente.txt', data)
         html_email = render_to_string('emails/cliente.html', data)
+        # send_mail(
+        #     'Chamado enviado.',
+        #     plain_text,
+        #     'cesar@devsys.com.br',
+        #     ['contato@devsys.com.br', 'cesarcosta.augustos@gmail.com'],
+        #     html_message=html_email,
+        #     fail_silently=True, #False erro
+        # )
+        # mail_admins(
+        #     'Chamado enviado.',
+        #     plain_text,
+        #     html_message=html_email,
+        #     fail_silently=True, #False erro
+        # )
+        # print(plain_text)
+        subject = "Chamado Enviado/Alterado"
+        to = "cesar@devsys.com.br"
         send_mail(
-            'Chamado enviado.',
-            plain_text,
-            'cesar@devsys.com.br',
-            ['contato@devsys.com.br', 'cesarcosta.augustos@gmail.com'],
-            html_message=html_email,
-            fail_silently=True, #False erro
+            subject, plain_text, settings.EMAIL_HOST_USER, [to], html_email
         )
-        print(plain_text)
     
     # classe Meta serve p modificar nomes e plural
     class Meta:

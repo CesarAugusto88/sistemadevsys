@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from decouple import config
 
-#from dj_database_url import parse as dburl
+from dj_database_url import parse as dburl
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,9 +26,11 @@ ALLOWED_HOSTS = [
     "www.devsys.com.br",
     "localhost",
     "127.0.0.1",
-]  # ['*'], qual hosts estão habilitados '*
+]
 
-# Application definition
+INTERNAL_IPS = ['127.0.0.1']
+
+ADMINS = [('Cesar', 'cesar@devsys.com.br')]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -142,8 +144,15 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 #STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 #Configurations e-mail
-EMAIL_HOST = 'http://mail.devsys.com.br'
-EMAIL_PORT = 2079
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+# EMAIL_HOST = 'http://mail.devsys.com.br'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = True
+
 EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.devsys.com.br'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'cesar@devsys.com.br'
+EMAIL_HOST_PASSWORD = config('SECRET_EMAIL')
