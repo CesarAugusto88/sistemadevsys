@@ -23,7 +23,7 @@ class ClienteForm(forms.ModelForm):
         model = Cliente
         fields = (
             'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie',
-            'endereco', 'cep', 'uf', 'email', 'fone1', 'usuario_cli'
+            'endereco', 'cep', 'uf', 'email', 'fone1', 'bloqueado', 'usuario_cli'
             )
 
 class FuncionarioForm(forms.ModelForm):

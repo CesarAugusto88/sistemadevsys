@@ -111,7 +111,7 @@ class Cliente(models.Model):
     fax_r = models.CharField(blank=True, null=True, max_length=16)
     fone1_r = models.CharField(blank=True, null=True, max_length=16)
     fone2_r = models.CharField(blank=True, null=True, max_length=16)
-    bloqueado = models.CharField(blank=True, null=True, max_length=3)
+    bloqueado = models.CharField(max_length=3)
     funcionario_cadastrou = models.IntegerField(blank=True, null=True)
     ativo = models.SmallIntegerField(blank=True, null=True)
     endereco_out = models.CharField(blank=True, null=True, max_length=60)
