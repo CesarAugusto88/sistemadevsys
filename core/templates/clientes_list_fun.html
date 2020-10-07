@@ -1,0 +1,50 @@
+{% extends 'base-funcionario.html' %}
+
+{% block content %}
+<div class="content-ribbon">
+  <h1>Clientes</h1>    
+  <div class="pure-u-1">
+    <table class="pure-table pure-table-bordered">
+      <thead>
+        <tr>
+          <th>Nome do Cliente</th>
+          <th>Telefone</th>
+          <th>E-mail</th>
+          <th>Bloqueado</th>
+          <th>Alterar</th>
+          <th>Deletar</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente in clientes %}
+          <tr>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.fone1 }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.bloqueado }}</td>
+            <td>
+              <a href="{% url 'update_clientes' cliente.id %}" style="text-decoration:none">
+                <button class="btn btn-info btn-sm" type="button">
+                  Update
+                </button>
+              </a>
+            </td>
+            <td>
+
+              <form method="post" action="{% url 'delete_clientes' cliente.pk %}">
+                {% csrf_token %}
+                
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
+              
+              </form>
+            
+            </td>
+            
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

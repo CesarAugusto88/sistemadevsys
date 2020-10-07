@@ -9,6 +9,13 @@ from django.conf.urls.static import static
 from django.views.static import serve 
 
 urlpatterns = [
+    # path('', views.index), #com a função em views
+    # Com url normal redireciona para /devsys/
+    # Comentado redirect para devsys para usar home
+    # path('', RedirectView.as_view(url='/devsys/')),
+    path("login/", views.login_user, name="login_user"),
+    path("login/submit", views.submit_login),
+    path("logout/", views.logout_user, name="logout_user"),
     # --------------redireciona para HOME---------------------------
     path("", views.home, name="home"),
     path("", RedirectView.as_view(url="/home/")),
@@ -109,15 +116,13 @@ urlpatterns = [
         views.UploadBolView.as_view(),
         name="class_upload_chamado",
     ),
+    # Clientes para verificação de funcionario
+    path("devsys/clientes/lista/", views.list_clientes, name="list_clientes"),
+    path("devsys/clientes/update/<int:id>/", views.update_clientes, name="update_clientes"),
+    path("devsys/clientes/delete/<int:id>/", views.delete_clientes, name="delete_clientes"),
     # -----------------------------------------------------------------------
-    # path('', views.index), #com a função em views
-    # Com url normal redireciona para /devsys/
-    # Comentado redirect para devsys para usar home
-    # path('', RedirectView.as_view(url='/devsys/')),
-    path("login/", views.login_user, name="login_user"),
-    path("login/submit", views.submit_login),
-    path("logout/", views.logout_user, name="logout_user"),
-    
+
+
     # Rotas para funcionar DEBUG=False
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 

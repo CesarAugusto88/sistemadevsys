@@ -14,7 +14,7 @@ from django.views.generic import CreateView, ListView, TemplateView
 
 from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico, Chamado
 
-from .forms import ArqForm, BolForm , ChamadoForm
+from .forms import ArqForm, BolForm , ChamadoForm, ClienteFunForm
 
 def home(request):
     # return HttpResponse('Hello World!')
@@ -652,3 +652,40 @@ class UploadChamadoView(CreateView):
     form_class = ChamadoForm
     success_url = reverse_lazy("class_chamado_list")
     template_name = "criar_chamado.html"
+
+################### Clientes para verificação no Funcionario ###########
+#Lista clientes
+@login_required(login_url="/login/")
+def list_clientes(request):
+    """ Lista clientes para Funcionários"""
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+        clientes = Cliente.objects.all()
+        dados = {"funcionario": funcionario, "clientes": clientes}
+    else:
+        raise Http404()
+
+    return render(request, "clientes_list_fun.html", dados)
+
+# Update clientes
+@login_required(login_url="/login/")
+def update_clientes(request, id):
+    """ Atualiza cliente."""
+    cliente = Cliente.objects.get(id=id)
+    form = ClienteFunForm(request.POST or None, instance=cliente)
+    if form.is_valid():
+        form.save()
+        return redirect("list_clientes")
+    return render(request, "clientes_update_fun.html", {"form": form, 'cliente': cliente})
+
+@login_required(login_url="/login/")
+def delete_clientes(request, id):
+    if request.method == "POST":
+        cliente = Cliente.objects.get(id=id)
+        cliente.delete()
+    return redirect("list_clientes")
