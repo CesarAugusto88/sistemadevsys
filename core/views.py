@@ -184,15 +184,27 @@ def lista_ordem_servicos(request):
     except Exception:
         raise Http404()
     if funcionario:
-        # Com essa função de mostrar somente maiores ou menores da para esconder os registros
-        # PARA APARECER AS ORDENS DE SERVIÇOS SOMENTE MAIORES -> (__gt) QUE A DATA ATUAL
-        data_atual = datetime.now() - timedelta(
-            days=365
-        )  # para retornar com atrasados há 1 ano
-        ordem_servico = Ordem_Servico.objects.filter(
-            usuario_os=usuario, dt_agenda__gt=data_atual
-        )  # __gt só Maior, __lt só Menor
-        # variáveis usadas no html:
+        #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            # Com essa função de mostrar somente maiores ou menores da para esconder os registros
+            # PARA APARECER AS ORDENS DE SERVIÇOS SOMENTE MAIORES -> (__gt) QUE A DATA ATUAL
+            data_atual = datetime.now() - timedelta(
+                days=365
+            )  # para retornar com atrasados há 1 ano
+            ordem_servico = Ordem_Servico.objects.filter(
+                usuario_os=usuario, dt_agenda__gt=data_atual
+            )  # __gt só Maior, __lt só Menor
+            #__icontains sem case sensitive
+            ordem_servico = ordem_servico.filter(responsavel__icontains=termo_pesquisa)
+        else:
+            data_atual = datetime.now() - timedelta(
+                days=365
+            )
+            ordem_servico = Ordem_Servico.objects.filter(
+                usuario_os=usuario, dt_agenda__gt=data_atual
+            )
         dados = {"ordem_servicos": ordem_servico}
     else:
         raise Http404()
@@ -295,7 +307,15 @@ def upload(request):
 
 @login_required(login_url="/login/")
 def arq_list(request):
-    arqs = Arq.objects.all()
+    #id pesquisa
+    termo_pesquisa = request.GET.get('pesquisa', None)
+    # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+    if termo_pesquisa:
+        arqs = Arq.objects.all()
+        #__icontains sem case sensitive
+        arqs = arqs.filter(titulo__icontains=termo_pesquisa)
+    else:
+        arqs = Arq.objects.all()
     return render(request, "arq_list.html", {"arqs": arqs})
 
 
@@ -437,9 +457,17 @@ def bol_clientes(request):
     except Exception:
         raise Http404()
     if funcionario:
-        # variável usada no html:
-        bols = Bol.objects.all()
-        cliente = Cliente.objects.all()
+        #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            bols = Bol.objects.all()
+            #__icontains sem case sensitive
+            bols = bols.filter(titulo__icontains=termo_pesquisa)
+            cliente = Cliente.objects.all()
+        else:
+            bols = Bol.objects.all()
+            cliente = Cliente.objects.all()
         dados = {"bols": bols, "cliente": cliente}
 
     else:
@@ -474,10 +502,18 @@ def bol_list(request):
     except Exception:
         raise Http404()
     if cliente:
-        # __in pode manipular querysets maiores que um (múltiplos registros de uma tabela).
-        #Isso pode ser encontrado na seção de relacionamentos django Many-to_one da documentação. 
-        #docs.djangoproject.com/en/2.0/topics/db/examples/many_to_one/
-        bols = Bol.objects.filter(cliente__in=cliente)
+        #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            bols = Bol.objects.filter(cliente__in=cliente)
+            #__icontains sem case sensitive
+            bols = bols.filter(titulo__icontains=termo_pesquisa)
+        else:
+            # __in pode manipular querysets maiores que um (múltiplos registros de uma tabela).
+            #Isso pode ser encontrado na seção de relacionamentos django Many-to_one da documentação. 
+            #docs.djangoproject.com/en/2.0/topics/db/examples/many_to_one/
+            bols = Bol.objects.filter(cliente__in=cliente)
         
         # se precisar dos dados do cliente
         dados = {"bols": bols, "cliente": cliente}
@@ -562,11 +598,18 @@ def chamado_list(request):
     #NÃO ESTÁ PEGANDO O CLIENTE ESPECÍFICO QUE LANÇOU OS CHAMADOS
     # VERIFICAR TAMBÉM EM OUTRA FUNÇÕES
     if cliente:
-        #OK esta pegando so os chamados referentes ao cliente que criou
-        #***É preciso atribuir automaticamente o cliente_ch***
-        chamados = Chamado.objects.filter(cliente=cliente)
-        #print(cliente.nome)
-        
+        #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            chamados = Chamado.objects.filter(cliente=cliente)
+            #__icontains sem case sensitive
+            chamados = chamados.filter(assunto__icontains=termo_pesquisa)
+        else:
+            #OK esta pegando so os chamados referentes ao cliente que criou
+            #***É preciso atribuir automaticamente o cliente_ch***
+            chamados = Chamado.objects.filter(cliente=cliente)
+            #print(cliente.nome)
         # se precisar dos dados do cliente
         dados = {"cliente": cliente, "chamados": chamados}
     else:
@@ -585,7 +628,15 @@ def chamado_list_fun(request):
     except Exception:
         raise Http404()
     if funcionario:
-        chamados = Chamado.objects.filter(funcionario=funcionario)
+        #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            chamados = Chamado.objects.filter(funcionario=funcionario)
+            #__icontains sem case sensitive
+            chamados = chamados.filter(nome_cliente__icontains=termo_pesquisa)
+        else:
+            chamados = Chamado.objects.filter(funcionario=funcionario)
         dados = {"funcionario": funcionario, "chamados": chamados}
     else:
         raise Http404()
@@ -665,7 +716,15 @@ def list_clientes(request):
     except Exception:
         raise Http404()
     if funcionario:
-        clientes = Cliente.objects.all()
+         #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            clientes = Cliente.objects.all()
+            #__icontains sem case sensitive
+            clientes = clientes.filter(nome__icontains=termo_pesquisa)
+        else:
+            clientes = Cliente.objects.all()
         dados = {"funcionario": funcionario, "clientes": clientes}
     else:
         raise Http404()

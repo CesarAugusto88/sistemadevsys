@@ -5,6 +5,13 @@
 <div class="content-ribbon">
     {% block content_header %}
       <h2>Lançamento de Boletos/Arquivos</h2>
+      <form action="" class="pure-form">
+        <fieldset>
+            <legend>Pesquisa de Lançamentos de Boletos/Arquivos</legend>
+            <input type="text" size="30" id="pesquisa" name="pesquisa" placeholder="Título"/>
+            <button type="submit" class="pure-button pure-button-primary">Pesquisar</button>
+        </fieldset>
+      </form>
     {% endblock %}
     <div class="pure-u-1">
         <table class="pure-table pure-table-bordered">

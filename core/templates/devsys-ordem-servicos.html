@@ -8,7 +8,13 @@
   <div class="pure-u-1">
 
       <h2>Ordens de Serviços</h2>
-
+      <form action="" class="pure-form">
+        <fieldset>
+            <legend>Pesquisa de Ordens de Serviços por Responsável</legend>
+            <input type="text" size="30" id="pesquisa" name="pesquisa" placeholder="Responsável"/>
+            <button type="submit" class="pure-button pure-button-primary">Pesquisar</button>
+        </fieldset>
+      </form>
       <a class="navbar-brand" href="/devsys/funcionario">
         <button type="button" class="btn btn-primary btn-sm">
           <span class="icono-caretLeftSquare" aria-hidden="true"></span>
@@ -23,7 +29,7 @@
         </button>
       </a>
       
-    <ul style="font-size: 20px">
+    <ul style="font-size: 20px; padding-left: 5%;">
         {% for ordem_servico in ordem_servicos %} 
         
           {% if ordem_servico.usuario_os %} 
