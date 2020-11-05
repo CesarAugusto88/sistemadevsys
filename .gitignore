@@ -130,6 +130,6 @@ media/
 
 staticfiles/
 tmp/
-*/migrations/*
+migrations/
 passenger_wsgi.py
 code.code-workspace

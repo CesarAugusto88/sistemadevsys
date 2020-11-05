@@ -6,7 +6,7 @@
 ##### Servidor teste na plataforma Heroku
 ##
 ### Instalação para executar em sua maquina (python 3.7.x):
----------------------------------------------------------------
+---
 #### com o git instalado execute:
     git clone https://github.com/CesarAugusto88/sistemadevsys.git
 #### com a virtualenv instalada (python3 -m venv .venv) e ativada (source .venv/Scripts/activate) execute o comando a seguir para instalar os pacotes do projeto:
@@ -23,7 +23,7 @@
     python manage.py runserver
 #### Execute o comando para criar um super usuario:
     python manage.py createsuperuser
----------------------------------------------------------------
+---
 
 ![GitHub](https://img.shields.io/github/license/CesarAugusto88/sistemadevsys)
 

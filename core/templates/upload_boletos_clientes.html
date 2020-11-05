@@ -4,13 +4,13 @@
 <!--################-->
 <div class="content-ribbon">
     {% block content_header %}
-      <h2>Lançamento de Boletos/Arquivos</h2>
-      <form action="" class="pure-form">
-        <fieldset>
-            <legend>Pesquisa de Lançamentos de Boletos/Arquivos</legend>
-            <input type="text" size="30" id="pesquisa" name="pesquisa" placeholder="Título"/>
-            <button type="submit" class="pure-button pure-button-primary">Pesquisar</button>
-        </fieldset>
+      <h2>Pesquisa de Lançamentos de Boletos/Arquivos</h2>
+      <form action=""  class="form-inline" style="margin-bottom: 2%;">
+        <div class="form-group">
+          <label for="pesquisa" class="sr-only">Pesquisar</label>
+          <input type="text" size="40"  id="pesquisa" name="pesquisa" placeholder="Título" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
       </form>
     {% endblock %}
     <div class="pure-u-1">

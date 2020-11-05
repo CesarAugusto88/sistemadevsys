@@ -5,13 +5,14 @@
 <div class="content-ribbon">
   {% block content_header %}
     <h2>Chamados</h2>
-    <form action="" class="pure-form">
-      <fieldset>
-          <legend>Pesquisa de Chamados</legend>
-          <input type="text" size="30" id="pesquisa" name="pesquisa" placeholder="Assunto"/>
-          <button type="submit" class="pure-button pure-button-primary">Pesquisar</button>
-      </fieldset>
+    <form action=""  class="form-inline" style="margin-bottom: 2%;">
+      <div class="form-group">
+        <label for="pesquisa" class="sr-only">Pesquisar</label>
+        <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Assunto" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
     </form>
+
     <a class="navbar-brand pure-button pure-button-primary btn-sm" 
     href="{% url 'cliente'  %}">
         <span class="icono-caretLeftSquare" aria-hidden="true"></span>
