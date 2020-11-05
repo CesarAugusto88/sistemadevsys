@@ -8,22 +8,21 @@
 ### Instalação para executar em sua maquina (python 3.7.x):
 ---------------------------------------------------------------
 #### com o git instalado execute:
-'git clone https://github.com/CesarAugusto88/sistemadevsys.git'
-#### com a virtualenv instalada e ativada execute o comando a seguir para instalar os pacotes do projeto:
-'pip install -r requirements-dev.txt'
+    git clone https://github.com/CesarAugusto88/sistemadevsys.git
+#### com a virtualenv instalada (python3 -m venv .venv) e ativada (source .venv/Scripts/activate) execute o comando a seguir para instalar os pacotes do projeto:
+    pip install -r requirements-dev.txt
 #### Criar arquivo .env com os dados preenchidos:
-'SECRET_KEY= '
-'DEBUG= '
-'SECRET_EMAIL= '
+    SECRET_KEY=
+    DEBUG=
+    SECRET_EMAIL=
 #### Execute os comandos:
-'python manage.py migrate'
-'python manage.py makemigrations core'
-'python manage.py migrate'
-'python manage.py collectstatic'
+    python manage.py makemigrations core
+    python manage.py migrate
+    python manage.py collectstatic
 #### Comando para executar o servidor em sua maquina:
-'python manage.py runserver'
+    python manage.py runserver
 #### Execute o comando para criar um super usuario:
-'python manage.py createsuperuser'
+    python manage.py createsuperuser
 ---------------------------------------------------------------
 
 ![GitHub](https://img.shields.io/github/license/CesarAugusto88/sistemadevsys)
