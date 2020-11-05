@@ -3,13 +3,14 @@
 {% block content %}
 <div class="content-ribbon">
   <h2>Chamados</h2>
-  <form action="" class="pure-form">
-    <fieldset>
-        <legend>Pesquisa de Chamados</legend>
-        <input type="text" size="30" id="pesquisa" name="pesquisa" placeholder="Nome do Cliente"/>
-        <button type="submit" class="pure-button pure-button-primary">Pesquisar</button>
-    </fieldset>
+  <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Nome do Cliente" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
   </form>
+  
   <div class="pure-u-1">
     <table class="pure-table pure-table-bordered">
       <thead>

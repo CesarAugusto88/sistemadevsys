@@ -8,13 +8,14 @@
   <div class="pure-u-1">
 
       <h2>Ordens de Serviços</h2>
-      <form action="" class="pure-form">
-        <fieldset>
-            <legend>Pesquisa de Ordens de Serviços por Responsável</legend>
-            <input type="text" size="30" id="pesquisa" name="pesquisa" placeholder="Responsável"/>
-            <button type="submit" class="pure-button pure-button-primary">Pesquisar</button>
-        </fieldset>
+      <form action=""  class="form-inline" style="margin-bottom: 2%;">
+        <div class="form-group">
+          <label for="pesquisa" class="sr-only">Pesquisar</label>
+          <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Responsável" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
       </form>
+
       <a class="navbar-brand" href="/devsys/funcionario">
         <button type="button" class="btn btn-primary btn-sm">
           <span class="icono-caretLeftSquare" aria-hidden="true"></span>
@@ -29,7 +30,7 @@
         </button>
       </a>
       
-    <ul style="font-size: 20px; padding-left: 5%;">
+    <ul style="font-size: 20px; padding-left: 5.5%;">
         {% for ordem_servico in ordem_servicos %} 
         
           {% if ordem_servico.usuario_os %} 
@@ -91,7 +92,7 @@
             </fieldset>
 
             <a href="ordem-servico/?id={{ ordem_servico.id }}" style="text-decoration:none">
-              <button class="btn btn-info btn-sm" type="button">Editar
+              <button class="btn btn-info btn-sm" type="button"  style="margin-left: 1.2%;">Editar
                 <span class="icono-rename" aria-hidden="true"></span>
               </button>
             </a> 
