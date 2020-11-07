@@ -11,7 +11,7 @@
     </a> -->
 
    <!-- IF se funcionário existir 'usuario_fun' mostra o conteúdo -->
-    <ul style="font-size: 20px;">
+    <ul style="font-size: 20px; padding-left: 5.5%;">
         {% for funcionario in funcionario %}
           {% if funcionario.usuario_fun %}
           <div class="content-ribbon" style="margin: 0 -2em 0 -4em;">
@@ -58,7 +58,7 @@
             Usa rota devsys/func/ da views.funcionario
           {% endcomment %}
           <a href="func/?id={{ funcionario.id }}" style="text-decoration:none">
-            <button class="btn btn-info btn-sm" type="button">Editar
+            <button class="btn btn-info btn-sm" type="button" style="margin-left: 1.2%;">Editar
               <span class="icono-rename" aria-hidden="true"></span>
             </button>
           </a>  
