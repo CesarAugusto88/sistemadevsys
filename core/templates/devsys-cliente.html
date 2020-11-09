@@ -5,21 +5,13 @@
   <div class="pure-u-1">
 
       <h2>Bem vindo(a)!</h2> 
-       
-      <!-- <a href="cliente/" style="text-decoration:none">
-        <button type="button">Novo Cliente</button>
-      </a>
-    
-      <a href="{% url 'devsys' %}" style="text-decoration: none;">
-        <button type="button">&lt;&lt; Voltar</button>
-      </a>-->
       
       <!--caminho-do-arquivo boleto no href
           Colocar para usar class Arq com upload de arquivos pdf para
         o cliente imprimir os boletos-->
     
     <!--IF se cliente existir 'usuario_cli' mostra os dados -->
-    <ul style="font-size: 20px">
+    <ul style="font-size: 20px; padding-left: 5.5%;">
         {% for cliente in cliente %} 
           {% if cliente.usuario_cli %}
           <div class="content-ribbon" style="margin: 0 -2em 0 -4em;">
@@ -32,7 +24,7 @@
             </p>
             <p>
                 <label>Telefone:
-                {{ cliente.celular }}            
+                {{ cliente.celular }}
                 </label>
             </p>
           </fieldset>
@@ -68,7 +60,7 @@
             Usa rota devsys/clie/ da views.cliente
           {% endcomment %}
           <a href="clie/?id={{ cliente.id }}" style="text-decoration:none">
-            <button class="btn btn-info btn-sm" type="button">Editar
+            <button class="btn btn-info btn-sm" type="button" style="margin-left: 1.2%;">Editar
               <span class="icono-rename" aria-hidden="true"></span>
             </button>
           </a> 
