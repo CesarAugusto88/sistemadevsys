@@ -3,15 +3,14 @@
 
 {% block content %}
 
-<div class="container" style="padding: 45px;">
+<div class="container">
         <h2>Update Cliente</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             
             <div class="navbar-brand">
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <span class="icono-check" aria-hidden="true"></span>
+                <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
                     Salvar
                 </button>
             </div>

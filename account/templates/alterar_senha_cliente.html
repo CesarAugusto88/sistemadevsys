@@ -1,7 +1,7 @@
 {% extends 'base-cliente.html' %}
 
 {% block content %}
-<div class="content-ribbon">
+<div class="container">
   <h2>Alterar Senha</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -10,21 +10,21 @@
         <label>Senha antiga: </label>
         {{form_senha.old_password}}
     </div>
-
+<br>
     <div>
         {{form_senha.new_password1.errors}}
         <label>Nova senha: </label>
         {{form_senha.new_password1}}
     </div>
-
+<br>
     <div>
         {{form_senha.new_password2.errors}}
         <label>Confirmação de senha: </label>
         {{form_senha.new_password2}}
     </div>
-
+<br>
     <div>
-        <input type="submit" value="Alterar" class="btn btn-primary">
+        <input type="submit" value="Alterar" class="btn btn-outline-primary my-2 my-sm-0">
     </div>
   </form>
 </div>

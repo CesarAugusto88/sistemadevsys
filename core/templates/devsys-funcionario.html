@@ -2,19 +2,11 @@
 
 {% block content %}
 
-<div class="pure-g-r content-ribbon">
-  <div class="pure-u-1">
-    
-    <h2>Bem Vindo(a)!</h2>  
-    <!-- <a href="funcionario/" style="text-decoration:none">
-      <button type="button">Novo funcionario</button>
-    </a> -->
-
+<div class="container">
+    <h2>Bem Vindo(a)!</h2>
    <!-- IF se funcionário existir 'usuario_fun' mostra o conteúdo -->
-    <ul style="font-size: 20px; padding-left: 5.5%;">
         {% for funcionario in funcionario %}
           {% if funcionario.usuario_fun %}
-          <div class="content-ribbon" style="margin: 0 -2em 0 -4em;">
           <fieldset>
             <legend>Dados do Funcionário</legend>
             <p>
@@ -53,20 +45,15 @@
               </p>
  
           </fieldset>   
-          <br>
           {% comment %}
             Usa rota devsys/func/ da views.funcionario
           {% endcomment %}
           <a href="func/?id={{ funcionario.id }}" style="text-decoration:none">
-            <button class="btn btn-info btn-sm" type="button" style="margin-left: 1.2%;">Editar
-              <span class="icono-rename" aria-hidden="true"></span>
+            <button class="btn btn-info" type="button">Editar
             </button>
-          </a>  
-          
-          </div>
+          </a>
+
           {% endif %}
         {% endfor %}
-    </ul>
-  </div>
 </div>
 {% endblock%}
