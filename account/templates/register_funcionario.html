@@ -1,7 +1,7 @@
 {% extends 'base-funcionario.html' %}
 
 {% block content %}
-<div class="content-ribbon">
+<div class="container">
     <h1>|Cadastrar Usuário Funcionário|</h1>
     <form method="post">
         {% csrf_token %}
@@ -11,16 +11,16 @@
             <label>Username: </label>
             {{form_usuario.username}}
         </div>
-    
+    <br>
         <div>
             {{form_usuario.password1.errors}}
             <label>Senha: </label>
             {{form_usuario.password1}}
         </div>
-    
+    <br>
         <div>
             {{form_usuario.password2.errors}}
-            <label>Confirmação de senha: </label>
+            <label>Confirmar senha: </label>
             {{form_usuario.password2}}
         </div>
     

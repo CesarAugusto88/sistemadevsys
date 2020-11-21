@@ -1,7 +1,7 @@
 {% extends 'base-funcionario.html' %}
 
 {% block content %}
-<div class="content-ribbon">
+<div class="container">
     <!-- fazer dois templates. cliente e funcionario e direciona botao...-->
     <h1>|Cadastrar Usuário Cliente|</h1>
     <form method="post">
@@ -12,21 +12,21 @@
             <label>Username: </label>
             {{form_usuario.username}}
         </div>
-    
+    <br>
         <div>
             {{form_usuario.password1.errors}}
             <label>Senha: </label>
             {{form_usuario.password1}}
         </div>
-    
+    <br>
         <div>
             {{form_usuario.password2.errors}}
-            <label>Confirmação de senha: </label>
+            <label>Confirmar senha: </label>
             {{form_usuario.password2}}
         </div>
     
         <div>
-            <input type="submit" value="Cadastrar" class="btn btn-primary">
+            <input type="submit" value="Cadastrar" class="btn btn-outline-primary my-2 my-sm-0">
         </div>
     </form>
 </div>

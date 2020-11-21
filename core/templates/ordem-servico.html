@@ -2,75 +2,70 @@
 
 {% block content %}
 
-<div class="pure-g-r content-ribbon">
-    <div class="pure-u-1">
-        <div class="content-ribbon" style="margin: 0 -2em 0 -2em;">
-        <h2>Ordem de Serviço</h2>
-        <!--hidden fica escondido-->
-        <form action="submit" method="POST">{% csrf_token %}
-            <fieldset>
-                <legend>Dados da Ordem de Serviço</legend>
-                <!--<p> não está entrando - pega 'auto_now_add'
-                    <label>Data de Entrada:
-                    <input type="datetime-local" name="dt_entrada" value=" ordem_servico-get.dt_entrada_input_os " required>
+<div class="container">
+
+    <h2>Ordem de Serviço</h2>
+    <!--hidden fica escondido-->
+    <form action="submit" method="POST">{% csrf_token %}
+        <fieldset>
+        <div class="container-fluid">
+            <legend>Dados da Ordem de Serviço</legend>
+            <!--<p> não está entrando - pega 'auto_now_add'
+                <label>Data de Entrada:
+                <input type="datetime-local" name="dt_entrada" value=" ordem_servico-get.dt_entrada_input_os " required>
+            </label>
+            </p>-->
+            
+            <!--****Precisa de id para editar****-->
+            <input type="number" name="id_ordem_servico" value="{{ ordem_servico.id }}" hidden>
+            <p>
+                <label>Descrição:
+                    <br>
+                    <!--textarea a variável tem que estar entre o maior e menor > < -->
+                <textarea name="descricao" rows="4" cols="34"  required>{{ ordem_servico.descricao }}</textarea>
                 </label>
-                </p>-->
-                
-                <!--****Precisa de id para editar****-->
-                <input type="number" name="id_ordem_servico" value="{{ ordem_servico.id }}" hidden>
-                <p>
-                    <label>Descrição:
-                        <br>
-                        <!--textarea a variável tem que estar entre o maior e menor > < -->
-                    <textarea name="descricao" rows="4" cols="34"  required>{{ ordem_servico.descricao }}</textarea>
+            </p>
+            <p>
+                <label> <strong>Data Agendada:</strong>
+
+                    <input type="datetime-local" name="dt_agenda" value="{{ ordem_servico.get_agenda_input_os }}" required>
 
                 </label>
-                </p>
-                <p>
-                    <label> <strong>Data Agendada:</strong>
+            </p>
+            <p>
+                <label>Data do Pagamento: <!--Fazer def get_pagamento_input_os em model para entrada e mostrar... -->
 
-                        <input type="datetime-local" name="dt_agenda" value="{{ ordem_servico.get_agenda_input_os }}" required>
+                    <input type="date" name="dt_pagamento" value="{{ ordem_servico.get_pagamento_input_os }}" required>
 
-                    </label>
-                </p>
-                <p>
-                    <label>Data do Pagamento: <!--Fazer def get_pagamento_input_os em model para entrada e mostrar... -->
+                </label>
+            </p>
+            <p>
+                <label>Responsável:
 
-                        <input type="date" name="dt_pagamento" value="{{ ordem_servico.get_pagamento_input_os }}" required>
+                    <input type="text" name="responsavel" size="30" value="{{ ordem_servico.responsavel }}" required>
 
-                    </label>
-                </p>
-                <p>
-                    <label>Responsável:
+                </label>
+            </p>
+            
+            <p>
+                <label for="equipamento"> Equipamentos: </label><br>
+                <textarea id="equipamento" name="equipamento" rows="4" cols="34"  required>{{ ordem_servico.equipamento }}</textarea>
+            </p>
 
-                        <input type="text" name="responsavel" size="30" value="{{ ordem_servico.responsavel }}" required>
+            <br>
+        </div>
+        </fieldset>     
+        <div class="navbar-brand">
+            <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+                Salvar
+            </button>
 
-                    </label>
-                </p>
-                
-                <p>
-                    <label for="equipamento"> Equipamentos: </label><br>
-                    <textarea id="equipamento" name="equipamento" rows="4" cols="34"  required>{{ ordem_servico.equipamento }}</textarea>
-                </p>
-
-                <br>
-                
-            </fieldset>     
-            <div class="navbar-brand">
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <span class="icono-check" aria-hidden="true"></span>
-                    Salvar
+            <a class="navbar-brand" href="{% url 'ordem-servicos' %}">
+                <button type="button" class="btn btn-outline-secondary my-2 my-sm-0">
+                Cancelar
                 </button>
-
-                <a class="navbar-brand" href="{% url 'ordem-servicos' %}">
-                    <button type="button" class="btn btn-primary btn-sm">
-                    <span class="icono-cross" aria-hidden="true"></span>
-                    Cancelar
-                    </button>
-                </a>
-            </div>
-        </form>
-    </div>
-  </div>
+            </a>
+        </div>
+    </form>
 </div>
 {% endblock %}

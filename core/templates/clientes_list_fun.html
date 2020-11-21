@@ -1,7 +1,7 @@
 {% extends 'base-funcionario.html' %}
 
 {% block content %}
-<div class="content-ribbon">
+<div class="container">
   <h1>Clientes</h1>
 
   <form action=""  class="form-inline" style="margin-bottom: 2%;">
@@ -9,51 +9,52 @@
       <label for="pesquisa" class="sr-only">Pesquisar</label>
       <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Nome" class="form-control">
     </div>
-    <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
   </form>
+<hr>
+  {% for cliente in clientes %}
+  <fieldset>
+    <legend> <b>Dados do cliente</b> </legend>
+    <p>
+      <label>Nome:
+        {{ cliente.nome }}
+      </label>
+    </p>
+    <p>
+      <label>Telefone:
+        {{ cliente.fone1 }}
+      </label>
+    </p>
+    <p>
+      <label>E-mail:
+        {{ cliente.email }}
+      </label>
+    </p>
+    <p>
+      <label>Bloqueado:
+        {{ cliente.bloqueado }}
+      </label>
+    </p>
+    <p>
+      <label>Alterar:
+        <a href="{% url 'update_clientes' cliente.id %}" style="text-decoration:none">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="button">
+            Alterar
+          </button>
+        </a>
+      </label>
+    </p>
+      
+    <form method="post" action="{% url 'delete_clientes' cliente.pk %}">
+      {% csrf_token %}
+      <p>
+        <label>Deletar Cliente:
+          <button type="submit" class="btn btn-outline-danger my-2 my-sm-0" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
+        </label>
+      </p>
+    </form>
 
-  <div class="pure-u-1">
-    <table class="pure-table pure-table-bordered">
-      <thead>
-        <tr>
-          <th>Nome do Cliente</th>
-          <th>Telefone</th>
-          <th>E-mail</th>
-          <th>Bloqueado</th>
-          <th>Alterar</th>
-          <th>Deletar</th>
+  {% endfor %}
 
-        </tr>
-      </thead>
-      <tbody>
-        {% for cliente in clientes %}
-          <tr>
-            <td>{{ cliente.nome }}</td>
-            <td>{{ cliente.fone1 }}</td>
-            <td>{{ cliente.email }}</td>
-            <td>{{ cliente.bloqueado }}</td>
-            <td>
-              <a href="{% url 'update_clientes' cliente.id %}" style="text-decoration:none">
-                <button class="btn btn-info btn-sm" type="button">
-                  Update
-                </button>
-              </a>
-            </td>
-            <td>
-
-              <form method="post" action="{% url 'delete_clientes' cliente.pk %}">
-                {% csrf_token %}
-                
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
-              
-              </form>
-            
-            </td>
-            
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
 </div>
 {% endblock %}

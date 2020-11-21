@@ -2,21 +2,17 @@
 {% extends 'base-cliente.html' %}
 
 {% block content %}
-
-<div class="container" style="padding-top: 15px;">
-        <h2>Update Chamado</h2>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+<div class="container" style="padding-left: 3%;">
+    <h2>Update Chamado</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
             {{ form.as_p }} <!--form.as_table padrao?-->
             
             <div class="navbar-brand">
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <span class="icono-check" aria-hidden="true"></span>
+                <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
                     Salvar
                 </button>
             </div>
-        </form>
-    </div> 
+    </form>
 </div>
-
 {% endblock %}

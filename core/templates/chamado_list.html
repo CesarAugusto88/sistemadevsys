@@ -1,77 +1,73 @@
-
 {% extends 'base-cliente.html' %}
 
 {% block content %}
-<div class="content-ribbon">
+<div class="container">
   {% block content_header %}
     <h2>Chamados</h2>
-    <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <form action=""  class="form-inline my-2 my-lg-0">
       <div class="form-group">
         <label for="pesquisa" class="sr-only">Pesquisar</label>
         <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Assunto" class="form-control">
       </div>
-      <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
-    </form>
+      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin: 1%;">Pesquisar</button>
 
-    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
-    href="{% url 'cliente'  %}">
-        <span class="icono-caretLeftSquare" aria-hidden="true"></span>
-        Voltar
-    </a>   
-    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
-    href="{% url 'criar_chamado' %}">
-        <span class="icono-plus" aria-hidden="true"></span>
-        Novo Chamado
-    </a>   
-    
+      <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'criar_chamado' %}">
+          Novo Chamado
+      </a>
+    </form>
   {% endblock %}
-  <div class="pure-u-1">
-    <table class="pure-table pure-table-bordered">
-      <thead>
-        <tr>
-          <th>Nome do Cliente</th>
-          <th>Assunto</th>
-          <th>Descrição</th>
-          <th>Download</th>
-          <th>Update</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for chamado in chamados %}
-          <tr>
-            <td>{{ chamado.nome_cliente }}</td>
-            <td>{{ chamado.assunto }}</td>
-            <td>{{ chamado.descricao }}</td>
-            <td>
-              {% if chamado.arquivo %}
-              <a href="{{ chamado.arquivo.url }}" class="pure-button pure-button-active" target="_blank">
-                Download
-              </a>
-              {% else %}
-                <span class="pure-form-message">No arquivo</span>
-              {% endif %}
-            </td>
-            <td>
-              <a href="{% url 'update_chamado' chamado.id %}" style="text-decoration:none">
-                <button class="btn btn-info btn-sm" type="button">
-                  Update
-                </button>
-              </a>
-            </td>
-            <!-- exclusão por cliente...-->
-            <td>
-              <form method="post" action="{% url 'delete_chamado' chamado.id %}"> <!--Deve ser 'pk' em urls também-->
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">
-                  Delete
-                </button>
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    <hr>
+  {% for chamado in chamados %}
+  <fieldset>
+    <legend> <b>Dados do Arquivo/Boleto</b> </legend>
+    <p class="text-xl-left font-weight-bold">
+      <label>Solicitante:
+        {{ chamado.nome_cliente }}
+      </label>
+    </p>
+    <p class="text-xl-left font-weight-bold">
+      <label>Assunto:
+        {{ chamado.assunto }}
+      </label>
+    </p>
+    <p class="text-xl-left font-weight-bold">
+      <label>Descrição:
+        {{ chamado.descricao }}
+      </label>
+    </p>
+    <p class="text-xl-left font-weight-bold">
+      <label>
+        {% if chamado.arquivo %}
+        <a href="{{ chamado.arquivo.url }}" class="btn btn-outline-primary my-2 my-sm-0" target="_blank">
+          Download
+        </a>
+        {% else %}
+          <span>No arquivo</span>
+        {% endif %}
+      </label>
+    </p>
+    <p class="text-xl-left font-weight-bold">
+      <label>Alterar:
+        <a href="{% url 'update_chamado' chamado.id %}" style="text-decoration:none">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="button">
+            Alterar
+          </button>
+        </a>
+      </label>
+    </p>
+    <form method="post" action="{% url 'delete_chamado' chamado.id %}"> <!--Deve ser 'pk' em urls também-->
+      {% csrf_token %}
+      <p class="text-xl-left font-weight-bold">
+        <label>Deletar Chamado:
+          <button type="submit" class="btn btn-outline-danger my-2 my-sm-0" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">
+            Deletar
+          </button>
+        </label>
+      </p>
+    </form>
+  </fieldset>
+  <hr>
+  {% endfor %}
+
 </div>
 {% endblock %}

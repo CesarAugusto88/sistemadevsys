@@ -1,10 +1,8 @@
 {% extends "base-funcionario.html" %}
 
 {% block content %}
-<div class="pure-g-r content-ribbon">
-  <div class="pure-u-1">
-    
-    <div class="content-ribbon">
+<div class="container">
+    <div class="container">
         <h2>Funcionário</h2>
         <form action="submit" method="POST">{% csrf_token %}
             
@@ -78,14 +76,13 @@
                 
             </fieldset>     
             <div class="navbar-brand">
-                <button type="submit" class="btn btn-primary btn-sm">
+                <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
                     <span class="icono-check" aria-hidden="true"></span>
                     Salvar
                 </button>
 
                 <a class="navbar-brand" href="{% url 'funcionario' %}">
-                    <button type="button" class="btn btn-primary btn-sm">
-                    <span class="icono-cross" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-outline-secundary my-2 my-sm-0">
                     Cancelar
                     </button>
                 </a>
@@ -93,7 +90,6 @@
             
         </form>
     </div> 
-  </div>
 </div>
 
 

@@ -1,7 +1,7 @@
 {% extends 'base-funcionario.html' %}
 
 {% block content %}
-<div class="content-ribbon">
+<div class="container">
   {% block content_header %}
     <h2>Arquivos</h2>
     <form action=""  class="form-inline" style="margin-bottom: 2%;">
@@ -12,58 +12,52 @@
       <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
     </form>
 
-    <a class="navbar-brand pure-button pure-button-primary btn-sm" 
-    href="{% url 'funcionario'  %}">
-        <span class="icono-caretLeftSquare" aria-hidden="true"></span>
-        Voltar
-    </a>
-    <a class="navbar-brand pure-button pure-button-primary"
+    <a class="btn btn-outline-primary my-2 my-sm-0"
     href="{% url 'upload_arq' %}" >
-      <span class="icono-document" aria-hidden="true"></span>
       Upload arquivo
     </a>
-
   {% endblock %}
-  <div class="pure-u-1">
-    <table class="pure-table pure-table-bordered">
-      <thead>
-        <tr>
-          <th>Imagem</th>
-          <th>Título</th>
-          <th>Assunto</th>
-          <th>Download</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for arq in arqs %}
-          <tr>
-            <td>
-              {% if arq.imagem %}
-                <img src="{{ arq.imagem.url }}" alt="{{ arq.titulo }}" style="width:100px;">
-              {% else %}
-                <span class="pure-form-message">No imagem</span>
-              {% endif %}
-            </td>
-            <td>{{ arq.titulo }}</td>
-            <td>{{ arq.assunto }}</td>
-            <td>
-              <a href="{{ arq.arquivo.url }}" class="pure-button pure-button-active" target="_blank">
-                Download Arquivo
-              </a>
-            </td>
-            <td>
-              <form method="post" action="{% url 'delete_arq' arq.pk %}">
-                {% csrf_token %}
-                <!-- onclick deseja realmente deletar...-->
-                <button type="submit" class="navbar-brand pure-button" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
-              
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+  <hr>
+  {% for arq in arqs %}
+  <fieldset>
+    <legend> <b>Dados do arquivo</b> </legend>
+    <p>
+      <label>Imagem:
+        {% if arq.imagem %}
+          <img src="{{ arq.imagem.url }}" alt="{{ arq.titulo }}" style="width:100px;">
+        {% else %}
+          <span>No imagem</span>
+        {% endif %}
+      </label>
+    </p>
+    <p>
+      <label>Título:
+        {{ arq.titulo }}
+      </label>
+    </p>
+    <p>
+      <label>Assunto:
+        {{ arq.assunto }}
+      </label>
+    </p>
+    <p>
+      <label>Download:
+        <a href="{{ arq.arquivo.url }}" class="btn btn-outline-primary my-2 my-sm-0" target="_blank">
+          Download Arquivo
+        </a>
+      </label>
+    </p>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'delete_arq' arq.pk %}">
+      {% csrf_token %}
+      <p>
+        <label>Deletar Arquivo:
+      <!-- onclick deseja realmente deletar...-->
+        <button type="submit" class="btn btn-outline-danger my-2 my-sm-0" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
+        </label>
+      </p>
+    </form>
+    <hr>
+  </fieldset>
+  {% endfor %}
 </div>
 {% endblock %}

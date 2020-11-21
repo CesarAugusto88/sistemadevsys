@@ -2,39 +2,26 @@
 
 {% block content %}
 
-  
-
-<div class="pure-g-r content-ribbon">
-  <div class="pure-u-1">
-
+<div class="container">
       <h2>Ordens de Serviços</h2>
-      <form action=""  class="form-inline" style="margin-bottom: 2%;">
+      <form action=""  class="form-inline my-2 my-lg-0">
         <div class="form-group">
           <label for="pesquisa" class="sr-only">Pesquisar</label>
           <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Responsável" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
-      </form>
 
-      <a class="navbar-brand" href="/devsys/funcionario">
-        <button type="button" class="btn btn-primary btn-sm">
-          <span class="icono-caretLeftSquare" aria-hidden="true"></span>
-          Voltar
-        </button>
-      </a>
+        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin: 1%;">Pesquisar</button>
+
+        <a  href="{% url 'ordem-servico' %}">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="button">
+            Nova O.S.
+          </button>
+        </a>
+      </form>
       
-      <a class="navbar-brand" href="{% url 'ordem-servico' %}">
-        <button class="btn btn-primary btn-sm" type="button">
-          Nova O.S.
-          <span class="icono-plus" aria-hidden="true"></span>  
-        </button>
-      </a>
-      
-    <ul style="font-size: 20px; padding-left: 5.5%;">
         {% for ordem_servico in ordem_servicos %} 
         
           {% if ordem_servico.usuario_os %} 
-          <div class="content-ribbon" style="margin: 0 -2em 0 -4em;">
             <fieldset>
               <legend> <b>Dados da Ordem de Serviço</b> </legend>
               <p>
@@ -92,15 +79,13 @@
             </fieldset>
 
             <a href="ordem-servico/?id={{ ordem_servico.id }}" style="text-decoration:none">
-              <button class="btn btn-info btn-sm" type="button"  style="margin-left: 1.2%;">Editar
-                <span class="icono-rename" aria-hidden="true"></span>
+              <button class="btn btn-info" type="button">Editar
               </button>
             </a> 
-            <br><br>
-          </div>
+            <br>
+            <hr>
           {% endif %}
         {% endfor %}
     </ul>
-  </div>
- </div>
+</div>
 {% endblock %}

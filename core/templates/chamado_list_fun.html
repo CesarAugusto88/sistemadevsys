@@ -1,7 +1,7 @@
 {% extends 'base-funcionario.html' %}
 
 {% block content %}
-<div class="content-ribbon">
+<div class="container">
   <h2>Chamados</h2>
   <form action=""  class="form-inline" style="margin-bottom: 2%;">
     <div class="form-group">
@@ -10,52 +10,39 @@
     </div>
     <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
   </form>
-  
-  <div class="pure-u-1">
-    <table class="pure-table pure-table-bordered">
-      <thead>
-        <tr>
-          <th>Nome do Cliente</th>
-          <th>Assunto</th>
-          <th>Descrição</th>
-          <th>Download</th>
-
-        </tr>
-      </thead>
-      <tbody>
-        {% for chamado in chamados %}
-          <tr>
-            <td>{{ chamado.nome_cliente }}</td>
-            <td>{{ chamado.assunto }}</td>
-            <td>{{ chamado.descricao }}</td>
-            <td>
-              {% if chamado.arquivo %}
-              <a href="{{ chamado.arquivo.url }}" class="pure-button pure-button-active" target="_blank">
-                Download
-              </a>
-              {% else %}
-                <span class="pure-form-message">No arquivo</span>
-              {% endif %}
-            </td>
-
-            {% comment %}
-            <!-- retirado exclusão por cliente...-->
-            <td>
-
-              <form method="post" action="{% url 'delete_chamado' chamado.pk %}">
-                {% csrf_token %}
-                
-                <button type="submit" class="pure-button pure-button-disabled" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Delete</button>
-              
-              </form>
-            
-            </td>
-            {% endcomment %}
-            
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+  <hr>
+<div class="container">
+  {% for chamado in chamados %}
+  <fieldset>
+    <legend> <b>Dados do Arquivo/Boleto</b> </legend>
+    <p class="text-xl-left font-weight-bold">
+      <label>Solicitante:
+        {{ chamado.nome_cliente }}
+      </label>
+    </p>
+    <p class="text-xl-left font-weight-bold">
+      <label>Assunto:
+        {{ chamado.assunto }}
+      </label>
+    </p>
+    <p class="text-xl-left font-weight-bold">
+      <label>Descrição:
+        {{ chamado.descricao }}
+      </label>
+    </p>
+    <p class="text-xl-left font-weight-bold">
+      <label>
+        {% if chamado.arquivo %}
+        <a href="{{ chamado.arquivo.url }}" class="btn btn-outline-primary my-2 my-sm-0" target="_blank">
+          Download
+        </a>
+        {% else %}
+          <span>No arquivo</span>
+        {% endif %}
+      </label>
+    </p>
+  </fieldset>
+  <hr>
+  {% endfor %}
 </div>
 {% endblock %}

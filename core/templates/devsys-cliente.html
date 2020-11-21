@@ -1,20 +1,15 @@
 {% extends "base-cliente.html" %}
 
 {% block content %}
-<div class="pure-g-r content-ribbon">
-  <div class="pure-u-1">
+<div class="container">
 
       <h2>Bem vindo(a)!</h2> 
-      
-      <!--caminho-do-arquivo boleto no href
-          Colocar para usar class Arq com upload de arquivos pdf para
-        o cliente imprimir os boletos-->
     
     <!--IF se cliente existir 'usuario_cli' mostra os dados -->
-    <ul style="font-size: 20px; padding-left: 5.5%;">
+    <ul>
         {% for cliente in cliente %} 
           {% if cliente.usuario_cli %}
-          <div class="content-ribbon" style="margin: 0 -2em 0 -4em;">
+          <div>
           <fieldset>
             <legend>Dados do Cliente</legend>
             <p>
@@ -52,7 +47,7 @@
                 </label>
               </p>
               
-          </fieldset>   
+          </fieldset>
           <br>
           {% comment %}
             vai para o html cliente.html com o id do cliente
@@ -60,18 +55,12 @@
             Usa rota devsys/clie/ da views.cliente
           {% endcomment %}
           <a href="clie/?id={{ cliente.id }}" style="text-decoration:none">
-            <button class="btn btn-info btn-sm" type="button" style="margin-left: 1.2%;">Editar
-              <span class="icono-rename" aria-hidden="true"></span>
+            <button class="btn btn-info" type="button">Editar
             </button>
           </a> 
-          
-          <!-- Cliente não deleta <a href="cliente/delete/{{ cliente.id }}/">
-            <button type="button">Deletar</button>
-          </a>-->
           </div>
           {% endif %}
         {% endfor %}
     </ul>
-  </div>
 </div>
 {% endblock %}
