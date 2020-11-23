@@ -332,13 +332,14 @@ def upload_arq(request):
 
 
 @login_required(login_url="/login/")
-def delete_arq(request, pk):
+def delete_arq(request, id):
     if request.method == "POST":
-        arq = Arq.objects.get(pk=pk)
+        arq = Arq.objects.get(id=id)
         arq.delete()
     return redirect("arq_list")
 
 
+# Usando Class-Based Vieqw
 class ArqListView(ListView):
     model = Arq
     template_name = "class_arq_list.html"
@@ -547,9 +548,9 @@ def update_bol(request, id):
     return render(request, "bol_update.html", {"form": form, 'bol': bol})
 
 @login_required(login_url="/login/")
-def delete_bol(request, pk):
+def delete_bol(request, id):
     if request.method == "POST":
-        bol = Bol.objects.get(pk=pk)
+        bol = Bol.objects.get(id=id)
         bol.delete()
     return redirect("bol_clientes")
 

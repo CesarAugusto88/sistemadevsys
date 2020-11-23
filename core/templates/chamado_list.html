@@ -1,22 +1,23 @@
 {% extends 'base-cliente.html' %}
 
 {% block content %}
-<div class="container">
-  {% block content_header %}
-    <h2>Chamados</h2>
-    <form action=""  class="form-inline my-2 my-lg-0">
-      <div class="form-group">
-        <label for="pesquisa" class="sr-only">Pesquisar</label>
-        <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Assunto" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin: 1%;">Pesquisar</button>
-
+<div class="container" style="margin-top: 1%;">
+  <p>
+    <label><b>NOVO:</b>
       <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'criar_chamado' %}">
-          Novo Chamado
+        Chamado
       </a>
-    </form>
-  {% endblock %}
-    <hr>
+    </label>
+  </p>
+  <h2>Chamados</h2>
+  <form action=""  class="form-inline my-2 my-lg-0">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Assunto" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin: 1%;">Pesquisar</button>
+  </form>
+  <hr>
   {% for chamado in chamados %}
   <fieldset>
     <legend> <b>Dados do Arquivo/Boleto</b> </legend>
@@ -36,7 +37,7 @@
       </label>
     </p>
     <p class="text-xl-left font-weight-bold">
-      <label>
+      <label>Arquivo:
         {% if chamado.arquivo %}
         <a href="{{ chamado.arquivo.url }}" class="btn btn-outline-primary my-2 my-sm-0" target="_blank">
           Download
@@ -55,7 +56,7 @@
         </a>
       </label>
     </p>
-    <form method="post" action="{% url 'delete_chamado' chamado.id %}"> <!--Deve ser 'pk' em urls também-->
+    <form method="post" action="{% url 'delete_chamado' chamado.id %}">
       {% csrf_token %}
       <p class="text-xl-left font-weight-bold">
         <label>Deletar Chamado:

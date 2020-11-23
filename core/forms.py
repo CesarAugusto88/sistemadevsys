@@ -6,12 +6,12 @@ from .models import Arq, Bol, Chamado, Cliente, Funcionario
 class ArqForm(forms.ModelForm):
     class Meta:
         model = Arq
-        fields = ('titulo', 'assunto', 'arquivo', 'imagem')
+        fields = ('titulo', 'assunto', 'arquivo')
 
 class BolForm(forms.ModelForm):
     class Meta:
         model = Bol
-        fields = ('titulo', 'assunto', 'boleto', 'imagem', 'cliente')
+        fields = ('titulo', 'assunto', 'boleto', 'cliente')
 
 class ChamadoForm(forms.ModelForm):
     class Meta:

@@ -2,30 +2,19 @@
 
 {% block content %}
 <div class="container">
-  {% block content_header %}
-    <h2>Boletos/Arquivos</h2>
-    <form action=""  class="form-inline" style="margin-bottom: 2%;">
-      <div class="form-group">
-        <label for="pesquisa" class="sr-only">Pesquisar</label>
-        <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Título" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
-    </form>
-    
-  {% endblock %}
+  <h2>Boletos/Arquivos</h2>
+  <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Título" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
+  </form>
   <hr>
   {% for bol in bols %}
   <fieldset>
     <legend> <b>Dados do Arquivo/Boleto</b> </legend>
-    <p class="text-xl-left font-weight-bold">
-      <label>Imagem:
-        {% if bol.imagem %}
-          <img src="{{ bol.imagem.url }}" alt="{{ bol.titulo }}" style="width:100px;">
-        {% else %}
-          <span>No imagem</span>
-        {% endif %}
-      </label>
-    </p>
+
     <p class="text-xl-left font-weight-bold">
       <label>Título:
         {{ bol.titulo }}

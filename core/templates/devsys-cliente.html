@@ -3,64 +3,59 @@
 {% block content %}
 <div class="container">
 
-      <h2>Bem vindo(a)!</h2> 
-    
-    <!--IF se cliente existir 'usuario_cli' mostra os dados -->
-    <ul>
-        {% for cliente in cliente %} 
-          {% if cliente.usuario_cli %}
-          <div>
-          <fieldset>
-            <legend>Dados do Cliente</legend>
-            <p>
-              <label>Nome:
-                {{ cliente.nome }}
-              </label>
-            </p>
-            <p>
-                <label>Telefone:
-                {{ cliente.celular }}
-                </label>
-            </p>
-          </fieldset>
+  <h2>Bem vindo(a)!</h2> 
+  <!--IF se cliente existir 'usuario_cli' mostra os dados -->
+  {% for cliente in cliente %} 
+    {% if cliente.usuario_cli %}
+    <div>
+    <fieldset>
+      <legend>Dados do Cliente</legend>
+      <p>
+        <label>Nome:
+          {{ cliente.nome }}
+        </label>
+      </p>
+      <p>
+          <label>Telefone:
+          {{ cliente.celular }}
+          </label>
+      </p>
+    </fieldset>
 
-          <fieldset>
-              <legend>Endereço</legend>
-              <p>
-                  <label>Rua:
-                  {{ cliente.endereco }}
-                  </label>
-              </p>
-              <p>
-                <label>Cidade:
-                {{ cliente.cidade }}
-                </label>
-              </p>
-              <p>
-                  <label>Cep:
-                  {{ cliente.cep }}
-                  </label>
-              </p>
-              <p>
-                <label>Estado:
-                {{ cliente.uf }}
-                </label>
-              </p>
-              
-          </fieldset>
-          <br>
-          {% comment %}
-            vai para o html cliente.html com o id do cliente
-            verificar no sql shell ou sqlite se tem o ID
-            Usa rota devsys/clie/ da views.cliente
-          {% endcomment %}
-          <a href="clie/?id={{ cliente.id }}" style="text-decoration:none">
-            <button class="btn btn-info" type="button">Editar
-            </button>
-          </a> 
-          </div>
-          {% endif %}
-        {% endfor %}
-    </ul>
+    <fieldset>
+        <legend>Endereço</legend>
+        <p>
+            <label>Rua:
+            {{ cliente.endereco }}
+            </label>
+        </p>
+        <p>
+          <label>Cidade:
+          {{ cliente.cidade }}
+          </label>
+        </p>
+        <p>
+            <label>Cep:
+            {{ cliente.cep }}
+            </label>
+        </p>
+        <p>
+          <label>Estado:
+          {{ cliente.uf }}
+          </label>
+        </p>
+    </fieldset>
+    {% comment %}
+      vai para o html cliente.html com o id do cliente
+      verificar no sql shell ou sqlite se tem o ID
+      Usa rota devsys/clie/ da views.cliente
+    {% endcomment %}
+    <a href="clie/?id={{ cliente.id }}" style="text-decoration:none">
+      <button class="btn btn-info" type="button">Editar
+      </button>
+    </a> 
+    </div>
+    {% endif %}
+  {% endfor %}
 </div>
 {% endblock %}
