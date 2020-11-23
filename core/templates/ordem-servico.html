@@ -52,20 +52,14 @@
                 <textarea id="equipamento" name="equipamento" rows="4" cols="34"  required>{{ ordem_servico.equipamento }}</textarea>
             </p>
 
-            <br>
+            <div class="navbar-brand">
+                <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+                    Salvar
+                </button>
+    
+            </div>
         </div>
         </fieldset>     
-        <div class="navbar-brand">
-            <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
-                Salvar
-            </button>
-
-            <a class="navbar-brand" href="{% url 'ordem-servicos' %}">
-                <button type="button" class="btn btn-outline-secondary my-2 my-sm-0">
-                Cancelar
-                </button>
-            </a>
-        </div>
     </form>
 </div>
 {% endblock %}

@@ -11,7 +11,6 @@
     <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
   </form>
   <hr>
-<div class="container">
   {% for chamado in chamados %}
   <fieldset>
     <legend> <b>Dados do Arquivo/Boleto</b> </legend>
@@ -31,7 +30,7 @@
       </label>
     </p>
     <p class="text-xl-left font-weight-bold">
-      <label>
+      <label>Arquivo:
         {% if chamado.arquivo %}
         <a href="{{ chamado.arquivo.url }}" class="btn btn-outline-primary my-2 my-sm-0" target="_blank">
           Download
@@ -44,5 +43,4 @@
   </fieldset>
   <hr>
   {% endfor %}
-</div>
 {% endblock %}

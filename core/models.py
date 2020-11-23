@@ -290,7 +290,7 @@ class Arq(models.Model):
     titulo = models.CharField(max_length=30)
     assunto = models.CharField(max_length=50)
     arquivo = models.FileField(upload_to="arq/aquivos/")
-    imagem = models.ImageField(upload_to="arq/imagens/", null=True, blank=True)
+    #imagem = models.ImageField(upload_to="arq/imagens/", null=True, blank=True)
 
     # classe Meta serve p modificar nomes e plural
     class Meta:
@@ -304,7 +304,7 @@ class Arq(models.Model):
 
     def delete(self, *args, **kwargs):
         self.arquivo.delete()
-        self.imagem.delete()
+        #self.imagem.delete()
         super().delete(*args, **kwargs)
 
 
@@ -314,7 +314,7 @@ class Bol(models.Model):
     titulo = models.CharField(max_length=30)
     assunto = models.CharField(max_length=50)
     boleto = models.FileField("Boleto/Arquivo", upload_to="bol/boletos/")
-    imagem = models.ImageField(upload_to="bol/imagens/", null=True, blank=True)
+    #imagem = models.ImageField(upload_to="bol/imagens/", null=True, blank=True)
     # referência para cada Cliente ter seus proprios boletos
     cliente = models.ForeignKey(
         "Cliente", on_delete=models.PROTECT, related_name='boletos'
@@ -332,7 +332,7 @@ class Bol(models.Model):
 
     def delete(self, *args, **kwargs):
         self.boleto.delete()
-        self.imagem.delete()
+        #self.imagem.delete()
         super().delete(*args, **kwargs)
 
 

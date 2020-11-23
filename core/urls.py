@@ -55,7 +55,7 @@ urlpatterns = [
     path("devsys/upload/", views.upload, name="upload"),
     path("devsys/arqs/", views.arq_list, name="arq_list"),
     path("devsys/arqs/upload/", views.upload_arq, name="upload_arq"),
-    path("devsys/arqs/<int:pk>/", views.delete_arq, name="delete_arq"),
+    path("devsys/arqs/<int:id>/", views.delete_arq, name="delete_arq"),
     # Verificar para retirar class/arqs...:
     path(
         "devsys/class/arqs/",
@@ -72,7 +72,6 @@ urlpatterns = [
     path("devsys/lista/<int:id_cliente>/", views.json_lista_cliente),
     path("devsys/clie/", views.cliente),
     path("devsys/clie/submit", views.submit_cliente),
-    #path("devsys/clie/delete/<int:id_cliente>/", views.delete_cliente, name="del_cliente"),
 
 
     # ------------Arquivos/Boletos para Cliente------------------------------
@@ -80,7 +79,7 @@ urlpatterns = [
     path("devsys/bols/", views.bol_list, name="bol_list"),
     path("devsys/bol/upload/", views.upload_bol, name="upload_bol"),
     path("devsys/bol/update/<int:id>/", views.update_bol, name="update_bol"),
-    path("devsys/bol/delete/<int:pk>/", views.delete_bol, name="delete_bol"),
+    path("devsys/bol/delete/<int:id>/", views.delete_bol, name="delete_bol"),
 
     # -- Urls com views para listar todos os clientes do banco.
     path("devsys/bols/clientes", views.bol_clientes, name="bol_clientes"),
