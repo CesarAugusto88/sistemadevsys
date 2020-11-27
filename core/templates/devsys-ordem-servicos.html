@@ -24,86 +24,92 @@
   {% for ordem_servico in ordem_servicos %} 
   
     {% if ordem_servico.usuario_os %} 
-      <fieldset>
-        <legend> <b>Dados da Ordem de Serviço</b> </legend>
-        <p>
-          <label>Data de Entrada:
+      {% if ordem_servico.confirmar %}
+      <div style="background-color: #b6ccf4"> <!--#c6f6c6 verde claro-->
+      {% endif%}
+        <fieldset>
+          <legend> <b>Dados da Ordem de Serviço</b> </legend>
+          <p>
+            <label>Data de Entrada:
 
-          {{ ordem_servico.get_dt_entrada_os }}
+            {{ ordem_servico.get_dt_entrada_os }}
 
-          </label>
-        </p>
-        <p>
-          <label>Data Atualizada:
-
-          {{ ordem_servico.get_dt_atualizada_os }}
-
-          </label>
-        </p>
-        <p>
-            <label>Descrição:
-
-            {{ ordem_servico.descricao }}
-            
             </label>
-        </p>
-        <p>
-          <div {% if ordem_servico.get_ordem_servico_atrasada %}
-              style="color:red"
-            {% endif %}>
-          <label><strong>Data Agendada:</strong>
+          </p>
+          <p>
+            <label>Data Atualizada:
 
-          {{ ordem_servico.get_dt_agenda_os }}
+            {{ ordem_servico.get_dt_atualizada_os }}
 
-          </label>
-          </div>
-        </p>
-        <p>
-          <label>Data do Pagamento:
-          {{ ordem_servico.get_dt_pagamento_os }}
-          </label>
-        </p>
-        <p>
-          <label>Responsável:
+            </label>
+          </p>
+          <p>
+              <label>Descrição:
 
-          {{ ordem_servico.responsavel }}
+              {{ ordem_servico.descricao }}
+              
+              </label>
+          </p>
+          <p>
+            <div {% if ordem_servico.get_ordem_servico_atrasada %}
+                style="color:red"
+              {% endif %}>
+            <label><strong>Data Agendada:</strong>
 
-          </label>
-        </p>
-        <p>
-          <label>Tipo(s) de Equipamento(s):
+            {{ ordem_servico.get_dt_agenda_os }}
 
-          {{ ordem_servico.equipamento }}
+            </label>
+            </div>
+          </p>
+          <p>
+            <label>Data do Pagamento:
+            {{ ordem_servico.get_dt_pagamento_os }}
+            </label>
+          </p>
+          <p>
+            <label>Responsável:
 
-          </label>
-        </p>
-        <p><!--ERRO NAO ESTA MOSTRANDO CORFIRMADA E FINALIZADA-->
-          <label>Confirmada:
-            {% if ordem_servico.confirmar %}
-                Sim
-            {% else %}
-                Não
-            {% endif %}
-          </label>
-          |
-          <label>Finalizada:
-            {% if ordem_servico.finalizar %}
-                Sim
-            {% else %}
-                Não
-            {% endif %}
-        </p>
+            {{ ordem_servico.responsavel }}
 
-      </fieldset>
+            </label>
+          </p>
+          <p>
+            <label>Tipo(s) de Equipamento(s):
 
-      {% if not ordem_servico.finalizar %}
-        <a href="ordem-servico/?id={{ ordem_servico.id }}" style="text-decoration:none">
-          <button class="btn btn-info" type="button">Editar
-          </button>
-        </a>
+            {{ ordem_servico.equipamento }}
+
+            </label>
+          </p>
+          <p><!--ERRO NAO ESTA MOSTRANDO CORFIRMADA E FINALIZADA-->
+            <label>Confirmada:
+              {% if ordem_servico.confirmar %}
+                  Sim
+              {% else %}
+                  Não
+              {% endif %}
+            </label>
+            |
+            <label>Finalizada:
+              {% if ordem_servico.finalizar %}
+                  Sim
+              {% else %}
+                  Não
+              {% endif %}
+          </p>
+
+        </fieldset>
+
+        {% if not ordem_servico.finalizar %}
+          <a href="ordem-servico/?id={{ ordem_servico.id }}" style="text-decoration:none">
+            <button class="btn btn-info" type="button">Editar
+            </button>
+          </a>
+        {% endif %}
+        <br>
+        <hr>
+      {% if ordem_servico.confirmar %}
+      </div> 
       {% endif %}
-      <br>
-      <hr>
     {% endif %}
   {% endfor %}
 </div>
