@@ -237,7 +237,8 @@ class Ordem_Servico(models.Model):
     ref_animal = models.IntegerField(blank=True, null=True)
     ref_terceiro = models.IntegerField(blank=True, null=True)
     hr_entrega = models.CharField(blank=True, null=True, max_length=5)
-    date_added = models.DateTimeField(auto_now_add=True)
+    confirmar = models.BooleanField(default=False)
+    finalizar = models.BooleanField(default=False)
     usuario_os = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # classe Meta serve p/ modificar nomes para plural
@@ -245,7 +246,7 @@ class Ordem_Servico(models.Model):
         verbose_name = "Ordem_Servico"
         verbose_name_plural = "Ordem_Servicos"
         # ordenar
-        ordering = ["dt_atualizada"]
+        ordering = ["-dt_atualizada"]
 
     def __str__(self):
         """ Devolve uma representação em string do modelo."""

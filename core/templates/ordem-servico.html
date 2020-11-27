@@ -15,7 +15,7 @@
                 <input type="datetime-local" name="dt_entrada" value=" ordem_servico-get.dt_entrada_input_os " required>
             </label>
             </p>-->
-            
+
             <!--****Precisa de id para editar****-->
             <input type="number" name="id_ordem_servico" value="{{ ordem_servico.id }}" hidden>
             <p>
@@ -52,14 +52,32 @@
                 <textarea id="equipamento" name="equipamento" rows="4" cols="34"  required>{{ ordem_servico.equipamento }}</textarea>
             </p>
 
+            Confirmar <input type="checkbox" name="confirmar" value="on" {% if confirmar %}checked{% endif %}>
+            Finalizar <input type="checkbox" name="finalizar" value="on" {% if finalizar %}checked{% endif %}>
+
+            <!-- <div class="radio">
+                <input type="radio" name="confirmar" id="optionsRadiosNaoConfirmar" value="off">
+                <label for="optionsRadiosNaoConfirmar"> Não Confirmar</label>
+            </div>
+            <div class="radio">
+                <input type="radio" name="confirmar" id="optionsRadiosConfirmar" value="on">
+                <label for="optionsRadiosConfirmar">Confirmar</label>
+            </div>
+            <div class="radio">
+                <input type="radio" name="finalizar" id="optionsRadiosFinalizar" value="on">
+                <label for="optionsRadiosFinalizar">Finalizar</label>
+            </div> -->
+
+            <br>
+
             <div class="navbar-brand">
                 <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
                     Salvar
                 </button>
-    
             </div>
+
         </div>
-        </fieldset>     
+        </fieldset>
     </form>
 </div>
 {% endblock %}

@@ -77,13 +77,31 @@
 
           </label>
         </p>
-        
+        <p><!--ERRO NAO ESTA MOSTRANDO CORFIRMADA E FINALIZADA-->
+          <label>Confirmada:
+            {% if ordem_servico.confirmar %}
+                Sim
+            {% else %}
+                Não
+            {% endif %}
+          </label>
+          |
+          <label>Finalizada:
+            {% if ordem_servico.finalizar %}
+                Sim
+            {% else %}
+                Não
+            {% endif %}
+        </p>
+
       </fieldset>
 
-      <a href="ordem-servico/?id={{ ordem_servico.id }}" style="text-decoration:none">
-        <button class="btn btn-info" type="button">Editar
-        </button>
-      </a> 
+      {% if not ordem_servico.finalizar %}
+        <a href="ordem-servico/?id={{ ordem_servico.id }}" style="text-decoration:none">
+          <button class="btn btn-info" type="button">Editar
+          </button>
+        </a>
+      {% endif %}
       <br>
       <hr>
     {% endif %}

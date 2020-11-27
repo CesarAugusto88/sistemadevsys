@@ -135,7 +135,7 @@ def submit_funcionario(request):
                 funcionario.save()
         # Evento.objects.filter(id=id_funcionario).update(nome=nome, endereco=endereco,fone1=fone1)
         
-    return redirect("/devsys/funcionario")
+    return redirect("funcionario")
 
 
 # REDIRECIONAR CORRETAMENTE - OK
@@ -205,13 +205,14 @@ def lista_ordem_servicos(request):
             ordem_servico = Ordem_Servico.objects.filter(
                 usuario_os=usuario, dt_agenda__gt=data_atual
             )
+            
         dados = {"ordem_servicos": ordem_servico}
     else:
         raise Http404()
 
     return render(request, "devsys-ordem-servicos.html", dados)
 
-# mostra campos ordem de serviço (nova os) 
+# mostra campos ordem de serviço
 @login_required(login_url="/login/")
 def ordem_servico(request):
     id_ordem_servico = request.GET.get("id")
@@ -221,7 +222,7 @@ def ordem_servico(request):
         dados["ordem_servico"] = Ordem_Servico.objects.get(id=id_ordem_servico)
     return render(request, "ordem-servico.html", dados)
 
-# submit ordem de serviço
+# submit ordem de serviço edita ou cria
 @login_required(login_url="/login/")
 def submit_ordem_servico(request):
     if request.POST:
@@ -231,10 +232,26 @@ def submit_ordem_servico(request):
         dt_pagamento = request.POST.get("dt_pagamento")
         equipamento = request.POST.get("equipamento")
         responsavel = request.POST.get("responsavel")
+        confirmar = request.POST.get("confirmar")
+        finalizar = request.POST.get("finalizar")
         usuario_os = request.user
-
+        print("confirmar: ", confirmar, " finalizar: ", finalizar)
         # django atribui 'id' no inicio do nome da tabela automaticamente
         id_ordem_servico = request.POST.get("id_ordem_servico")
+        if confirmar == "on" and finalizar == None:
+            confirmar = True
+            finalizar = False
+        elif finalizar == "on" and confirmar == None:
+            confirmar = False
+            finalizar = True
+        elif confirmar == "on" and finalizar =="on":
+            confirmar = True
+            finalizar = True
+        else:
+            confirmar = False
+            finalizar = False
+
+        print("confirmar: ", confirmar, " finalizar: ", finalizar)
         # para editar pega o id_ordem_serviço no template HTML
         if id_ordem_servico:
             ordem_servico = Ordem_Servico.objects.get(id=id_ordem_servico)
@@ -245,7 +262,10 @@ def submit_ordem_servico(request):
                 ordem_servico.dt_pagamento = dt_pagamento
                 ordem_servico.responsavel = responsavel
                 ordem_servico.equipamento = equipamento
+                ordem_servico.confirmar = confirmar
+                ordem_servico.finalizar = finalizar
                 ordem_servico.save()
+                print("confirmar: ", ordem_servico.confirmar, " finalizar: ", ordem_servico.finalizar)
         # senão, cria! Usado na mesma função.
         else:
             Ordem_Servico.objects.create(
@@ -255,10 +275,12 @@ def submit_ordem_servico(request):
                 dt_pagamento=dt_pagamento,
                 responsavel=responsavel,
                 equipamento=equipamento,
-                usuario_os=usuario_os,
+                confirmar=confirmar,
+                finalizar=finalizar,
+                usuario_os=usuario_os, #pega user request
             )
-
-    return redirect("/devsys/ordem-servicos")
+        print("confirmar: ", confirmar, " finalizar: ", finalizar)
+    return redirect("ordem-servicos")
 
 
 @login_required(login_url="/login/")
@@ -272,7 +294,7 @@ def delete_ordem_servico(request, id_ordem_servico):
         ordem_servico.delete()
     else:
         raise Http404()
-    return redirect("/devsys/ordem-servicos")
+    return redirect("ordem-servicos")
 
 
 # retornar JsonResponse para trabalhar com JavaScript, Ajax...
