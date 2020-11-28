@@ -10,14 +10,14 @@
             <fieldset>
                 <legend>Dados do Cliente</legend>
                 <p>
-                    <label>Nome:
+                    <label>Nome: <br>
                     <!--hidden fica escondido 'id'-->
                     <input type="number" name="id_cliente" value="{{ cliente.id }}" hidden> 
                     <input type="text" name="nome" size="30" value="{{ cliente.nome }}" required>
                     </label>
                 </p>
                 <p>
-                    <label>Telefone:
+                    <label>Telefone: <br>
                     <input type="tel" name="celular" size="30" value="{{ cliente.celular }}" required>
                     </label>
                 </p>
@@ -26,23 +26,23 @@
             <fieldset>
                 <legend>Endereço</legend>
                 <p>
-                    <label>Rua:
-                    <textarea name="endereco" rows="4" cols="32" required>{{ cliente.endereco }}</textarea>
+                    <label>Rua: <br>
+                    <textarea name="endereco" rows="4" cols="34" required>{{ cliente.endereco }}</textarea>
                     </label>
                 </p>
                 <p>
-                    <label>Cep:
+                    <label>Cep: <br>
                     <input type="text" name="cep" size="22" value="{{ cliente.cep }}" required>
                     </label>
                 </p>
                 <p>
-                    <label>Cidade:
+                    <label>Cidade: <br>
                     <input type="text" name="cidade" size="22" value="{{ cliente.cidade }}" required>
                     </label>
                 </p>
                 <p>
                     <label>
-                        Estado:
+                        Estado: <br>
                         <select name="uf"> {{ cliente.uf }} <!--o que estiver no value vai ser salvo no banco, selected para deixar marcado-->
                             <option value="">Escolha um Estado</option>
                             <option value="AC">Acre</option>

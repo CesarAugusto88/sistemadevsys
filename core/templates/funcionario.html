@@ -9,14 +9,14 @@
             <fieldset>
                 <legend>Dados do Funcionário</legend>
                 <p>
-                    <label>Nome:
+                    <label>Nome: <br>
                     <!--hidden fica escondido 'id'-->
                     <input type="number" name="id_funcionario" value="{{ funcionario.id }}" hidden> 
                     <input type="text" name="nome" size="30" value="{{ funcionario.nome }}" required>
                     </label>
                 </p>
                 <p>
-                    <label>Telefone:
+                    <label>Telefone: <br>
                     <input type="tel" name="fone1" size="30" value="{{ funcionario.fone1 }}" required>
                     </label>
                 </p>
@@ -25,23 +25,23 @@
             <fieldset>
                 <legend>Endereço</legend>
                 <p>
-                    <label>Rua:
-                    <textarea name="endereco" rows="4" cols="32" required>{{ funcionario.endereco }}</textarea>
+                    <label>Rua: <br>
+                    <textarea name="endereco" rows="4" cols="34" required>{{ funcionario.endereco }}</textarea>
                     </label>
                 </p>
                 <p>
-                    <label>Cep:
+                    <label>Cep: <br>
                     <input type="text" name="cep" size="22" value="{{ funcionario.cep }}" required>
                     </label>
                 </p>
                 <p>
-                    <label>Cidade:
+                    <label>Cidade: <br>
                     <input type="text" name="cidade" size="22" value="{{ funcionario.cidade }}" required>
                     </label>
                 </p>
                 <p>
                     <label>
-                        Estado:
+                        Estado: <br>
                         <select name="uf"> {{ funcionario.uf }} <!--o que estiver no value vai ser salvo no banco, selected para deixar marcado-->
                             <option value="">Escolha um Estado</option>
                             <option value="AC">Acre</option>
