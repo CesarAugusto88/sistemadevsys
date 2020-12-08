@@ -8,15 +8,18 @@ class ArqForm(forms.ModelForm):
         model = Arq
         fields = ('titulo', 'assunto', 'arquivo')
 
+
 class BolForm(forms.ModelForm):
     class Meta:
         model = Bol
         fields = ('titulo', 'assunto', 'boleto', 'cliente')
 
+
 class ChamadoForm(forms.ModelForm):
     class Meta:
         model = Chamado
         fields = ('nome_cliente', 'assunto', 'descricao', 'arquivo', 'funcionario')
+
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -26,6 +29,7 @@ class ClienteForm(forms.ModelForm):
             'endereco', 'cep', 'uf', 'email', 'fone1', 'bloqueado', 'chave', 'usuario_cli'
             )
 
+
 # Para atualizar pelo funcionario
 class ClienteFunForm(forms.ModelForm):
     class Meta:
@@ -34,6 +38,7 @@ class ClienteFunForm(forms.ModelForm):
             'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie',
             'endereco', 'cep', 'uf', 'email', 'fone1', 'bloqueado'
             )
+
 
 class FuncionarioForm(forms.ModelForm):
     class Meta:
