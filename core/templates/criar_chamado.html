@@ -6,15 +6,20 @@
 
 <div class="container">
   <h2>Novo chamado</h2>
+  <div class="container-fluid">
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    
+    <!-- para criar form um por um:
+    {{form.descricao.errors}}
+    <label>Descrição: </label>
+    {{form.descricao}}
+    ...
+    -->
     {{ form.as_p }}
 
     <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">Criar chamado</button>
   </form>
-  <br>
-  <p>
-    <a href="{% url 'chamado_list' %}"  class="btn btn-outline-secondary my-2 my-sm-0">Cancelar</a>
-  </p>
+  </div>
 </div>
 {% endblock %}
