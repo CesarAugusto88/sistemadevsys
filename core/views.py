@@ -352,6 +352,16 @@ def upload_arq(request):
         form = ArqForm()
     return render(request, "upload_arq.html", {"form": form})
 
+#Update arquivo.
+@login_required(login_url="/login/")
+def update_arq(request, id):
+    """ Atualiza Arquivo"""
+    arq = Arq.objects.get(id=id)
+    form = ArqForm(request.POST or None, instance=arq)
+    if form.is_valid():
+        form.save()
+        return redirect("arq_list")
+    return render(request, "arq_update.html", {"form": form, 'arq': arq})
 
 @login_required(login_url="/login/")
 def delete_arq(request, id):
@@ -558,7 +568,7 @@ def upload_bol(request):
         form = BolForm()
     return render(request, "upload_bol.html", {"form": form})
 
-#Update arquivo/boleto. ERRO Não coloca e nao troca arquivos
+#Update arquivo/boleto.
 @login_required(login_url="/login/")
 def update_bol(request, id):
     """ Atualiza Arquivo/boleto."""
