@@ -36,8 +36,9 @@
         {{ chamado.descricao }}
       </label>
     </p>
-    <p class="text-xl-left font-weight-bold">
-      <label>Arquivo:
+
+    <form method="post" action="{% url 'delete_chamado' chamado.id %}">
+      {% csrf_token %}
         {% if chamado.arquivo %}
         <a href="{{ chamado.arquivo.url }}" class="btn btn-outline-primary my-2 my-sm-0" target="_blank">
           Download
@@ -45,29 +46,15 @@
         {% else %}
           <span>No arquivo</span>
         {% endif %}
-      </label>
-    </p>
-    <p class="text-xl-left font-weight-bold">
-      <label>Alterar:
         <a href="{% url 'update_chamado' chamado.id %}" style="text-decoration:none">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="button">
+          <button class="btn btn-outline-info my-2 my-sm-0" type="button">
             Alterar
           </button>
         </a>
-      </label>
-    </p>
-    <form method="post" action="{% url 'delete_chamado' chamado.id %}">
-      {% csrf_token %}
-      <p class="text-xl-left font-weight-bold">
-        <label>Deletar Chamado:
-          <button type="submit" class="btn btn-outline-danger my-2 my-sm-0" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">
-            Deletar
-          </button>
-        </label>
-      </p>
+        <button type="submit" class="btn btn-outline-danger my-2 my-sm-0" onclick="return confirm('Tem certeza que deseja deletar esse registro?');">Excluir</button>
     </form>
-  </fieldset>
   <hr>
+  </fieldset>
   {% endfor %}
 
 </div>

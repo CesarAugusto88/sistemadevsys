@@ -55,6 +55,7 @@ urlpatterns = [
     path("devsys/upload/", views.upload, name="upload"),
     path("devsys/arqs/", views.arq_list, name="arq_list"),
     path("devsys/arqs/upload/", views.upload_arq, name="upload_arq"),
+    path("devsys/arqs/update/<int:id>/", views.update_arq, name="update_arq"),
     path("devsys/arqs/<int:id>/", views.delete_arq, name="delete_arq"),
     # Verificar para retirar class/arqs...:
     path(
