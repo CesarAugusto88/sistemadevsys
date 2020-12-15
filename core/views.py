@@ -352,7 +352,7 @@ def upload_arq(request):
         form = ArqForm()
     return render(request, "upload_arq.html", {"form": form})
 
-#Update arquivo.
+#Update arquivo. ERRO Não altera arquivo
 @login_required(login_url="/login/")
 def update_arq(request, id):
     """ Atualiza Arquivo"""
@@ -568,7 +568,7 @@ def upload_bol(request):
         form = BolForm()
     return render(request, "upload_bol.html", {"form": form})
 
-#Update arquivo/boleto.
+#Update arquivo/boleto. ERRO Não altera arquivo
 @login_required(login_url="/login/")
 def update_bol(request, id):
     """ Atualiza Arquivo/boleto."""

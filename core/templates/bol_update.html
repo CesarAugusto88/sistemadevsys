@@ -3,7 +3,7 @@
 {% block content %}
 <!--com erro, nao coloca e nao troca arquivos -->
 <div class="container" style="padding-top: 35px;">
-        <h2>Update Arquivo/Boleto</h2>
+        <h2>Atualizar Arquivo/Boleto</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }} <!--form.as_table padrao?-->

@@ -5,12 +5,12 @@
 {% block content %}
 <!--Upload de funcionario para cliente-->
 <div class="container">
-  <h2>Upload boleto/arquivo</h2>
+  <h2>Novo boleto/arquivo</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
 
-    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">Upload boleto/arquivo</button>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">Novo boleto/arquivo</button>
   </form>
   <br>
 
