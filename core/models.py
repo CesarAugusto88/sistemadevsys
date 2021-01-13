@@ -154,7 +154,7 @@ class Cliente(models.Model):
     senha = models.CharField(blank=True, null=True, max_length=6)
     date_added = models.DateTimeField(auto_now_add=True)
     usuario_cli = models.ForeignKey(User, on_delete=models.CASCADE)
-    #varchar 27 para bloquerar
+    # varchar 27 para bloquerar
     chave = models.CharField(max_length=27)
     # classe Meta serve p modificar nomes para plural
     class Meta:
@@ -192,11 +192,12 @@ class Ordem_Servico(models.Model):
     dt_entrada = models.DateTimeField("Data de Entrada", auto_now_add=True)
     dt_atualizada = models.DateTimeField("Data Atualizada", auto_now=True)
     valor = models.FloatField(blank=True, null=True)
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(blank=True, null=True, max_length=255)
     efetuado = models.CharField(blank=True, null=True, max_length=255)
     ref_status = models.IntegerField(blank=True, null=True)
     ref_setor = models.IntegerField(blank=True, null=True)
-    dt_agenda = models.DateTimeField(verbose_name="Data Agendada")
+    dt_agenda = models.DateTimeField(verbose_name="Data Agendada",
+                                        blank=True, null=True)
     horario = models.CharField(blank=True, null=True, max_length=12)
     equipamento = models.CharField(blank=True, null=True, max_length=60)
     total = models.FloatField(blank=True, null=True)
@@ -239,7 +240,7 @@ class Ordem_Servico(models.Model):
     hr_entrega = models.CharField(blank=True, null=True, max_length=5)
     confirmar = models.BooleanField(default=False)
     finalizar = models.BooleanField(default=False)
-    usuario_os = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario_os = models.ForeignKey(User, on_delete=models.PROTECT)
 
     # classe Meta serve p/ modificar nomes para plural
     class Meta:
