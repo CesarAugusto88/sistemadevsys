@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.http.response import Http404, JsonResponse
@@ -202,9 +204,13 @@ def lista_ordem_servicos(request):
             data_atual = datetime.now() - timedelta(
                 days=365
             )
-            ordem_servico = Ordem_Servico.objects.filter(
+            ordem_servico_list = Ordem_Servico.objects.filter(
                 usuario_os=usuario, dt_agenda__gt=data_atual
-            )
+            ).order_by('-dt_atualizada')
+            paginator = Paginator(ordem_servico_list, 10)
+            page = request.GET.get('page')
+            ordem_servico = paginator.get_page(page)
+
             
         dados = {"ordem_servicos": ordem_servico}
     else:
@@ -226,12 +232,12 @@ def ordem_servico(request):
 @login_required(login_url="/login/")
 def submit_ordem_servico(request):
     if request.POST:
-        
         descricao = request.POST.get("descricao")
         dt_agenda = request.POST.get("dt_agenda")
         dt_pagamento = request.POST.get("dt_pagamento")
         equipamento = request.POST.get("equipamento")
         responsavel = request.POST.get("responsavel")
+        valor = request.POST.get("valor")
         confirmar = request.POST.get("confirmar")
         finalizar = request.POST.get("finalizar")
         usuario_os = request.user
@@ -262,6 +268,7 @@ def submit_ordem_servico(request):
                 ordem_servico.dt_pagamento = dt_pagamento
                 ordem_servico.responsavel = responsavel
                 ordem_servico.equipamento = equipamento
+                ordem_servico.valor = valor
                 ordem_servico.confirmar = confirmar
                 ordem_servico.finalizar = finalizar
                 ordem_servico.save()
@@ -275,11 +282,12 @@ def submit_ordem_servico(request):
                 dt_pagamento=dt_pagamento,
                 responsavel=responsavel,
                 equipamento=equipamento,
+                valor=valor,
                 confirmar=confirmar,
                 finalizar=finalizar,
                 usuario_os=usuario_os, #pega user request
             )
-        print("confirmar: ", confirmar, " finalizar: ", finalizar)
+        # print("confirmar: ", confirmar, " finalizar: ", finalizar)
     return redirect("ordem-servicos")
 
 

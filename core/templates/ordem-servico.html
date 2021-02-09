@@ -35,7 +35,7 @@
             <p>
                 <label>Data do Pagamento: <!--Fazer def get_pagamento_input_os em model para entrada e mostrar... -->
 
-                    <input type="date" name="dt_pagamento" value="{{ ordem_servico.get_pagamento_input_os }}" required>
+                    <input type="datetime-local" name="dt_pagamento" value="{{ ordem_servico.get_pagamento_input_os }}" required>
 
                 </label>
             </p>
@@ -50,6 +50,10 @@
             <p>
                 <label for="equipamento"> Equipamentos: </label><br>
                 <textarea id="equipamento" name="equipamento" rows="4" cols="34"  required>{{ ordem_servico.equipamento }}</textarea>
+            </p>
+            <p>
+                <label for="valor"> Valor: </label><br>
+                <input type="number" name="valor" value="{{ ordem_servico.valor }}" required>
             </p>
 
             Confirmar <input type="checkbox" name="confirmar" value="on" {% if confirmar %}checked{% endif %}>

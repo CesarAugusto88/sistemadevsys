@@ -198,7 +198,7 @@ class Ordem_Servico(models.Model):
     ref_setor = models.IntegerField(blank=True, null=True)
     dt_agenda = models.DateTimeField(verbose_name="Data Agendada")
     horario = models.CharField(blank=True, null=True, max_length=12)
-    equipamento = models.CharField(blank=True, null=True, max_length=60)
+    equipamento = models.CharField(blank=True, null=True, max_length=255)
     total = models.FloatField(blank=True, null=True)
     inserir_produto = models.CharField(blank=True, null=True, max_length=2)
     sem_comissao = models.CharField(blank=True, null=True, max_length=2)
@@ -207,7 +207,7 @@ class Ordem_Servico(models.Model):
     garantia = models.CharField(blank=True, null=True, max_length=2)
     recebido = models.CharField(blank=True, null=True, max_length=2)
     valor_pro = models.FloatField(blank=True, null=True)
-    dt_pagamento = models.DateField(blank=True, null=True)
+    dt_pagamento = models.DateTimeField(blank=True, null=True)
     data_entrada = models.DateTimeField(blank=True, null=True)
     marca = models.CharField(blank=True, null=True, max_length=20)
     modelo = models.CharField(blank=True, null=True, max_length=20)
@@ -270,12 +270,12 @@ class Ordem_Servico(models.Model):
         return self.dt_agenda.strftime("%Y-%m-%dT%H:%M")
 
     def get_dt_pagamento_os(self):
-        """Mostra data do pagamento formatada da OS."""
-        return self.dt_agenda.strftime("%d/%m/%Y")
+        """Mostra data pagamento formatada da OS."""
+        return self.dt_pagamento.strftime("%d/%m/%Y %H h : %M min")
 
     def get_pagamento_input_os(self):
-        """ Entrada da data do pagamento da OS correta para template."""
-        return self.dt_agenda.strftime("%Y-%m-%d")
+        """ Data pagamento OS correta para template."""
+        return self.dt_pagamento.strftime("%Y-%m-%dT%H:%M")
 
     def get_ordem_servico_atrasada(self):
         """ Mostra datas agendadas atrasadas em cor vermelha 
