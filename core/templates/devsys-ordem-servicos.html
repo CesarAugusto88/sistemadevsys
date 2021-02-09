@@ -13,10 +13,10 @@
     </label>
   </p>
   <h2>Ordens de Serviços</h2>
-  <form action=""  class="form-inline my-2 my-lg-0">
+  <form action="" class="form-inline my-2 my-lg-0">
     <div class="form-group">
       <label for="pesquisa" class="sr-only">Pesquisar</label>
-      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Responsável" class="form-control">
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Escreva o Nome do Responsável" class="form-control" value="{{ request.GET.pesquisa }}">
     </div>
     <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin: 1%;">Pesquisar</button>
   </form>
@@ -80,7 +80,14 @@
 
             </label>
           </p>
-          <p><!--ERRO NAO ESTA MOSTRANDO CORFIRMADA E FINALIZADA-->
+          <p>
+            <label>Valor:
+
+            {{ ordem_servico.valor }}
+
+            </label>
+          </p>
+          <p>
             <label>Confirmada:
               {% if ordem_servico.confirmar %}
                   Sim
@@ -112,5 +119,23 @@
       {% endif %}
     {% endif %}
   {% endfor %}
+
+  <div class="paginator">
+    <span class="step-links">
+      {% if ordem_servicos.has_previous %}
+        <a href="?page={{ ordem_servicos.previous_page_number }}"> <i class="fas fa-arrow-left"></i> </a>
+      {% endif %}
+
+      {% if ordem_servicos.paginator.num_pages %}
+        <span class="current">
+          {{ ordem_servicos.number }} de {{ ordem_servicos.paginator.num_pages }}
+        </span>
+      {% endif %}
+
+      {% if ordem_servicos.has_next %}
+        <a href="?page={{ ordem_servicos.next_page_number }}"> <i class="fas fa-arrow-right"></i> </a>
+      {% endif %}
+    </span>
+  </div>
 </div>
 {% endblock %}
