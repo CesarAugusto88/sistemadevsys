@@ -44,5 +44,5 @@ class FuncionarioForm(forms.ModelForm):
     class Meta:
         model = Funcionario
         fields = (
-            'nome', 'endereco', 'email', 'fone1', 'usuario_fun'
+            'referencial', 'nome', 'endereco', 'email', 'fone1', 'usuario_fun'
             )
