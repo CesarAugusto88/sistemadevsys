@@ -1,7 +1,8 @@
+from auditlog.registry import auditlog
+from django.db import models
 from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
-from django.db import models
 from django.core.mail import send_mail, mail_admins
 from django.template.loader import render_to_string
 from devsys import settings
@@ -447,3 +448,10 @@ class Visitante(models.Model):
     def __str__(self):
 
         return self.nome """
+
+auditlog.register(Funcionario)
+auditlog.register(Cliente)
+auditlog.register(Ordem_Servico)
+auditlog.register(Arq)
+auditlog.register(Bol)
+auditlog.register(Chamado)
