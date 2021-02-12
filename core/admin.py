@@ -1,7 +1,8 @@
 from django.contrib import admin
-
+from django.contrib.auth.models import Group
 from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico, Chamado
 
+admin.site.site_header = 'Admin DevSys Dashboard'
 
 class Chamado_Admin(admin.ModelAdmin):    
     list_display = ('nome_cliente','assunto', 'dt_entrada')
@@ -52,3 +53,4 @@ admin.site.register(Cliente, Cli_Admin)
 admin.site.register(Ordem_Servico, OS_Admin)
 admin.site.register(Arq, Arq_Admin)
 admin.site.register(Bol, Bol_Admin)
+admin.site.unregister(Group)
