@@ -19,24 +19,26 @@ class Bol_Admin(admin.ModelAdmin):
     
 
 class Func_Admin(admin.ModelAdmin):
-    list_display = ('id','nome', 'cpf', 'cargo', 'fone1')
-    list_filter = ('bairro', 'email',)
+    list_display = ('id', 'referencial', 'nome', 'cpf', 'cargo', 'fone1')
+    list_filter = ('referencial', 'bairro', 'email',)
     ordering = ['nome']
-    search_fields = ['nome', 'id']
+    search_fields = ['nome', 'id', 'referencial']
     
     
 
 class Cli_Admin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'razao_social', 'cpf_cnpj', 'celular')
-    list_filter = ('celular', 'email',)
+    list_display = ('id', 'referencial', 'nome', 'razao_social', 'cpf_cnpj',
+                    'celular')
+    list_filter = ('referencial', 'celular', 'email',)
     ordering = ['nome']
-    search_fields = ['nome', 'id']
+    search_fields = ['nome', 'id', 'referencial']
 
 class OS_Admin(admin.ModelAdmin):
-    list_display = ('id', 'valor', 'descricao', 'dt_atualizada', 'responsavel')
-    list_filter = ('dt_atualizada',)
+    list_display = ('id', 'referencial', 'valor', 'descricao', 'dt_atualizada',
+                    'responsavel')
+    list_filter = ('dt_atualizada', 'referencial',)
     ordering = ['dt_atualizada']
-    search_fields = ['dt_agenda', 'descricao', 'id']
+    search_fields = ['dt_agenda', 'descricao', 'id', 'referencial']
 
 """ tabela no models (colocar Visitante no import)
 class Vis_Admin(admin.ModelAdmin):
