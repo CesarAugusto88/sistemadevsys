@@ -140,7 +140,6 @@ def submit_funcionario(request):
     return redirect("funcionario")
 
 
-# REDIRECIONAR CORRETAMENTE - OK
 @login_required(login_url="/login/")
 def delete_funcionario(request, id_funcionario):
     # Fazer verificações como esta nas outras funções.

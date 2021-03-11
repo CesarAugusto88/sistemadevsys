@@ -25,8 +25,9 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = (
-            'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie',
-            'endereco', 'cep', 'uf', 'email', 'fone1', 'bloqueado', 'chave', 'usuario_cli'
+            'referencial', 'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj',
+            'rg_ie', 'endereco', 'cep', 'uf', 'email', 'fone1', 'bloqueado',
+            'chave', 'usuario_cli'
             )
 
 
@@ -35,7 +36,7 @@ class ClienteFunForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = (
-            'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie',
+            'referencial', 'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie',
             'endereco', 'cep', 'uf', 'email', 'fone1', 'bloqueado'
             )
 

@@ -39,9 +39,6 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'chamado_list_fun' %}">CHAMADOS</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'list_clientes' %}">CLIENTES</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             CADASTRAR USUÁRIO
@@ -52,6 +49,10 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'list_clientes' %}">CLIENTES</a>
+        </li>
+
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><a href="{% url 'logout_user' %}" style="text-decoration: none; color: #e3f2fd;">LOGOUT</a></button>
