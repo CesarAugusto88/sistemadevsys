@@ -1,15 +1,57 @@
 <!-- Nova Aba sistema -->
 <!-- O Sistema -->
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
+
+<!-- BARRA SUPERIOR TODOS OS DISPOSITIVOS E TODOS AS TELAS -->
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}"><img height="30" alt="Brand" src="{% static 'images/DEVSYS-FAVICON.png' %}"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'home' %}">ÍNICIO</a>
+                </li>
+                <li class="active">
+                    <a href="{% url 'sistema' %}">SISTEMA</a>
+                </li>
+              <!--  <li>
+                    <a href="Clientes.html">CLIENTES</a>
+                </li>
+                <li>
+                    <a href="galeria.html">GALERIA</a>
+                </li>
+                <li class="hidden-sm hidden-xs">
+                    <a href="#">DOWNLOADS</a>
+                </li> -->
+                <li>
+                    <a href="{% url 'contact' %}">CONTATO</a>
+                </li>
+                <li>
+                  <a href="{% url 'login_user' %}">ENTRAR</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
 <div class="cover" id="1">
     <div class="background-image-fixed cover-image" style="background-image : url('../static/images/projeto.jpg')"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h1 style="color: rgb(66, 51, 66);">Sistemas DevSys</h1>
-                <p class="text-primary">Desenvolvimento de Sistemas</p>
+                <h1 class="text-primary">DevSys</h1>
+                <h3 class="text-primary">Desenvolvimento de Sistemas</h3>
                 <br>
                 <a class="btn btn-lg btn-default" href="#modulos">Conheça os Módulos&nbsp;<i class="fa fa-fw fa-angle-double-right"></i></a>
             </div>
@@ -17,12 +59,11 @@
     </div>
 </div>
 
-
-<div class="section">
+<div class="section"  id="modulos">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center">O SISTEMA</h1>
+                <h1 class="text-center">SISTEMA</h1>
                 <p class="lead text-center">O sistema DevSys foi planejado para trazer simplicidade para controlar
                     os processos internos e eficiência para gerenciar a sua empresa, de acordo
                     com as regulamentações do Governo Estadual que constam no Art.º 123. Trazendo
@@ -31,15 +72,15 @@
         </div>
     </div>
 </div>
-<div class="section section-info">
+<!-- <div class="section section-info">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <hr id="modulos">
+                <hr >
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <div class="hidden-sm hidden-xs section">
     <div class="container">
         <div class="row">

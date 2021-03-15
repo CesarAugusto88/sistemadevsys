@@ -2,15 +2,16 @@
 
 {% block content %}
 <div class="container">
-  <h2>Chamados</h2>
+  <h1>Chamados</h1>
+
   <form action=""  class="form-inline" style="margin-bottom: 2%;">
     <div class="form-group">
       <label for="pesquisa" class="sr-only">Pesquisar</label>
       <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Nome do Cliente" class="form-control">
     </div>
-    <button type="submit" class="btn btn-primary" style="margin-left: 1%;">Pesquisar</button>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
   </form>
-  <hr>
+<hr>
   {% for chamado in chamados %}
   <fieldset>
     <legend> <b>Dados do Arquivo/Boleto</b> </legend>
@@ -41,4 +42,5 @@
   </fieldset>
   <hr>
   {% endfor %}
+</div>
 {% endblock %}

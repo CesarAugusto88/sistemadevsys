@@ -4,22 +4,60 @@
 {% block content %}
 
 {% load static %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+  <!-- BARRA SUPERIOR TODOS OS DISPOSITIVOS E TODOS AS TELAS -->
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}"><img height="30" alt="Brand" src="{% static 'images/DEVSYS-FAVICON.png' %}"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'home' %}">ÍNICIO</a>
+                </li>
+                <li>
+                    <a href="{% url 'sistema' %}">SISTEMA</a>
+                </li>
+              <!--  <li>
+                    <a href="Clientes.html">CLIENTES</a>
+                </li>
+                <li>
+                    <a href="galeria.html">GALERIA</a>
+                </li>
+                <li class="hidden-sm hidden-xs">
+                    <a href="#">DOWNLOADS</a>
+                </li> -->
+                <li>
+                    <a href="{% url 'contact' %}">CONTATO</a>
+                </li>
+                <li class="active">
+                  <a href="{% url 'login_user' %}">ENTRAR</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </div>
 
   <section class="container-fluid">
     <section class="row justify-content-center">
-      <section class="col-12 col-sm-6 col-md-3">
+      <section class="col-md-12 text-center">
         <form class="form-cotainer" action="submit" method="POST" autocomplete="off">{% csrf_token %}
-          <br> <br> 
-        <div>
-          <h4 style="font-size: 35px; text-align: center;">Login</h4>
-        </div>
+          <br> <br> <br> 
+        <div class="container">
           <div class="form-group">
             <label style="font-size: 25px;">Usuário:
               <input type="text" class="form-control" name="username" size="37" placeholder="Name" aria-describedby="userHelp">
             </label>
-            <small id="userHelp" class="form-text text-muted">We'll never share your user with anyone else.</small>
-          
+            <br>
+            <small id="userHelp" class="form-text text-muted">We'll never share your user and key with anyone else.</small>
+            <br>
             <label style="font-size: 25px;">Senha:
               <input type="password" class="form-control" name="password" id="myInput" size="37" placeholder="Password">
             </label>
@@ -29,25 +67,24 @@
               <input type="checkbox" class="form-check-input" onclick="myFunction()">Check me out
             </label>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+          <!-- block ou default? -->
+          <button type="submit" class="btn btn-primary btn-default">Entrar</button>
           
-          <button type="button" class="btn btn-primary btn-block" onclick="location.href='/'">Cancelar</button>
-          <br>
+          <button type="button" class="btn btn-primary btn-default" onclick="location.href='/'">Cancelar</button>
+          <br><br>
 
           <div style="text-align: center">
             <a href="/">
               <img src="{% static 'images/Logo.jpg' %}" width="100px" alt="logo">
             </a>
           </div>
+        </div>
         </form>
         {% for message in messages %}
-        
-          <br>
-          <div align="left" style="color: red;">
+          <div align="center" style="color: red;">
             &emsp;&emsp; 
             <strong>Erro: </strong>{{ message }}
           </div>
-          
         {% endfor %}
         <br><br>
       </section>
