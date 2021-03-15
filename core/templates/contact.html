@@ -1,17 +1,63 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <div class="pure-g-r content-ribbon">
-        <div class="pure-u-1">
-            
-            <h1>Fale conosco</h1>
-            <p>Você pode entrar em contato conosco tanto por e-mail como pelas redes sociais. Abaixo seguem os links para contato:</p>
-            <h4>Links</h4>
-            <ul>
-                <li>E-mail: <a href="mailto:cotato@devsys.com.br" target="_blank">contato@devsys.com.br</a></li>
-                <li>Facebook: <a href="https://facebook.com/DevSys-Desenvolvimento-de-Sistemas-1697211960522749" target="_blank">DevSys</a> </li>
-                <li>Contate-nos: <a href="https://api.whatsapp.com/send?1=pt_BR&phone=551236642503" target="_blank">Whatsapp</a> </li>
+{% load static %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+  <!-- BARRA SUPERIOR TODOS OS DISPOSITIVOS E TODOS AS TELAS -->
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}"><img height="30" alt="Brand" src="{% static 'images/DEVSYS-FAVICON.png' %}"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'home' %}">ÍNICIO</a>
+                </li>
+                <li>
+                    <a href="{% url 'sistema' %}">SISTEMA</a>
+                </li>
+              <!--  <li>
+                    <a href="Clientes.html">CLIENTES</a>
+                </li>
+                <li>
+                    <a href="galeria.html">GALERIA</a>
+                </li>
+                <li class="hidden-sm hidden-xs">
+                    <a href="#">DOWNLOADS</a>
+                </li> -->
+                <li class="active">
+                    <a href="{% url 'contact' %}">CONTATO</a>
+                </li>
+                <li>
+                  <a href="{% url 'login_user' %}">ENTRAR</a>
+                </li>
             </ul>
         </div>
     </div>
+  </div>
+
+<div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+            
+            <h1>Fale conosco</h1>
+            <p class="lead">Você pode entrar em contato conosco tanto por e-mail como pelas redes sociais. Abaixo seguem os links para contato:</p>
+            <h4 class="lead">Links</h4>
+            <ul>
+                <li class="lead">E-mail: <a href="mailto:cotato@devsys.com.br" target="_blank">contato@devsys.com.br</a></li>
+                <li class="lead">Facebook: <a href="https://facebook.com/DevSys-Desenvolvimento-de-Sistemas-1697211960522749" target="_blank">DevSys</a> </li>
+                <li class="lead">Contate-nos: <a href="https://api.whatsapp.com/send?1=pt_BR&phone=551236642503" target="_blank">Whatsapp</a> </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+</div>
 {% endblock %}

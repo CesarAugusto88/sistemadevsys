@@ -1,17 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+{% load static %}
+<!-- BARRA SUPERIOR TODOS OS DISPOSITIVOS E TODOS AS TELAS -->
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}"><img height="30" alt="Brand" src="{% static 'images/DEVSYS-FAVICON.png' %}"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                    <a href="{% url 'home' %}">ÍNICIO</a>
+                </li>
+                <li>
+                    <a href="{% url 'sistema' %}">SISTEMA</a>
+                </li>
+              <!--  <li>
+                    <a href="Clientes.html">CLIENTES</a>
+                </li>
+                <li>
+                    <a href="galeria.html">GALERIA</a>
+                </li>
+                <li class="hidden-sm hidden-xs">
+                    <a href="#">DOWNLOADS</a>
+                </li> -->
+                <li>
+                    <a href="{% url 'contact' %}">CONTATO</a>
+                </li>
+                <li>
+                  <a href="{% url 'login_user' %}">ENTRAR</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 <!-- AREA SUPERIOR CENTRO -->
 <div class="cover" id="1">
-    <div class="background-image-fixed cover-image" style="background-image : url('../static/images/sistema-de-informacao.jpg')"></div>
+    <div class="background-image-fixed cover-image" style="background-image: url('../static/images/sistema-de-informacao.jpg')"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
                 <h1 class="text-primary">DevSys</h1>
                 <p class="text-primary">Desenvolvimento de Sistemas&nbsp;</p>
                 <br>
-                <a class="btn btn-lg btn-default" href="#sistema">Conheça Mais&nbsp;<i class="fa fa-fw fa-angle-double-right"></i></a>
+                <a class="btn btn-lg btn-default" href="#2">Conheça Mais&nbsp;<i class="fa fa-fw fa-angle-double-right"></i></a>
             </div>
         </div>
     </div>
@@ -19,111 +58,29 @@
 
 <!-- ************************************************************************************************ --> 
 
-<div class="hidden-sm hidden-xs section" style="left: -2rem;">
-    <div class="container text-center">
+<!-- INFORMAÇÕES PARTE INFERIOR -->
+<div class="section" id="2">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <ul class="media-list">
-                    <li class="media">
-                        <a class="pull-left" href="#"><img class="media-object" src="../static/images/DEVSYS-450.png" height="100" width="100"></a>
-                        <div class="media-body text-center">
-                            
-                            <h3 class="media-heading">Vídeos e foto</h3>
-                                <h4>Publique aqui</h4>
-                                <p>
-                                    Sistema simples e prático.
-                                </p>
-                        </div>
-                    </li>
-                    <br><br>
-                    <li class="media">
-                        <div class="media-body text-center">
-                            
-                            <h3 class="media-heading">Fórum de Dúvidas</h3>
-                                <h4>Interaja com o atendente</h4>
-                                <p>
-                                    Atendimento de forma exclusiva com seu próprio fórum no sistema do site para interagir com o responsável do atendimento.
-                                </p>
-                        </div>
-                        <a class="pull-left" href="#"><img class="media-object" src="../static/images/DEVSYS-450.png" height="100" width="100"></a>
-                    </li>
-                    <br><br>
-                    <li class="media">
-                        <a class="pull-left" href="#"><img class="media-object" src="../static/images/DEVSYS-450.png" height="100" width="100"></a>
-                        <div class="media-body text-center">
-                            
-                            <h3 class="media-heading">Documentos</h3>
-                                <h4>Crie seu fórum</h4>
-                                <p>
-                                    O controle de satisfação é feito pela plataforma do site, facilitando sua vida.
-                                </p>
-                        </div>
-                    </li>
-                    <br><br>
-                    <li class="media">
-                        <div class="media-body text-center">
-                            
-                            <h3 class="media-heading">Mural de Avisos</h3>
-                                <h4>Envie seu contato diretamente para receber um orçamento</h4>
-                                <p>
-                                    <a href="https://www.devsys.com.br/contato" style="text-decoration: none;
-                                        color: blueviolet;"><b>devsys.com.br/contato</b></a>
-                                </p>
-                        </div>
-                        <a class="pull-left" href="#"><img class="media-object" src="../static/images/DEVSYS-450.png" height="100" width="100"></a>
-                    </li>
-                    <!-- INFORMAÇÕES PARTE INFERIOR -->
-                    <br id="sistema">
-                    <br> <br>
-                    <li class="media">
-                        <a class="pull-left" href="#"><img class="media-object" src="../static/images/DEVSYS-450.png" height="100" width="100"></a>
-                        <div class="media-body text-center">
-                                                        
-                            <h3>Para Micro e Pequenas Empresas&nbsp;</h3>
-                            <p>O sistema DevSys é destinado aos estabelecimentos preocupados em gerar
-                                    melhores resultados.</p>
-                                <p>Nosso objetivo é oferecer uma ferramenta simples e prática, capaz de agilizar
-                                    as operações comerciais e aperfeiçoar a gestão da sua empresa buscando
-                                    eficiência e produtividade.</p>
-                                <p>Nosso sistema atende diversos segmentos de mercado como comércio em geral,
-                                    transportadoras, restaurante e condomínios.</p>
-                        </div>
-                    </li>
-                    <br><br>
-                    <!-- Endereco DevSys -->
-                    <li class="media">
-                        <div class="media-body text-center">
-                            
-                            <h3>DevSys</h3>
-                            <p>CAMPOS DO JORDÃO - SP
-                            <br>RUA BRIGADEIRO JORDÃO, 1045 - VILA ABERNESSIA
-                            <br>contato@devsys.com.br</p>
-                            <p>(12)3664-2503</p>
-                        </div>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.7627935085948!2d-45.58893579999999!3d-22.73705639999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc89ce5569250d%3A0xf496b20638529a34!2sR.+Brg.+Jord%C3%A3o%2C+1045+-+Abern%C3%A9ssia%2C+Campos+do+Jord%C3%A3o+-+SP%2C+12460-000!5e0!3m2!1spt-BR!2sbr!4v1490885401914" width="100" height="100" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-                    </li>
-                </ul>
+            <div class="col-md-6 hidden-xs">
+                <img src="{% static 'images/DEVSYS-ICON.png' %}" class="img-responsive img-thumbnail">
+            </div>
+            <div class="col-md-6 text-center">
+                <h1 class="text-primary" style="color:purple;">Sistema de Controle Comercial&nbsp;</h1>
+                <h3>Para Micro e Pequenas Empresas&nbsp;</h3>
+                <br>
+                <p>O sistema DevSys é destinado aos estabelecimentos preocupados em gerar
+                    melhores resultados.</p>
+                <p>Nosso objetivo é oferecer uma ferramenta simples e prática, capaz de agilizar
+                    as operações comerciais e aperfeiçoar a gestão da sua empresa buscando
+                    eficiência e produtividade.</p>
+                <p>Nosso sistema atende diversos segmentos de mercado como comércio em geral,
+                    transportadoras, restaurante e condomínios.</p>
             </div>
         </div>
     </div>
-</div> 
+</div>
 
-<!-- ************************************************************************************************ -->
 
-<script>
-    document.addEventListener("scroll", function(){
-        document.querySelector("#paralax").style.backgroundPosition = 'center '+window.pageYOffset+'px';
-        });
-</script>
-
-<!-- SCRIPT GOOGLE ANALYTICS -->
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-            ga('create', 'UA-87671989-1', 'auto');
-            ga('send', 'pageview');
-</script>
 {% endblock %}
 
