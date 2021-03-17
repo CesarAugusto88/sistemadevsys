@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
-
 {% block content %}
+
 {% load static %}
   <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
   <!-- BARRA SUPERIOR TODOS OS DISPOSITIVOS E TODOS AS TELAS -->
@@ -21,9 +21,9 @@
                 <li>
                     <a href="{% url 'home' %}">ÍNICIO</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="{% url 'sistema' %}">SISTEMA</a>
-                </li>
+                </li> -->
                 <li class="active">
                     <a href="{% url 'contact' %}">CONTATO</a>
                 </li>
