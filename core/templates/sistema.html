@@ -1,13 +1,13 @@
-<!-- Nova Aba sistema -->
-<!-- O Sistema -->
 {% extends "base.html" %}
-{% load static %}
+
+
 {% block content %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
 <!-- BARRA SUPERIOR TODOS OS DISPOSITIVOS E TODOS AS TELAS -->
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -25,15 +25,6 @@
                 <li class="active">
                     <a href="{% url 'sistema' %}">SISTEMA</a>
                 </li>
-              <!--  <li>
-                    <a href="Clientes.html">CLIENTES</a>
-                </li>
-                <li>
-                    <a href="galeria.html">GALERIA</a>
-                </li>
-                <li class="hidden-sm hidden-xs">
-                    <a href="#">DOWNLOADS</a>
-                </li> -->
                 <li>
                     <a href="{% url 'contact' %}">CONTATO</a>
                 </li>
