@@ -20,6 +20,13 @@
     <link href="{% static 'css/les.css' %}" rel="stylesheet" type="text/css">
     <!--####-->
 
+    <!-- Bootstrap core CSS -->
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> -->
+    
+    <!-- Custom styles for this template -->
+    <!-- <link rel="stylesheet" href="{% static 'css/business-frontpage.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}" /> -->
+
     <!--https://saeedalipoor.github.io/icono/-->
     <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
 
@@ -28,37 +35,37 @@
 </head>
 
 <body>
-    <!-- BARRA SUPERIOR TODOS OS DISPOSITIVOS E TODOS AS TELAS -->
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url 'home' %}"><img height="30" alt="Brand" src="{% static 'images/DEVSYS-FAVICON.png' %}"></a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-ex-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active">
-                        <a href="{% url 'home' %}">ÍNICIO</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'sistema' %}">SISTEMA</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'contact' %}">CONTATO</a>
-                    </li>
-                    <li>
-                      <a href="{% url 'login_user' %}">ENTRAR</a>
-                    </li>
-                </ul>
-            </div>
+<!-- BARRA SUPERIOR TODOS OS DISPOSITIVOS E TODOS AS TELAS -->
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}"><img height="30" alt="Brand" src="{% static 'images/DEVSYS-FAVICON.png' %}"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                    <a href="{% url 'home' %}">ÍNICIO</a>
+                </li>
+                <li>
+                <li>
+                    <a href="{% url 'sistema' %}">SISTEMA</a>
+                </li>
+                <li>
+                    <a href="{% url 'contact' %}">CONTATO</a>
+                </li>
+                <li>
+                  <a href="{% url 'login_user' %}">ENTRAR</a>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
 
     <!-- AREA SUPERIOR CENTRO -->
     <div class="cover" id="1">
