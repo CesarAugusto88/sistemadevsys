@@ -22,10 +22,7 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = [
-    "devsys.com.br",
-    "www.devsys.com.br",
-    "localhost",
-    "127.0.0.1",
+    config("HOSTS")
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
