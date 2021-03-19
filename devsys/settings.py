@@ -22,7 +22,11 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = [
-    config("HOSTS")
+    config("SITE1"),
+    config("SITE2"),
+    config("LOCAL1"),
+    config("LOCAL2"),
+    config("IP"),
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
