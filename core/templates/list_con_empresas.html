@@ -1,0 +1,44 @@
+{% extends 'base-funcionario.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Empresas</h1>
+
+  <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Nome" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
+  </form>
+<hr>
+  {% for empresa in empresas %}
+  <fieldset>
+    <legend> <b>Dados da Empresa</b> </legend>
+    <p>
+      <label>Referencial:
+        {{ empresa.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Nome:
+        {{ empresa.nome }}
+      </label>
+    </p>
+    <p>
+      <label>Razão Social:
+        {{ empresa.razao_social }}
+      </label>
+    </p>
+    <p>
+      <label>Cnpj:
+        {{ empresa.cnpj }}
+      </label>
+    </p>
+      
+  <hr>
+
+  {% endfor %}
+
+</div>
+{% endblock %}

@@ -14,9 +14,14 @@ from django.urls import reverse_lazy
 # Upload/download
 from django.views.generic import CreateView, ListView, TemplateView
 
-from core.models import Arq, Bol, Cliente, Funcionario, Ordem_Servico, Chamado
+from core.models import (Arq, Bol, Cliente, Funcionario, Ordem_Servico,
+                        Chamado, Ven_Caixa, Ven_Formas, Fin_Banco, Fin_Conta, Fin_SubConta,
+                        Ven_Fecha_Caixa, Con_Empresa)
 
-from .forms import ArqForm, BolForm , ChamadoForm, ClienteFunForm
+from .forms import (ArqForm, BolForm , ChamadoForm, ClienteFunForm,
+                    Ven_CaixaForm, Ven_FormasForm, Fin_BancoForm,
+                    Fin_ContaForm, Fin_SubContaForm,
+                    Ven_Fecha_CaixaForm, Con_EmpresaForm)
 
 def home(request):
     # return HttpResponse('Hello World!')
@@ -684,7 +689,6 @@ def chamado_list_fun(request):
     return render(request, "chamado_list_fun.html", dados)
 
 
-
 @login_required(login_url="/login/")
 def criar_chamado(request):
     """ Cria formulário do chamado e envia objeto cliente para pegar id.
@@ -788,3 +792,196 @@ def delete_clientes(request, id):
         cliente = Cliente.objects.get(id=id)
         cliente.delete()
     return redirect("list_clientes")
+
+
+################### Ven_Caixa Vendas do Caixa do Funcionário ###########
+#### ATUALIZANDO - E FALTA CHAMAR NO URLs ######
+@login_required(login_url="/login/")
+def list_caixas(request):
+    """ Lista Vendas do caixa do Funcionário"""
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+         #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            caixas = Ven_Caixa.objects.all()
+            #__icontains sem case sensitive
+            caixas = caixas.filter(nome_caixa__icontains=termo_pesquisa)
+        else:
+            caixas = Ven_Caixa.objects.all()
+        dados = {"caixas": caixas}
+    else:
+        raise Http404()
+
+    return render(request, "list_caixas.html", dados)
+
+
+# VEN_FORMAS #
+@login_required(login_url="/login/")
+def list_formas(request):
+    """ Lista Formas Vendas"""
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+         #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            formas = Ven_Formas.objects.all()
+            #__icontains sem case sensitive
+            formas = formas.filter(nome__icontains=termo_pesquisa)
+        else:
+            formas = Ven_Formas.objects.all()
+        dados = {"formas": formas}
+    else:
+        raise Http404()
+
+    return render(request, "list_formas.html", dados)
+
+
+# Fin_Banco #
+@login_required(login_url="/login/")
+def list_bancos(request):
+    """ Lista Bancos"""
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+         #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            bancos = Fin_Banco.objects.all()
+            #__icontains sem case sensitive
+            bancos = bancos.filter(banco__icontains=termo_pesquisa)
+        else:
+            bancos = Fin_Banco.objects.all()
+        dados = {"bancos": bancos}
+    else:
+        raise Http404()
+
+    return render(request, "list_bancos.html", dados)
+
+
+# Fin_Conta #
+@login_required(login_url="/login/")
+def list_contas(request):
+    """ Lista Contas"""
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+         #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            contas = Fin_Conta.objects.all()
+            #__icontains sem case sensitive
+            contas = contas.filter(conta__icontains=termo_pesquisa)
+        else:
+            contas = Fin_Conta.objects.all()
+        dados = {"contas": contas}
+    else:
+        raise Http404()
+
+    return render(request, "list_contas.html", dados)
+
+
+# Fin_SubConta #
+@login_required(login_url="/login/")
+def list_subcontas(request):
+    """ Lista SubContas"""
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+         #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            subcontas = Fin_SubConta.objects.all()
+            #__icontains sem case sensitive
+            subcontas = subcontas.filter(subconta__icontains=termo_pesquisa)
+        else:
+            subcontas = Fin_SubConta.objects.all()
+        dados = {"subcontas": subcontas}
+    else:
+        raise Http404()
+
+    return render(request, "list_subcontas.html", dados)
+
+
+# Ven_Fecha_Caixa #
+@login_required(login_url="/login/")
+def list_fecha_caixas(request):
+    """ Lista SubContas"""
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+         #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            fecha_caixas = Ven_Fecha_Caixa.objects.all()
+            #__icontains sem case sensitive
+            fecha_caixas = fecha_caixas.filter(
+                                    ref_caixa__icontains=termo_pesquisa)
+        else:
+            fecha_caixas = Ven_Fecha_Caixa.objects.all()
+        dados = {"fecha_caixas": fecha_caixas}
+    else:
+        raise Http404()
+
+    return render(request, "list_fecha_caixas.html", dados)
+
+
+
+# Con_Empresa #
+@login_required(login_url="/login/")
+def list_con_empresas(request):
+    """ Lista Con_Empresas"""
+    usuario = request.user
+    dados = {}
+    try:
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+    except Exception:
+        raise Http404()
+    if funcionario:
+         #id pesquisa
+        termo_pesquisa = request.GET.get('pesquisa', None)
+        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+        if termo_pesquisa:
+            con_empresas = Con_Empresa.objects.all()
+            #__icontains sem case sensitive
+            con_empresas = con_empresas.filter(
+                            nome__icontains=termo_pesquisa)
+        else:
+            con_empresas = Con_Empresa.objects.all()
+        dados = {"empresas": con_empresas}
+    else:
+        raise Http404()
+
+    return render(request, "list_con_empresas.html", dados)

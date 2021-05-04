@@ -121,6 +121,25 @@ urlpatterns = [
     path("devsys/clientes/update/<int:id>/", views.update_clientes, name="update_clientes"),
     path("devsys/clientes/delete/<int:id>/", views.delete_clientes, name="delete_clientes"),
     # -----------------------------------------------------------------------
+    # Ven_Caixa 
+    path("devsys/caixas/lista/", views.list_caixas, name="list_caixas"),
+    # Ven_Formas
+    path("devsys/formas/lista/", views.list_formas, name="list_formas"),
+    # Fin_Banco
+    path("devsys/bancos/lista/", views.list_bancos, name="list_bancos"),
+    # Fin_Conta
+    path("devsys/contas/lista/", views.list_contas, name="list_contas"),
+    # Fin_SubConta
+    path("devsys/subcontas/lista/", views.list_subcontas,
+                                                name="list_subcontas"),
+    # Ven_Fecha_Caixa
+    path("devsys/fecha_caixas/lista/", views.list_fecha_caixas,
+                                                name="list_fecha_caixas"),
+    # Con_Empresa
+    path("devsys/empresas/lista/", views.list_con_empresas,
+                                                name="list_con_empresas"),
+
+    # -----------------------------------------------------------------------
 
 
     # Rotas para funcionar DEBUG=False

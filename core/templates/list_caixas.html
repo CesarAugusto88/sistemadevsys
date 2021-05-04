@@ -1,0 +1,54 @@
+{% extends 'base-funcionario.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Caixas</h1>
+
+  <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Caixa" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
+  </form>
+<hr>
+  {% for caixa in caixas %}
+  <fieldset>
+    <legend> <b>Dados do Caixa</b> </legend>
+    <p>
+      <label>Referencial:
+        {{ caixa.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Nome:
+        {{ caixa.nome_caixa }}
+      </label>
+    </p>
+    <p>
+      <label>Data:
+        {{ caixa.data }}
+      </label>
+    </p>
+    <p>
+      <label>Troco:
+        {{ caixa.troco }}
+      </label>
+    </p>
+    <p>
+      <label>Referencial Funcionário:
+        {{ caixa.ref_fun }}
+      </label>
+    </p>
+    <p>
+      <label>Saldo:
+        {{ caixa.saldo }}
+      </label>
+    </p>
+      
+  <hr>
+
+  {% endfor %}
+
+</div>
+{% endblock %}
