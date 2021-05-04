@@ -1,0 +1,54 @@
+{% extends 'base-funcionario.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>SubContas</h1>
+
+  <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="SubConta" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
+  </form>
+<hr>
+  {% for subconta in subsubcontas %}
+  <fieldset>
+    <legend> <b>Dados da SubConta</b> </legend>
+    <p>
+      <label>Referencial:
+        {{ subconta.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Referencial Conta:
+        {{ subconta.ref_conta.conta }}
+      </label>
+    </p>
+    <p>
+      <label>SubConta:
+        {{ subconta.subconat }}
+      </label>
+    </p>
+    <p>
+      <label>Crédito:
+        {{ subconta.credito }}
+      </label>
+    </p>
+    <p>
+      <label>Débito:
+        {{ subconta.debito }}
+      </label>
+    </p>
+    <p>
+      <label>Pagar:
+        {{ subconta.pagar }}
+      </label>
+    </p>
+      
+  <hr>
+
+  {% endfor %}
+
+</div>
+{% endblock %}

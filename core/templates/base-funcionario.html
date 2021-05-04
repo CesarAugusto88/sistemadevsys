@@ -41,6 +41,21 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            VENDAS
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <!-- <a class="dropdown-item" href="#">VENDAS</a> -->
+            <a class="dropdown-item" href="{% url 'list_caixas' %}">CAIXAS</a>
+            <a class="dropdown-item" href="{% url 'list_formas' %}">FORMAS</a>
+            <a class="dropdown-item" href="{% url 'list_bancos' %}">BANCOS</a>
+            <a class="dropdown-item" href="{% url 'list_contas' %}">CONTAS</a>
+            <a class="dropdown-item" href="{% url 'list_subcontas' %}">SUBCONTAS</a>
+            <a class="dropdown-item" href="{% url 'list_fecha_caixas' %}">FECHAMENTOS</a>
+            <a class="dropdown-item" href="{% url 'list_con_empresas' %}">EMPRESAS</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             CADASTRAR USUÁRIO
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">

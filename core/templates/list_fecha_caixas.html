@@ -1,0 +1,70 @@
+{% extends 'base-funcionario.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Fecha Caixas</h1>
+
+  <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Referencial Caixa" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
+  </form>
+<hr>
+  {% for fecha_caixa in fecha_caixas %}
+
+  <fieldset>
+    <legend> <b>Dados do Fecha Caixa</b> </legend>
+    <p>
+      <label>Referencial:
+        {{ fecha_caixa.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Referencial Caixa:
+        {{ fecha_caixa.ref_caixa.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Referencial Forma:
+        {{ fecha_caixa.ref_forma.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Referencial Ordem <b>Serviço</b>:
+        {{ fecha_caixa.ref_servicos.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Valor:
+        {{ fecha_caixa.valor }}
+      </label>
+    </p>
+    <p>
+      <label>Débito:
+        {{ fecha_caixa.debito }}
+      </label>
+    </p>
+    <p>
+      <label>Complemento:
+        {{ fecha_caixa.complemento }}
+      </label>
+    </p>
+    <p>
+      <label>Referencial Banco:
+        {{ fecha_caixa.ref_banco.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Desconto:
+        {{ fecha_caixa.desconto }}
+      </label>
+    </p>
+      
+  <hr>
+
+  {% endfor %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base-funcionario.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Contas</h1>
+
+  <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Conta" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
+  </form>
+<hr>
+  {% for conta in contas %}
+  <fieldset>
+    <legend> <b>Dados da Conta</b> </legend>
+    <p>
+      <label>Referencial:
+        {{ conta.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Número:
+        {{ conta.conta }}
+      </label>
+    </p>
+      
+  <hr>
+
+  {% endfor %}
+
+</div>
+{% endblock %}

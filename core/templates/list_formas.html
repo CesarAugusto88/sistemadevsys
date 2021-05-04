@@ -1,0 +1,39 @@
+{% extends 'base-funcionario.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Formas</h1>
+
+  <form action=""  class="form-inline" style="margin-bottom: 2%;">
+    <div class="form-group">
+      <label for="pesquisa" class="sr-only">Pesquisar</label>
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Nome" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
+  </form>
+<hr>
+  {% for forma in formas %}
+  <fieldset>
+    <legend> <b>Dados da Forma</b> </legend>
+    <p>
+      <label>Referencial:
+        {{ forma.referencial }}
+      </label>
+    </p>
+    <p>
+      <label>Nome:
+        {{ forma.nome }}
+      </label>
+    </p>
+    <p>
+      <label>tipo:
+        {{ forma.tipo }}
+      </label>
+    </p>
+      
+  <hr>
+
+  {% endfor %}
+
+</div>
+{% endblock %}

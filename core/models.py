@@ -252,12 +252,12 @@ class Ordem_Servico(models.Model):
     def __str__(self):
         """ Devolve uma representação em string do modelo."""
         return self.descricao
-    #Entrada
+    # Entrada
     def get_dt_entrada_os(self):
         """Mostra data de entrada formatada da OS."""
         return self.dt_entrada.strftime("%d/%m/%Y %H h : %M min")
 
-    #Atualizada
+    # Atualizada
     def get_dt_atualizada_os(self):
         """Mostra data atualizada formatada da OS."""
         return self.dt_atualizada.strftime("%d/%m/%Y %H h : %M min")
@@ -408,46 +408,252 @@ class Chamado(models.Model):
         return f"{self.cliente.nome} {self.funcionario.nome}"
 
 
-""" Para cadastrar visitantes e por FOTOS...
-class Visitante(models.Model):
-    referencial = models.IntegerField(blank=True, null=True)
-    nome = models.CharField(max_length=60)
-    cpf = models.CharField(blank=True, null=True, max_length=20)
-    rg = models.CharField(blank=True, null=True, max_length=20)
-    dt_nascimento = models.DateTimeField(blank=True, null=True)
-    cidade = models.CharField(blank=True, null=True, max_length=30)
-    endereco = models.CharField(max_length=60)
-    bairro = models.CharField(blank=True, null=True, max_length=30)
-    ref_cidade = models.IntegerField(blank=True, null=True)
-    cep = models.CharField(blank=True, null=True, max_length=9)
-    uf = models.CharField(blank=True, null=True, max_length=2)
-    email = models.CharField(blank=True, null=True, max_length=60)
-    endereco_co = models.CharField(blank=True, null=True, max_length=60)
-    bairro_co =  models.CharField(blank=True, null=True, max_length=30)
-    cidade_co = models.CharField(blank=True, null=True, max_length=30)
-    cep_co = models.CharField(blank=True, null=True, max_length=9)
-    uf_co = models.CharField(blank=True, null=True, max_length=2)
-    obs = models.CharField(blank=True, null=True, max_length=80)
-    senha = models.CharField(blank=True, null=True, max_length=16)
-    fone1 = models.CharField(max_length=16)
-    fone2 = models.CharField(blank=True, null=True, max_length=20)
-    ativo = models.SmallIntegerField(blank=True, null=True)
-    nome_comp = models.CharField(blank=True, null=True, max_length=160)
-    date_added = models.DateTimeField(auto_now_add=True)
-    usuario_vis = models.ForeignKey(User, on_delete=models.CASCADE)
+############ VENDAS CAIXA #############################
+class Ven_Caixa(models.Model):
+    """ Tabela de Vendas do Caixa."""
+    referencial = models.IntegerField()
+    data = models.DateTimeField()
+    troco = models.DecimalField(max_digits=10, decimal_places=2)
+    ref_fun = models.ForeignKey(
+        "Funcionario", on_delete=models.PROTECT
+        )
+    fechado = models.CharField(max_length=1)
+    hora_fechamento = models.DateTimeField()
+    nome_caixa = models.CharField(max_length=10, null=True, blank=True)
+    saldo = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
 
-
-    # classe Meta serve p/ modificar nomes para plurar(criei no plural)
     class Meta:
-        verbose_name = 'Visitante'
-        verbose_name_plural = 'Visitantes'
-        #ordenar
-        ordering = ['nome']
-
+        verbose_name = "Venda Caixa"
+        verbose_name_plural = "Venda Caixas"
+        # ordenar
+        ordering = ["-referencial"]
 
     def __str__(self):
+        return f"{self.data}"
 
-        return self.nome """
+
+class Ven_Formas(models.Model):
+    referencial = models.IntegerField()
+    nome = models.CharField(max_length=30)
+    tipo = models.CharField(max_length=1)
+    prazo = models.IntegerField(null=True, blank=True)
+    parcelas = models.IntegerField(null=True, blank=True)
+    taxa = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    ref_conta = models.IntegerField(null=True, blank=True)
+    ref_subconta = models.IntegerField(null=True, blank=True)
+    contas_receber = models.IntegerField(null=True, blank=True)
+    vl_minimo =  models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    codigo_fiscal = models.IntegerField(null=True, blank=True)
+    controle_cheque = models.IntegerField(null=True, blank=True)
+    ref_banco = models.IntegerField(null=True, blank=True)
+    ref_sic = models.IntegerField(null=True, blank=True)
+    emissor = models.CharField(max_length=30, null=True, blank=True)
+    valor = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    maquina = models.CharField(max_length=50, null=True, blank=True)
+    parcelado = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Venda Forma"
+        verbose_name_plural = "Venda Formas"
+        # ordenar
+        ordering = ["-referencial"]
+
+    def __str__(self):
+        return f"{self.referencial}"
+
+
+class Fin_Banco(models.Model):
+    """Banco para referencia em Fecha Caixa"""
+    referencial = models.IntegerField()
+    banco = models.CharField(max_length=30)
+    n_banco = models.CharField(max_length=14)
+    n_agencia = models.CharField(max_length=14)
+    n_conta = models.CharField(max_length=14)
+    digito_conta = models.CharField(max_length=1)
+    carteira = models.CharField(max_length=2)
+    multa_diaria = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    multa_por_atraso = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    mensagem = models.CharField(max_length=240)
+    instrucao1 = models.CharField(max_length=240)
+    instrucao2 = models.CharField(max_length=240)
+    boleto = models.CharField(max_length=3)
+    relacao_banco = models.CharField(max_length=80)
+    digito_agencia = models.CharField(max_length=1)
+
+    class Meta:
+        verbose_name = "Banco"
+        verbose_name_plural = "Bancos"
+        # ordenar
+        ordering = ["-referencial"]
+
+    def __str__(self):
+        return f"{self.banco}"
+
+
+class Fin_Conta(models.Model):
+    """Conta para referencia em Fecha Caixa"""
+    referencial = models.IntegerField()
+    conta = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name = "Conta"
+        verbose_name_plural = "Contas"
+        # ordenar
+        ordering = ["-referencial"]
+
+    def __str__(self):
+        return f"{self.conta}"
+
+
+
+class Fin_SubConta (models.Model):
+    """SubConta para referencia em Fecha Caixa"""
+    referencial = models.IntegerField()
+    ref_conta = models.ForeignKey(
+        "Fin_Conta", on_delete=models.PROTECT
+        )
+    subconta = models.CharField(max_length=30)
+    credito = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    debito = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    pagar = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "SubConta"
+        verbose_name_plural = "SubContas"
+        # ordenar
+        ordering = ["-referencial"]
+
+    def __str__(self):
+        return f"{self.subconta}"
+
+
+class Ven_Fecha_Caixa(models.Model):
+    referencial = models.IntegerField(null=True, blank=True)
+    ref_saida = models.IntegerField(null=True, blank=True)  # Qual Tabela?
+    data = models.DateTimeField(null=True, blank=True)
+    ref_forma = models.ForeignKey(
+        "Ven_Formas", on_delete=models.PROTECT
+        )
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    complemento = models.CharField(max_length=40)
+    ref_caixa = models.ForeignKey(
+        "Ven_Caixa", on_delete=models.PROTECT
+        )
+    debito = models.DecimalField(max_digits=10, decimal_places=2)
+    saldo = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    ref_entrada =  models.IntegerField(null=True, blank=True)
+    cheque = models.CharField(max_length=10, null=True, blank=True)
+    n_documento = models.CharField(max_length=20)
+    # ref_servicos de Ordem_Servico
+    ref_servicos = models.ForeignKey(
+        "Ordem_Servico", on_delete=models.PROTECT, null=True, blank=True
+        )
+    ref_banco = models.ForeignKey(
+        "Fin_Banco", on_delete=models.PROTECT, null=True, blank=True
+        )
+    ref_conta = models.ForeignKey(
+        "Fin_Conta", on_delete=models.PROTECT
+        )
+    ref_subconta = models.ForeignKey(
+        "Fin_SubConta", on_delete=models.PROTECT, null=True, blank=True
+        )
+    arquivo_morto = models.CharField(max_length=2)
+    codigo_fiscal = models.IntegerField(null=True, blank=True)
+    ref_pagar = models.IntegerField(null=True, blank=True)
+    val_servicos = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    val_peca = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+
+    desconto = models.DecimalField(max_digits=10, decimal_places=2)
+    data_compensado = models.DateTimeField(null=True, blank=True)
+    ref_cliente = models.IntegerField(null=True, blank=True)
+    troco = models.CharField(max_length=3, null=True, blank=True)
+    local = models.CharField(max_length=7, null=True, blank=True)
+    ref_subconta2 = models.IntegerField(null=True, blank=True)
+    ref_subconta3 = models.IntegerField(null=True, blank=True)
+    comissao = models.CharField(max_length=1, null=True, blank=True)
+    vl_comissao = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    ref_receber = models.IntegerField(null=True, blank=True)
+    taxa = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    # Outras tabelas
+    ref_fun = models.ForeignKey(
+        "Funcionario", on_delete=models.PROTECT
+        )
+    ref_cheque = models.IntegerField(null=True, blank=True)
+    hora = models.CharField(max_length=8, null=True, blank=True)
+    ref_pagamento = models.IntegerField(null=True, blank=True)
+    ref_transf_caixa = models.IntegerField(null=True, blank=True)
+    ref_setor = models.IntegerField(null=True, blank=True)
+    ref_locacao = models.IntegerField(null=True, blank=True)
+    ref_pag = models.IntegerField(null=True, blank=True)
+    ref_mesa = models.IntegerField(null=True, blank=True)
+    ref_garcom = models.IntegerField(null=True, blank=True)
+    ref_empresa = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Venda Fecha Caixa"
+        verbose_name_plural = "Venda Fecha Caixas"
+        # ordenar
+        ordering = ["-referencial"]
+
+    def __str__(self):
+        return f"{self.referencial}"
+
+
+class Con_Empresa(models.Model):
+    referencial = models.IntegerField()
+    nome = models.CharField(max_length=60)
+    razao_social = models.CharField(max_length=60)
+    tipo = models.CharField(max_length=1, null=True, blank=True)
+
+    cnpj = models.CharField(max_length=20)
+    ie = models.CharField(max_length=20, null=True, blank=True)
+    endereco = models.CharField(max_length=60, null=True, blank=True)
+    bairro = models.CharField(max_length=30, null=True, blank=True)
+    ref_cidade = models.IntegerField(null=True, blank=True)
+    cep = models.CharField(max_length=9, null=True, blank=True)
+    email = models.CharField(max_length=60, null=True, blank=True)
+    site = models.CharField(max_length=60, null=True, blank=True)
+    tel1 = models.CharField(max_length=11, null=True, blank=True)
+    tel2 = models.CharField(max_length=11, null=True, blank=True)
+    cidade = models.CharField(max_length=30, null=True, blank=True)
+    estado = models.CharField(max_length=2, null=True, blank=True)
+    numero = models.CharField(max_length=6, null=True, blank=True)
+    ref_municipios = models.IntegerField(null=True, blank=True)
+    numero_nfe = models.CharField(max_length=16, null=True, blank=True)
+    senha_email = models.CharField(max_length=16, null=True, blank=True)
+    n_nfe = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
+    complemento = models.CharField(max_length=80, null=True, blank=True)
+    nfe_regime = models.CharField(max_length=16, null=True, blank=True)
+    im = models.CharField(max_length=20, null=True, blank=True)
+    cnpj_sft = models.CharField(max_length=20, null=True, blank=True)
+    ass_ap_com = models.CharField(max_length=400, null=True, blank=True)
+    caminho_xml_gravacao = models.CharField(
+        max_length=240, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Empresa"
+        verbose_name_plural = "Empresas"
+        # ordenar
+        ordering = ["-referencial"]
+
+    def __str__(self):
+        return f"{self.referencial}"
+
 
 auditlog.register(Funcionario)
 auditlog.register(Cliente)
