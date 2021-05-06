@@ -411,16 +411,14 @@ class Chamado(models.Model):
 ############ VENDAS CAIXA #############################
 class Ven_Caixa(models.Model):
     """ Tabela de Vendas do Caixa."""
-    referencial = models.IntegerField()
-    data = models.DateTimeField()
+    referencial = models.IntegerField(null=True, blank=True)
+    data = models.DateTimeField(null=True, blank=True)
     troco = models.DecimalField(max_digits=10, decimal_places=2)
-    ref_fun = models.ForeignKey(
-        "Funcionario", on_delete=models.PROTECT
-        )
-    fechado = models.CharField(max_length=1)
-    hora_fechamento = models.DateTimeField()
+    ref_fun = models.IntegerField(null=True, blank=True)
+    fechado = models.CharField(max_length=1, null=True, blank=True)
+    hora_fechamento = models.DateTimeField(null=True, blank=True)
     nome_caixa = models.CharField(max_length=10, null=True, blank=True)
-    saldo = models.DecimalField(
+    saldo_final = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True)
 
     class Meta:
@@ -428,6 +426,11 @@ class Ven_Caixa(models.Model):
         verbose_name_plural = "Venda Caixas"
         # ordenar
         ordering = ["-referencial"]
+
+    # data
+    def get_dt(self):
+        """Mostra data de entrada formatada da OS."""
+        return self.data.strftime("%d/%m/%Y %H h : %M min")
 
     def __str__(self):
         return f"{self.data}"
@@ -538,36 +541,31 @@ class Fin_SubConta (models.Model):
 
 class Ven_Fecha_Caixa(models.Model):
     referencial = models.IntegerField(null=True, blank=True)
-    ref_saida = models.IntegerField(null=True, blank=True)  # Qual Tabela?
+    ref_saida = models.IntegerField(null=True, blank=True)  # Tabela?
     data = models.DateTimeField(null=True, blank=True)
-    ref_forma = models.ForeignKey(
-        "Ven_Formas", on_delete=models.PROTECT
-        )
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
-    complemento = models.CharField(max_length=40)
-    ref_caixa = models.ForeignKey(
-        "Ven_Caixa", on_delete=models.PROTECT
-        )
-    debito = models.DecimalField(max_digits=10, decimal_places=2)
+    # foreingkey
+    ref_forma = models.IntegerField(null=True, blank=True)
+    valor = models.DecimalField(max_digits=10, decimal_places=2,
+                                null=True, blank=True)
+    complemento = models.CharField(max_length=40,
+                                    null=True, blank=True)
+    # foreingkey
+    ref_caixa = models.IntegerField(null=True, blank=True)
+    debito = models.DecimalField(max_digits=10, decimal_places=2,
+                                null=True, blank=True)
     saldo = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True)
     ref_entrada =  models.IntegerField(null=True, blank=True)
     cheque = models.CharField(max_length=10, null=True, blank=True)
-    n_documento = models.CharField(max_length=20)
-    # ref_servicos de Ordem_Servico
-    ref_servicos = models.ForeignKey(
-        "Ordem_Servico", on_delete=models.PROTECT, null=True, blank=True
-        )
-    ref_banco = models.ForeignKey(
-        "Fin_Banco", on_delete=models.PROTECT, null=True, blank=True
-        )
-    ref_conta = models.ForeignKey(
-        "Fin_Conta", on_delete=models.PROTECT
-        )
-    ref_subconta = models.ForeignKey(
-        "Fin_SubConta", on_delete=models.PROTECT, null=True, blank=True
-        )
-    arquivo_morto = models.CharField(max_length=2)
+    n_documento = models.CharField(
+                            max_length=20, null=True, blank=True)
+    # ref_servicos de Ordem_Servico # foreingkey
+    ref_servicos = models.IntegerField(null=True, blank=True)
+    ref_banco = models.IntegerField(null=True, blank=True)
+    ref_conta = models.IntegerField(null=True, blank=True)
+    ref_subconta = models.IntegerField(null=True, blank=True)
+    arquivo_morto = models.CharField(
+                            max_length=2, null=True, blank=True)
     codigo_fiscal = models.IntegerField(null=True, blank=True)
     ref_pagar = models.IntegerField(null=True, blank=True)
     val_servicos = models.DecimalField(
@@ -575,7 +573,8 @@ class Ven_Fecha_Caixa(models.Model):
     val_peca = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True)
 
-    desconto = models.DecimalField(max_digits=10, decimal_places=2)
+    desconto = models.DecimalField(max_digits=10, decimal_places=2,
+                                null=True, blank=True)
     data_compensado = models.DateTimeField(null=True, blank=True)
     ref_cliente = models.IntegerField(null=True, blank=True)
     troco = models.CharField(max_length=3, null=True, blank=True)
@@ -588,10 +587,8 @@ class Ven_Fecha_Caixa(models.Model):
     ref_receber = models.IntegerField(null=True, blank=True)
     taxa = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True)
-    # Outras tabelas
-    ref_fun = models.ForeignKey(
-        "Funcionario", on_delete=models.PROTECT
-        )
+    # Outras tabelas foreingkey
+    ref_fun = models.IntegerField(null=True, blank=True)
     ref_cheque = models.IntegerField(null=True, blank=True)
     hora = models.CharField(max_length=8, null=True, blank=True)
     ref_pagamento = models.IntegerField(null=True, blank=True)
@@ -611,6 +608,11 @@ class Ven_Fecha_Caixa(models.Model):
 
     def __str__(self):
         return f"{self.referencial}"
+
+    # data
+    def get_dt(self):
+        """Mostra data de entrada formatada da OS."""
+        return self.data.strftime("%d/%m/%Y %H h : %M min")
 
 
 class Con_Empresa(models.Model):

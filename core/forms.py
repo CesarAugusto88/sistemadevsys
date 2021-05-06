@@ -58,7 +58,8 @@ class Ven_CaixaForm(forms.ModelForm):
         model = Ven_Caixa
         fields = (
             'referencial', 'data', 'troco', 'ref_fun',
-            'fechado', 'hora_fechamento', 'nome_caixa', 'saldo'
+            'fechado', 'hora_fechamento', 'nome_caixa',
+            'saldo_final'
             )
 
 class Ven_FormasForm(forms.ModelForm):
