@@ -48,7 +48,8 @@ class OS_Admin(admin.ModelAdmin):
 # Venda Caixa
 class Ven_Caixa_Admin(admin.ModelAdmin):
     list_display = ('id', 'referencial', 'data', 'troco', 'ref_fun',
-                    'fechado', 'hora_fechamento', 'nome_caixa', 'saldo')
+                    'fechado', 'hora_fechamento', 'nome_caixa',
+                    'saldo_final')
     list_filter = ('referencial', 'data')
     ordering = ['id']
     search_fields = ['data',  'referencial',]

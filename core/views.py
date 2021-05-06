@@ -930,7 +930,7 @@ def list_subcontas(request):
     return render(request, "list_subcontas.html", dados)
 
 
-# Ven_Fecha_Caixa #
+# Ven_Fecha_Caixa # Somente o fecha caixa
 @login_required(login_url="/login/")
 def list_fecha_caixas(request):
     """ Lista SubContas"""
@@ -948,7 +948,7 @@ def list_fecha_caixas(request):
             fecha_caixas = Ven_Fecha_Caixa.objects.all()
             #__icontains sem case sensitive
             fecha_caixas = fecha_caixas.filter(
-                                    ref_caixa__icontains=termo_pesquisa)
+                                    data__icontains=termo_pesquisa)
         else:
             fecha_caixas = Ven_Fecha_Caixa.objects.all()
         dados = {"fecha_caixas": fecha_caixas}

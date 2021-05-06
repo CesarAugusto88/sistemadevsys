@@ -12,43 +12,32 @@
     <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
   </form>
 <hr>
-  {% for caixa in caixas %}
-  <fieldset>
-    <legend> <b>Dados do Caixa</b> </legend>
-    <p>
-      <label>Referencial:
-        {{ caixa.referencial }}
-      </label>
-    </p>
-    <p>
-      <label>Nome:
-        {{ caixa.nome_caixa }}
-      </label>
-    </p>
-    <p>
-      <label>Data:
-        {{ caixa.data }}
-      </label>
-    </p>
-    <p>
-      <label>Troco:
-        {{ caixa.troco }}
-      </label>
-    </p>
-    <p>
-      <label>Referencial Funcionário:
-        {{ caixa.ref_fun }}
-      </label>
-    </p>
-    <p>
-      <label>Saldo:
-        {{ caixa.saldo }}
-      </label>
-    </p>
-      
-  <hr>
 
-  {% endfor %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Referencial</th>
+      <th>Data</th>
+      <th>Fechado</th>
+      <th>Detalhes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for caixa in caixas %}
+      <tr>
+        <td>{{ caixa.referencial }}</td>
+        <td>{{ caixa.get_dt }}</td>
+        <td>{{ caixa.fechado }}</td>
+        <td><a href="#" style="text-decoration:none">
+            <button class="btn btn-info btn-sm" type="button">**
+            </button>
+          </a>
+        </td>
+      </tr>
+      <hr>
+    {% endfor %}
+  </tbody>
+</table>
 
 </div>
 {% endblock %}
