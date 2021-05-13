@@ -430,16 +430,16 @@ class Ven_Caixa(models.Model):
     # data
     def get_dt(self):
         """Mostra data de entrada formatada da OS."""
-        return self.data.strftime("%d/%m/%Y %H h : %M min")
+        return self.data.strftime("%d/%m/%Y Hora: %H:%M")
 
     def __str__(self):
         return f"{self.data}"
 
 
 class Ven_Formas(models.Model):
-    referencial = models.IntegerField()
-    nome = models.CharField(max_length=30)
-    tipo = models.CharField(max_length=1)
+    referencial = models.IntegerField(null=True, blank=True)
+    nome = models.CharField(max_length=30, null=True, blank=True)
+    tipo = models.CharField(max_length=1, null=True, blank=True)
     prazo = models.IntegerField(null=True, blank=True)
     parcelas = models.IntegerField(null=True, blank=True)
     taxa = models.DecimalField(
@@ -541,15 +541,13 @@ class Fin_SubConta (models.Model):
 
 class Ven_Fecha_Caixa(models.Model):
     referencial = models.IntegerField(null=True, blank=True)
-    ref_saida = models.IntegerField(null=True, blank=True)  # Tabela?
+    ref_saida = models.IntegerField(null=True, blank=True)
     data = models.DateTimeField(null=True, blank=True)
-    # foreingkey
     ref_forma = models.IntegerField(null=True, blank=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2,
                                 null=True, blank=True)
     complemento = models.CharField(max_length=40,
                                     null=True, blank=True)
-    # foreingkey
     ref_caixa = models.IntegerField(null=True, blank=True)
     debito = models.DecimalField(max_digits=10, decimal_places=2,
                                 null=True, blank=True)
@@ -559,7 +557,6 @@ class Ven_Fecha_Caixa(models.Model):
     cheque = models.CharField(max_length=10, null=True, blank=True)
     n_documento = models.CharField(
                             max_length=20, null=True, blank=True)
-    # ref_servicos de Ordem_Servico # foreingkey
     ref_servicos = models.IntegerField(null=True, blank=True)
     ref_banco = models.IntegerField(null=True, blank=True)
     ref_conta = models.IntegerField(null=True, blank=True)
@@ -585,9 +582,6 @@ class Ven_Fecha_Caixa(models.Model):
     vl_comissao = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True)
     ref_receber = models.IntegerField(null=True, blank=True)
-    taxa = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
-    # Outras tabelas foreingkey
     ref_fun = models.IntegerField(null=True, blank=True)
     ref_cheque = models.IntegerField(null=True, blank=True)
     hora = models.CharField(max_length=8, null=True, blank=True)
@@ -610,9 +604,9 @@ class Ven_Fecha_Caixa(models.Model):
         return f"{self.referencial}"
 
     # data
-    def get_dt(self):
-        """Mostra data de entrada formatada da OS."""
-        return self.data.strftime("%d/%m/%Y %H h : %M min")
+    def get_data(self):
+        """Mostra data formatada."""
+        return self.data.strftime("%d/%m/%Y")
 
 
 class Con_Empresa(models.Model):

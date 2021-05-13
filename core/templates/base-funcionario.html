@@ -46,12 +46,17 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <!-- <a class="dropdown-item" href="#">VENDAS</a> -->
             <a class="dropdown-item" href="{% url 'list_caixas' %}">CAIXAS</a>
+            
+            {% comment %}
+            
             <a class="dropdown-item" href="{% url 'list_formas' %}">FORMAS</a>
             <a class="dropdown-item" href="{% url 'list_bancos' %}">BANCOS</a>
             <a class="dropdown-item" href="{% url 'list_contas' %}">CONTAS</a>
             <a class="dropdown-item" href="{% url 'list_subcontas' %}">SUBCONTAS</a>
             <a class="dropdown-item" href="{% url 'list_fecha_caixas' %}">FECHAMENTOS</a>
             <a class="dropdown-item" href="{% url 'list_con_empresas' %}">EMPRESAS</a>
+
+            {% endcomment %}
           </div>
         </li>
         <li class="nav-item dropdown">
