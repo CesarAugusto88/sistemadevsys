@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timedelta
+from django.db import connection
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -814,12 +815,68 @@ def list_caixas(request):
             #__icontains sem case sensitive
             caixas = caixas.filter(nome_caixa__icontains=termo_pesquisa)
         else:
-            caixas = Ven_Caixa.objects.all()
-        dados = {"caixas": caixas}
+            caixas_list = Ven_Caixa.objects.filter().order_by(
+                '-referencial')
+            paginator = Paginator(caixas_list, 10)
+            page = request.GET.get('page')
+            caixas = paginator.get_page(page)
+
+        dados = {"funcionario": funcionario, "caixas": caixas}
     else:
         raise Http404()
 
     return render(request, "list_caixas.html", dados)
+
+
+# Função para mostrar total de comandas do caixa específico
+@login_required(login_url="/login/")
+def total_comandas(request):
+    usuario = request.user
+    dados = {}
+    ref = request.GET.get("referencial")
+    list_ = []
+    list_c = []
+    sum = 0
+    sum_c = 0
+    sum_d = 0
+    if ref:
+        #### Fechamento de Caixa - total de comandas ###
+        funcionario = Funcionario.objects.get(usuario_fun=usuario)
+        caixa = Ven_Caixa.objects.get(referencial=ref)
+
+        fecha_caixa = Ven_Fecha_Caixa.objects.all()
+        sel = fecha_caixa.filter(ref_caixa=ref)
+        for s in sel:
+            if s.ref_saida:
+                list_.append(s.ref_saida)
+
+        # count esta somente com UM ref_saida, r_c ref_caixa
+        count = sorted(set(list_))
+
+        ### Troco ###
+        for f in sel:
+            if f.ref_caixa and f.ref_forma == 1 and f.troco == 'Sim':
+                sum = sum + (f.valor - f.debito)
+        # print(sum)
+        ############
+
+        ### falta Recebimentos...
+        ### Recebimentos total ###
+        # select  SUM(A.VALOR) as CREDITO, SUM(A.DEBITO) AS DEBITO, SUM(A.VALOR-A.DEBITO) AS SALDO
+        # from  VEN_FECHA_CAIXA A
+        # WHERE  a.ref_forma <> 20 and  ref_banco=1 and a.ref_caixa = 689
+        for t in sel:
+            if t.ref_forma != 20 and t.ref_banco == 1 and t.ref_caixa:
+                sum_c = sum_c + (t.valor)
+                sum_d = sum_d + (t.debito)
+
+
+
+
+        dados = {"funcionario": funcionario, "total": len(count), "caixa": caixa, "sum": sum,
+                    "sum_c": sum_c, "sum_d": sum_d, "sum_s": (sum_c-sum_d)}
+
+    return render(request, "total_comandas.html", dados)
 
 
 # VEN_FORMAS #
@@ -841,7 +898,12 @@ def list_formas(request):
             #__icontains sem case sensitive
             formas = formas.filter(nome__icontains=termo_pesquisa)
         else:
-            formas = Ven_Formas.objects.all()
+            formas_list = Ven_Formas.objects.filter().order_by(
+                '-referencial')
+            paginator = Paginator(formas_list, 10)
+            page = request.GET.get('page')
+            formas = paginator.get_page(page)
+            # formas = Ven_Formas.objects.all()
         dados = {"formas": formas}
     else:
         raise Http404()
@@ -948,9 +1010,14 @@ def list_fecha_caixas(request):
             fecha_caixas = Ven_Fecha_Caixa.objects.all()
             #__icontains sem case sensitive
             fecha_caixas = fecha_caixas.filter(
-                                    data__icontains=termo_pesquisa)
+                                    referencial__icontains=termo_pesquisa)
         else:
-            fecha_caixas = Ven_Fecha_Caixa.objects.all()
+            fecha_caixas_list = Ven_Fecha_Caixa.objects.filter().order_by(
+                '-referencial')
+            paginator = Paginator(fecha_caixas_list, 10)
+            page = request.GET.get('page')
+            fecha_caixas = paginator.get_page(page)
+            # fecha_caixas = Ven_Fecha_Caixa.objects.all()
         dados = {"fecha_caixas": fecha_caixas}
     else:
         raise Http404()

@@ -11,7 +11,6 @@
     </div>
     <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
   </form>
-<hr>
 
 <table class="table">
   <thead>
@@ -28,16 +27,33 @@
         <td>{{ caixa.referencial }}</td>
         <td>{{ caixa.get_dt }}</td>
         <td>{{ caixa.fechado }}</td>
-        <td><a href="#" style="text-decoration:none">
+        <td><a href="/devsys/caixas/total/?referencial={{ caixa.referencial }}" style="text-decoration:none">
             <button class="btn btn-info btn-sm" type="button">**
             </button>
-          </a>
+            </a>
         </td>
       </tr>
-      <hr>
     {% endfor %}
   </tbody>
 </table>
+
+<div class="paginator">
+  <span class="step-links">
+    {% if caixas.has_previous %}
+      <a href="?page={{ caixas.previous_page_number }}"> <i class="fas fa-arrow-left"></i> </a>
+    {% endif %}
+
+    {% if caixas.paginator.num_pages %}
+      <span class="current">
+        {{ caixas.number }} de {{ caixas.paginator.num_pages }}
+      </span>
+    {% endif %}
+
+    {% if caixas.has_next %}
+      <a href="?page={{ caixas.next_page_number }}"> <i class="fas fa-arrow-right"></i> </a>
+    {% endif %}
+  </span>
+</div>
 
 </div>
 {% endblock %}

@@ -35,5 +35,23 @@
 
   {% endfor %}
 
+  <div class="paginator">
+    <span class="step-links">
+      {% if formas.has_previous %}
+        <a href="?page={{ formas.previous_page_number }}"> <i class="fas fa-arrow-left"></i> </a>
+      {% endif %}
+  
+      {% if formas.paginator.num_pages %}
+        <span class="current">
+          {{ formas.number }} de {{ formas.paginator.num_pages }}
+        </span>
+      {% endif %}
+  
+      {% if formas.has_next %}
+        <a href="?page={{ formas.next_page_number }}"> <i class="fas fa-arrow-right"></i> </a>
+      {% endif %}
+    </span>
+  </div>
+
 </div>
 {% endblock %}

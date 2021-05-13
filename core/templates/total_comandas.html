@@ -1,0 +1,110 @@
+{% extends "base-funcionario.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="container">
+        <h2>TRONI PLOTAGENS</h2>
+        <form action="submit" method="POST">{% csrf_token %}
+            <fieldset>
+                <legend>Fechamento de Caixa</legend>
+                <p>
+                    <label>Abertura do Caixa <br>
+                        Data: {{ caixa.get_dt }}
+                    </label>
+                    <br>
+                    <label>
+                        Abertura: {{ funcionario.nome }}
+                    </label>
+                    <br>
+                    <label>
+                        Caixa Nº: {{ caixa.referencial }}
+                    </label>
+                    <br>
+                    <label>
+                        Total de comandas: {{ total }}
+                    </label>
+                    <br>
+                    <label>
+                        Troco: {{ sum }}
+                    </label>
+                </p>
+                <legend>RECEBIMENTOS</legend>
+                <p>
+                    <label>
+                        DINHEIRO: -----
+                    </label>
+                    <br>
+                    <label>
+                        VISA ELECTRON: ---
+                    </label>
+                    <br>
+                    <label>
+                        CARTEIRA: ---
+                    </label>
+                    <br>
+                    <label>
+                        Desconto: ---
+                    </label>
+                    <br> <br>
+                    <label>
+                        Débito: {{ sum_d }}
+                    </label>
+                    <br>
+                    <label>
+                        Credito: {{ sum_c }}
+                    </label>
+                    <br>
+                    <label>
+                        Saldo: {{ sum_s }}
+                    </label>
+                    <br> <br>
+                    <label>
+                        Gaveta: ---
+                    </label>
+                </p>
+
+               <legend>RETIRADAS</legend>
+                <p>
+                    <label>
+                        Em: DINHEIRO-----
+                    </label>
+                    <br>
+                    <label>
+                        Total: ---
+                    </label>
+                </p>
+                <legend>SETORES</legend>
+                <p>
+                    <label>
+                        INSUMOS: ---
+                    </label>
+                    <br>
+                    <label>
+                        SERVIÇOS: ---
+                    </label>
+                </p>
+                <legend>RECEBIMENTO DE CONTAS</legend>
+                <p>
+                    <label>
+                        Valor Recebido: ---
+                    </label>
+                </p>
+
+               
+            </fieldset>
+
+            <div class="navbar-brand">
+
+                <a class="navbar-brand" href="{% url 'list_caixas' %}">
+                    <button type="button" class="btn btn-outline-primary my-2 my-sm-0">
+                    Voltar
+                    </button>
+                </a>
+            </div>
+            
+        </form>
+    </div> 
+</div>
+
+
+{% endblock %}

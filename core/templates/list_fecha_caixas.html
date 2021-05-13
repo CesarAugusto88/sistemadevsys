@@ -7,7 +7,7 @@
   <form action=""  class="form-inline" style="margin-bottom: 2%;">
     <div class="form-group">
       <label for="pesquisa" class="sr-only">Pesquisar</label>
-      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Referencial Caixa" class="form-control">
+      <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Referencial" class="form-control">
     </div>
     <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
   </form>
@@ -23,22 +23,21 @@
     </p>
     <p>
       <label>Referencial Caixa:
-        {{ fecha_caixa.ref_caixa.referencial }}
+        {{ fecha_caixa.ref_caixa }}
       </label>
     </p>
     <p>
       <label>Data:
-        {{ fecha_caixa.data }}
+        {% if fecha_caixa.data != none %}
+          {{ fecha_caixa.get_data }}
+        {% else %}
+          {{ fecha_caixa.data }}
+        {% endif %}
       </label>
     </p>
     <p>
       <label>Referencial Forma:
-        {{ fecha_caixa.ref_forma.referencial }}
-      </label>
-    </p>
-    <p>
-      <label>Referencial Ordem <b>Serviço</b>:
-        {{ fecha_caixa.ref_servicos.referencial }}
+        {{ fecha_caixa.ref_forma }}
       </label>
     </p>
     <p>
@@ -58,7 +57,7 @@
     </p>
     <p>
       <label>Referencial Banco:
-        {{ fecha_caixa.ref_banco.referencial }}
+        {{ fecha_caixa.ref_banco }}
       </label>
     </p>
     <p>
@@ -70,6 +69,24 @@
   <hr>
 
   {% endfor %}
+
+  <div class="paginator">
+    <span class="step-links">
+      {% if fecha_caixas.has_previous %}
+        <a href="?page={{ fecha_caixas.previous_page_number }}"> <i class="fas fa-arrow-left"></i> </a>
+      {% endif %}
+  
+      {% if fecha_caixas.paginator.num_pages %}
+        <span class="current">
+          {{ fecha_caixas.number }} de {{ fecha_caixas.paginator.num_pages }}
+        </span>
+      {% endif %}
+  
+      {% if fecha_caixas.has_next %}
+        <a href="?page={{ fecha_caixas.next_page_number }}"> <i class="fas fa-arrow-right"></i> </a>
+      {% endif %}
+    </span>
+  </div>
 
 </div>
 {% endblock %}
