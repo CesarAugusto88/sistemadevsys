@@ -69,7 +69,7 @@ ROOT_URLCONF = "devsys.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "/core/templates")],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -127,7 +127,6 @@ USE_TZ = False  # True
 
 DATE_FORMAT = 'd/m/Y'
 
-
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATIC_TMP = os.path.join(BASE_DIR, "static")
@@ -157,6 +156,10 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 # EMAIL_USE_TLS = False
 # EMAIL_USE_SSL = True
 
+# Recuperação de senha do usuário
+# cursos.alura.com.br/forum/topico-recuperacao-de-senha-do-usuario-131150
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+####
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.devsys.com.br'
 EMAIL_PORT = 587
