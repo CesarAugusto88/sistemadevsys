@@ -413,13 +413,12 @@ class Ven_Caixa(models.Model):
     """ Tabela de Vendas do Caixa."""
     referencial = models.IntegerField(null=True, blank=True)
     data = models.DateTimeField(null=True, blank=True)
-    troco = models.DecimalField(max_digits=10, decimal_places=2)
+    troco =  models.FloatField(null=True, blank=True)
     ref_fun = models.IntegerField(null=True, blank=True)
     fechado = models.CharField(max_length=1, null=True, blank=True)
     hora_fechamento = models.DateTimeField(null=True, blank=True)
     nome_caixa = models.CharField(max_length=10, null=True, blank=True)
-    saldo_final = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    saldo_final =  models.FloatField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Venda Caixa"
@@ -442,20 +441,17 @@ class Ven_Formas(models.Model):
     tipo = models.CharField(max_length=1, null=True, blank=True)
     prazo = models.IntegerField(null=True, blank=True)
     parcelas = models.IntegerField(null=True, blank=True)
-    taxa = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    taxa =  models.FloatField(null=True, blank=True)
     ref_conta = models.IntegerField(null=True, blank=True)
     ref_subconta = models.IntegerField(null=True, blank=True)
     contas_receber = models.IntegerField(null=True, blank=True)
-    vl_minimo =  models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    vl_minimo =   models.FloatField(null=True, blank=True)
     codigo_fiscal = models.IntegerField(null=True, blank=True)
     controle_cheque = models.IntegerField(null=True, blank=True)
     ref_banco = models.IntegerField(null=True, blank=True)
     ref_sic = models.IntegerField(null=True, blank=True)
     emissor = models.CharField(max_length=30, null=True, blank=True)
-    valor = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    valor = models.FloatField(null=True, blank=True)
     maquina = models.CharField(max_length=50, null=True, blank=True)
     parcelado = models.IntegerField(null=True, blank=True)
 
@@ -478,10 +474,8 @@ class Fin_Banco(models.Model):
     n_conta = models.CharField(max_length=14)
     digito_conta = models.CharField(max_length=1)
     carteira = models.CharField(max_length=2)
-    multa_diaria = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
-    multa_por_atraso = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    multa_diaria = models.FloatField(null=True, blank=True)
+    multa_por_atraso =  models.FloatField(null=True, blank=True)
     mensagem = models.CharField(max_length=240)
     instrucao1 = models.CharField(max_length=240)
     instrucao2 = models.CharField(max_length=240)
@@ -522,13 +516,9 @@ class Fin_SubConta (models.Model):
         "Fin_Conta", on_delete=models.PROTECT
         )
     subconta = models.CharField(max_length=30)
-    credito = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
-    debito = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
-    pagar = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
-
+    credito =  models.FloatField(null=True, blank=True)
+    debito = models.FloatField(null=True, blank=True)
+    pagar = models.FloatField(null=True, blank=True)
     class Meta:
         verbose_name = "SubConta"
         verbose_name_plural = "SubContas"
@@ -544,15 +534,12 @@ class Ven_Fecha_Caixa(models.Model):
     ref_saida = models.IntegerField(null=True, blank=True)
     data = models.DateTimeField(null=True, blank=True)
     ref_forma = models.IntegerField(null=True, blank=True)
-    valor = models.DecimalField(max_digits=10, decimal_places=2,
-                                null=True, blank=True)
+    valor = models.FloatField(null=True, blank=True)
     complemento = models.CharField(max_length=40,
                                     null=True, blank=True)
     ref_caixa = models.IntegerField(null=True, blank=True)
-    debito = models.DecimalField(max_digits=10, decimal_places=2,
-                                null=True, blank=True)
-    saldo = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    debito =  models.FloatField(null=True, blank=True)
+    saldo =  models.FloatField(null=True, blank=True)
     ref_entrada =  models.IntegerField(null=True, blank=True)
     cheque = models.CharField(max_length=10, null=True, blank=True)
     n_documento = models.CharField(
@@ -565,13 +552,10 @@ class Ven_Fecha_Caixa(models.Model):
                             max_length=2, null=True, blank=True)
     codigo_fiscal = models.IntegerField(null=True, blank=True)
     ref_pagar = models.IntegerField(null=True, blank=True)
-    val_servicos = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
-    val_peca = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    val_servicos = models.FloatField(null=True, blank=True)
+    val_peca =  models.FloatField(null=True, blank=True)
 
-    desconto = models.DecimalField(max_digits=10, decimal_places=2,
-                                null=True, blank=True)
+    desconto =  models.FloatField(null=True, blank=True)
     data_compensado = models.DateTimeField(null=True, blank=True)
     ref_cliente = models.IntegerField(null=True, blank=True)
     troco = models.CharField(max_length=3, null=True, blank=True)
@@ -579,8 +563,7 @@ class Ven_Fecha_Caixa(models.Model):
     ref_subconta2 = models.IntegerField(null=True, blank=True)
     ref_subconta3 = models.IntegerField(null=True, blank=True)
     comissao = models.CharField(max_length=1, null=True, blank=True)
-    vl_comissao = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    vl_comissao =  models.FloatField(null=True, blank=True)
     ref_receber = models.IntegerField(null=True, blank=True)
     ref_fun = models.IntegerField(null=True, blank=True)
     ref_cheque = models.IntegerField(null=True, blank=True)
@@ -631,8 +614,7 @@ class Con_Empresa(models.Model):
     ref_municipios = models.IntegerField(null=True, blank=True)
     numero_nfe = models.CharField(max_length=16, null=True, blank=True)
     senha_email = models.CharField(max_length=16, null=True, blank=True)
-    n_nfe = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    n_nfe = models.FloatField(null=True, blank=True)
     complemento = models.CharField(max_length=80, null=True, blank=True)
     nfe_regime = models.CharField(max_length=16, null=True, blank=True)
     im = models.CharField(max_length=20, null=True, blank=True)

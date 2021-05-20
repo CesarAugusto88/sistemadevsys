@@ -835,17 +835,30 @@ def total_comandas(request):
     dados = {}
     ref = request.GET.get("referencial")
     list_ = []
-    list_c = []
-    sum = 0
+    sum_troco = 0
     sum_c = 0
     sum_d = 0
+    sum_r_dinheiro = 0
+    sum_r_che = 0
+    sum_r_v_e = 0
+    sum_r_desconto = 0
+    sum_r_carteira = 0
+    sum_total_dinheiro = 0
+    sum_total_cheque = 0
+    sum_rec_contas = 0
+    forma_dinheiro = ''
+    forma_cheque =''
+
     if ref:
         #### Fechamento de Caixa - total de comandas ###
         funcionario = Funcionario.objects.get(usuario_fun=usuario)
+        # Usando referencial de caixa: caixa.referencial
         caixa = Ven_Caixa.objects.get(referencial=ref)
 
         fecha_caixa = Ven_Fecha_Caixa.objects.all()
         sel = fecha_caixa.filter(ref_caixa=ref)
+        # Querys
+        # print(sel.query)
         for s in sel:
             if s.ref_saida:
                 list_.append(s.ref_saida)
@@ -856,25 +869,72 @@ def total_comandas(request):
         ### Troco ###
         for f in sel:
             if f.ref_caixa and f.ref_forma == 1 and f.troco == 'Sim':
-                sum = sum + (f.valor - f.debito)
+                sum_troco = sum_troco + (f.valor - f.debito)
         # print(sum)
-        ############
 
-        ### falta Recebimentos...
+        ### Recebimentos ###
+        for r in sel:
+            if (r.valor and r.ref_caixa and r.ref_banco == 7 and
+                (r.troco != 'Sim' or r.troco is None or r.troco =='Não')):
+                if r.ref_forma == 1:  # Dinheiro
+                    sum_r_dinheiro = sum_r_dinheiro + (r.valor - r.debito)
+                if r.ref_forma == 2:  # Cheque
+                    sum_r_che = sum_r_che + (r.valor - r.debito)
+                if r.ref_forma == 3:  # Visa electron
+                    sum_r_v_e = sum_r_v_e + (r.valor - r.debito)
+                if r.ref_forma == 11:  # Desconto
+                    sum_r_desconto = sum_r_desconto + (r.valor - r.debito)
+                if r.ref_forma == 20:  # Carteira -> a prazo
+                    sum_r_carteira = sum_r_carteira + (r.valor - r.debito)
+
         ### Recebimentos total ###
-        # select  SUM(A.VALOR) as CREDITO, SUM(A.DEBITO) AS DEBITO, SUM(A.VALOR-A.DEBITO) AS SALDO
-        # from  VEN_FECHA_CAIXA A
-        # WHERE  a.ref_forma <> 20 and  ref_banco=1 and a.ref_caixa = 689
         for t in sel:
-            if t.ref_forma != 20 and t.ref_banco == 1 and t.ref_caixa:
+            if t.ref_forma != 20 and t.ref_banco == 7 and t.ref_caixa:
                 sum_c = sum_c + (t.valor)
                 sum_d = sum_d + (t.debito)
 
+        # Transferencias - retiradas
+        # select debito, b.nome
+        # from Ven_Fecha_Caixa a
+        # inner join ven_formas b on (a.ref_forma=b.referencial)
+        # where a.complemento like ('%Transferência%') and a.ref_banco=1
+        # order by a.ref_forma
+        comp_transf = Ven_Fecha_Caixa.objects.filter(
+                    complemento__contains='Transferência')
+        for i in comp_transf:
+            ref_t = Ven_Formas.objects.filter(referencial=i.ref_forma)
+            for j in ref_t:
+                if (i.ref_banco == 1 and i.ref_forma==j.referencial and
+                    i.ref_caixa == caixa.referencial):
+                    # Mostrar numa var no for no html
+                    print(j.nome, i.debito, i.hora)
+                    if j.nome == 'DINHEIRO':
+                        forma_dinheiro = j.nome
+                        sum_total_dinheiro = sum_total_dinheiro + i.debito
+                    if j.nome == 'CHEQUE':
+                        forma_cheque = j.nome
+                        sum_total_cheque = sum_total_cheque + i.debito
 
+        # recebimento de contas
+        comp_rec_conta= Ven_Fecha_Caixa.objects.filter(
+                complemento__contains='Rec. Conta:')
+        for y in comp_rec_conta:
+            if y.ref_caixa == caixa.referencial:
+                sum_rec_contas = sum_rec_contas + y.valor
 
-
-        dados = {"funcionario": funcionario, "total": len(count), "caixa": caixa, "sum": sum,
-                    "sum_c": sum_c, "sum_d": sum_d, "sum_s": (sum_c-sum_d)}
+        dados = {"funcionario": funcionario, "total": len(count),
+                    "caixa": caixa, "sum_troco": sum_troco,
+                    "sum_c": sum_c, "sum_d": sum_d, "sum_s": (sum_c-sum_d),
+                    "sum_r_dinheiro": sum_r_dinheiro, "sum_r_che": sum_r_che,
+                    "sum_r_v_e": sum_r_v_e, "sum_r_desconto": sum_r_desconto,
+                    "sum_r_carteira": sum_r_carteira,
+                    "gaveta": (sum_r_dinheiro + sum_troco),
+                    "sum_rec_contas": sum_rec_contas,
+                    "forma_dinheiro": forma_dinheiro,
+                    "forma_cheque": forma_cheque,
+                    "sum_total_dinheiro": sum_total_dinheiro,
+                    "sum_total_cheque": sum_total_cheque
+                    }
 
     return render(request, "total_comandas.html", dados)
 
