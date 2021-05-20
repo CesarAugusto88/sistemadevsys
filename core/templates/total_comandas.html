@@ -1,9 +1,10 @@
 {% extends "base-funcionario.html" %}
+{% load my_filters %}
 
 {% block content %}
 <div class="container">
     <div class="container">
-        <h2>TRONI PLOTAGENS</h2>
+        <h2>DEVSYS DESENVOLVIMENTO DE SISTEMAS</h2>
         <form action="submit" method="POST">{% csrf_token %}
             <fieldset>
                 <legend>Fechamento de Caixa</legend>
@@ -12,9 +13,9 @@
                         Data: {{ caixa.get_dt }}
                     </label>
                     <br>
-                    <label>
+                    <!-- <label>
                         Abertura: {{ funcionario.nome }}
-                    </label>
+                    </label> -->
                     <br>
                     <label>
                         Caixa Nº: {{ caixa.referencial }}
@@ -25,55 +26,68 @@
                     </label>
                     <br>
                     <label>
-                        Troco: {{ sum }}
+                        Troco: R$ {{ sum_troco | currency }}
                     </label>
                 </p>
                 <legend>RECEBIMENTOS</legend>
                 <p>
                     <label>
-                        DINHEIRO: ---
+                        DINHEIRO: R$ {{ sum_r_dinheiro | currency }}
                     </label>
                     <br>
                     <label>
-                        VISA ELECTRON: ---
+                        VISA ELECTRON: R$ {{ sum_r_v_e | currency }}
                     </label>
                     <br>
                     <label>
-                        CARTEIRA: ---
+                        CARTEIRA: R$ {{ sum_r_carteira | currency }}
                     </label>
                     <br>
                     <label>
-                        Desconto: ---
+                        Desconto: R$ {{ sum_r_desconto | currency }}
                     </label>
                     <br> <br>
                     <label>
-                        Débito: {{ sum_d }}
+                        Débito: R$ {{ sum_d | currency }}
                     </label>
                     <br>
                     <label>
-                        Credito: {{ sum_c }}
+                        Credito: R$ {{ sum_c | currency }}
                     </label>
                     <br>
                     <label>
-                        Saldo: {{ sum_s }}
+                        Saldo: R$ {{ sum_s | currency }}
                     </label>
                     <br> <br>
                     <label>
-                        Gaveta: ---
+                        Gaveta: R$ {{ gaveta | currency }}
                     </label>
                 </p>
 
                <legend>RETIRADAS</legend>
                 <p>
+                    {% if sum_total_dinheiro %}
                     <label>
-                        Em: DINHEIRO ---
+                        Em: {{ forma_dinheiro }} 
                     </label>
                     <br>
                     <label>
-                        Total: ---
+                        Total: R$ {{ sum_total_dinheiro }}
                     </label>
+                    {% endif %}
                 </p>
-                <legend>SETORES</legend>
+                <p>
+                    {% if sum_total_cheque %}
+                    <label>
+                        Em: {{ forma_cheque }} 
+                    </label>
+                    <br>
+                    <label>
+                        Total: R$ {{ sum_total_cheque }}
+                    </label>
+                    {% endif %}
+                </p>
+                <!-- <legend>SETORES</legend>
                 <p>
                     <label>
                         INSUMOS: ---
@@ -82,11 +96,11 @@
                     <label>
                         SERVIÇOS: ---
                     </label>
-                </p>
+                </p> -->
                 <legend>RECEBIMENTO DE CONTAS</legend>
                 <p>
                     <label>
-                        Valor Recebido: ---
+                        Valor Recebido: R$ {{ sum_rec_contas | currency }}
                     </label>
                 </p>
 
