@@ -900,7 +900,8 @@ def total_comandas(request):
         # where a.complemento like ('%Transferência%') and a.ref_banco=1
         # order by a.ref_forma
         comp_transf = Ven_Fecha_Caixa.objects.filter(
-                    complemento__contains='Transferência')
+                    complemento__contains='Transf')
+        # print(comp_transf)
         for i in comp_transf:
             ref_t = Ven_Formas.objects.filter(referencial=i.ref_forma)
             for j in ref_t:
