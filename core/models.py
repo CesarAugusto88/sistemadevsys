@@ -157,6 +157,8 @@ class Cliente(models.Model):
     usuario_cli = models.ForeignKey(User, on_delete=models.CASCADE)
     # varchar 27 para bloquerar
     chave = models.CharField(max_length=27)
+
+    data_uso = models.DateTimeField(blank=True, null=True)
     # classe Meta serve p modificar nomes para plural
     class Meta:
         verbose_name = "Cliente"
