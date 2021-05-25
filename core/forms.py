@@ -30,7 +30,7 @@ class ClienteForm(forms.ModelForm):
         fields = (
             'referencial', 'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj',
             'rg_ie', 'endereco', 'cep', 'uf', 'email', 'fone1', 'bloqueado',
-            'chave', 'usuario_cli'
+            'chave', 'usuario_cli', 'data_uso'
             )
 
 
@@ -40,7 +40,7 @@ class ClienteFunForm(forms.ModelForm):
         model = Cliente
         fields = (
             'referencial', 'nome', 'razao_social', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie',
-            'endereco', 'cep', 'uf', 'email', 'fone1', 'bloqueado'
+            'endereco', 'cep', 'uf', 'email', 'fone1', 'data_uso'
             )
 
 

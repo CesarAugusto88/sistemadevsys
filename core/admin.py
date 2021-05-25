@@ -31,7 +31,7 @@ class Func_Admin(admin.ModelAdmin):
 
 class Cli_Admin(admin.ModelAdmin):
     list_display = ('id', 'referencial', 'nome', 'razao_social', 'cpf_cnpj',
-                    'celular')
+                    'celular', 'data_uso')
     list_filter = ('referencial', 'celular', 'email',)
     ordering = ['nome']
     search_fields = ['nome', 'id', 'referencial']

@@ -44,5 +44,6 @@
  - [Cesar Costa](https://github.com/cesaraugusto88)
  - Maurílio
  - Fernando
+ - Julia
  - Flávia
  - Rogério

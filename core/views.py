@@ -908,7 +908,7 @@ def total_comandas(request):
                 if (i.ref_banco == 1 and i.ref_forma==j.referencial and
                     i.ref_caixa == caixa.referencial):
                     # Mostrar numa var no for no html
-                    print(j.nome, i.debito, i.hora)
+                    # print(j.nome, i.debito, i.hora)
                     if j.nome == 'DINHEIRO':
                         forma_dinheiro = j.nome
                         sum_total_dinheiro = sum_total_dinheiro + i.debito
