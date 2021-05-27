@@ -66,20 +66,16 @@ def devsys(request):
     usuario = request.user
     # select * from Funcionario where usuario_fun = usuario;
     funcionario = Funcionario.objects.filter(usuario_fun=usuario)
+    cliente = Cliente.objects.filter(usuario_cli=usuario)
 
     if funcionario:
         return redirect("/devsys/funcionario")
-    else:
+    elif cliente:
         return redirect("/devsys/cliente")
 
     #return render(request, "devsys.html")
 
-
-# VERIFICAR -> FAZER USUARIO SEPARADO 'usuario_funcionario' 'usuario_cliente' ????????
-# PARA ACESSAR SOMENTE DA TABELA CORRESPONDENTE COM SOMENTE SEUS DADOS(hacker pode ver com ids)
-
 # FUNCIONÁRIOS
-# Mudado nome de lista_funcionarios para dados_funcionario
 @login_required(login_url="/login/")
 def dados_funcionario(request):
     """ Lista dados do funcionário."""
