@@ -33,7 +33,7 @@ class Cli_Admin(admin.ModelAdmin):
     list_display = ('id', 'referencial', 'nome', 'razao_social', 'cpf_cnpj',
                     'celular', 'data_uso')
     list_filter = ('referencial', 'celular', 'email',)
-    ordering = ['nome']
+    ordering = ['-id']
     search_fields = ['nome', 'id', 'referencial']
 
 
