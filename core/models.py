@@ -164,7 +164,7 @@ class Cliente(models.Model):
         verbose_name = "Cliente"
         verbose_name_plural = "Clientes"
         # ordenar
-        ordering = ["nome"]
+        ordering = ["-id"]
 
     def __str__(self):
         """ Devolve uma representação em string do modelo."""
