@@ -23,9 +23,15 @@ from .forms import (ArqForm, BolForm , ChamadoForm, ClienteFunForm,
                     Ven_CaixaForm, Ven_FormasForm, Fin_BancoForm,
                     Fin_ContaForm, Fin_SubContaForm,
                     Ven_Fecha_CaixaForm, Con_EmpresaForm)
+# Sitemap
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from .models import Snippet
 
-def sitemap(request):
-    return render(request, "sitemap.xml")
+
+def snippet_detail(request, slug):
+    snippet = get_object_or_404(Snippet, slug=slug)
+    return HttpResponse(f'the detailview for slug of {slug}')
 
 def home(request):
     # return HttpResponse('Hello World!')

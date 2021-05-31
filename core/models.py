@@ -7,6 +7,20 @@ from django.core.mail import send_mail, mail_admins
 from django.template.loader import render_to_string
 from devsys import settings
 
+from django.utils.text import slugify
+
+
+# Para Sitemap
+class Snippet(models.Model):
+    title = models.CharField(max_length=80)
+    slug = models.SlugField(blank=True, null=True)
+    body = models.TextField()
+    def save(self, *args, **kwargs):
+            self.slug = slugify(self.title)
+            super().save(*args, **kwargs)
+    def get_absolute_url(self):
+            return f'/{self.slug}'
+
 
 class DevSysManager(models.Manager):
     # usar search()
