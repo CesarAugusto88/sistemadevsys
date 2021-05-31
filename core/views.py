@@ -24,6 +24,9 @@ from .forms import (ArqForm, BolForm , ChamadoForm, ClienteFunForm,
                     Fin_ContaForm, Fin_SubContaForm,
                     Ven_Fecha_CaixaForm, Con_EmpresaForm)
 
+def sitemap(request):
+    return render(request, "sitemap.xml")
+
 def home(request):
     # return HttpResponse('Hello World!')
     # Usando render

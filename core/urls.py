@@ -9,6 +9,8 @@ from django.conf.urls.static import static
 from django.views.static import serve 
 
 urlpatterns = [
+    # Sitemap
+    path("sitemap.xml", views.sitemap, name="sitemap"),
     # path('', views.index), #com a função em views
     # Com url normal redireciona para /devsys/
     # Comentado redirect para devsys para usar home
