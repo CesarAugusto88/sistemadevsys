@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "account",
     'bootstrapform',
     'auditlog',
+    'django.contrib.sitemaps',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
