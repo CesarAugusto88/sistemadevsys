@@ -9,8 +9,8 @@
       <label for="pesquisa" class="sr-only">Pesquisar</label>
       <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Caixa" class="form-control">
 
-      <input type="date" id="data1" name="data1" class="form-control" placeholder="dd/mm/aaaa">
-      <input type="date" id="data2" name="data2" class="form-control" placeholder="dd/mm/aaaa">
+      <input placeholder="Data 1" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')" name="data1" id="data1">
+      <input placeholder="Data 2" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')" name="data2" id="data2">
     </div>
     <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
   </form>
