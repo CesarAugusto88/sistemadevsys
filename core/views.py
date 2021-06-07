@@ -814,20 +814,25 @@ def list_caixas(request):
     if funcionario:
          #id pesquisa
         termo_pesquisa = request.GET.get('pesquisa', None)
-        termo_data1 = request.GET.get('data1', None)
-        termo_data2 = request.GET.get('data2', None)
+        # Datas não esta sendo usado.
+        termo_data_inicial = request.GET.get('data_inicial', None)
+        termo_data_final = request.GET.get('data_final', None)
         # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
         if termo_pesquisa:
             caixas = Ven_Caixa.objects.all()
             #__icontains sem case sensitive
             caixas = caixas.filter(nome_caixa__icontains=termo_pesquisa)
-        elif termo_data1 or termo_data2:
+        elif termo_data_inicial or termo_data_final:
             caixas = Ven_Caixa.objects.all()
-            if termo_data1 == "":
-                termo_data1 = '2000-01-01'
-            if termo_data2 == "":
-                termo_data2 = datetime.now().strftime('%Y-%m-%d')
-            caixas = caixas.filter(data__range=[termo_data1, termo_data2])
+            if termo_data_inicial == "":
+                termo_data_inicial = '2000-01-01'
+            if termo_data_final == "":
+                termo_data_final = datetime.now().strftime('%Y-%m-%d')
+            if termo_data_inicial > termo_data_final:
+                messages.error(request,
+                        "Data inicial não pode ser maior que data final.")
+            caixas = caixas.filter(
+                data__range=[termo_data_inicial, termo_data_final])
 
         else:
             caixas_list = Ven_Caixa.objects.filter().order_by(

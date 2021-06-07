@@ -3,60 +3,63 @@
 {% block content %}
 <div class="container">
   <h1>Caixas</h1>
-
   <form action=""  class="form-inline" style="margin-bottom: 2%;">
     <div class="form-group">
       <label for="pesquisa" class="sr-only">Pesquisar</label>
       <input type="text" size="40" id="pesquisa" name="pesquisa" placeholder="Caixa" class="form-control">
 
-      <input placeholder="Data 1" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')" name="data1" id="data1">
-      <input placeholder="Data 2" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')" name="data2" id="data2">
+      <!-- <input placeholder="Data Inicial" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')" name="data_inicial" id="data_inicial">
+      <input placeholder="Data Final" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')" name="data_final" id="data_final"> -->
     </div>
     <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 1%;">Pesquisar</button>
   </form>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Ref.</th>
-      <th>Data</th>
-      <th>Fechado</th>
-      <th>Detalhes</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for caixa in caixas %}
+  <!-- {% for message in messages %}
+    <div align="center" style="color: red;">
+      &emsp;&emsp; 
+      <strong>Erro: </strong>{{ message }}
+    </div>
+  {% endfor %} -->
+  <table class="table">
+    <thead>
       <tr>
-        <td>{{ caixa.referencial }}</td>
-        <td>{{ caixa.get_dt }}</td>
-        <td>{{ caixa.fechado }}</td>
-        <td><a href="/devsys/caixas/total/?referencial={{ caixa.referencial }}" style="text-decoration:none">
-            <button class="btn btn-info btn-sm" type="button">**
-            </button>
-            </a>
-        </td>
+        <th>Ref.</th>
+        <th>Data</th>
+        <th>Fechado</th>
+        <th>Detalhes</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for caixa in caixas %}
+        <tr>
+          <td>{{ caixa.referencial }}</td>
+          <td>{{ caixa.get_dt }}</td>
+          <td>{{ caixa.fechado }}</td>
+          <td><a href="/devsys/caixas/total/?referencial={{ caixa.referencial }}" style="text-decoration:none">
+              <button class="btn btn-info btn-sm" type="button">**
+              </button>
+              </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-<div class="paginator">
-  <span class="step-links">
-    {% if caixas.has_previous %}
-      <a href="?page={{ caixas.previous_page_number }}"> <i class="fas fa-arrow-left"></i> </a>
-    {% endif %}
+  <div class="paginator">
+    <span class="step-links">
+      {% if caixas.has_previous %}
+        <a href="?page={{ caixas.previous_page_number }}"> <i class="fas fa-arrow-left"></i> </a>
+      {% endif %}
 
-    {% if caixas.paginator.num_pages %}
-      <span class="current">
-        {{ caixas.number }} de {{ caixas.paginator.num_pages }}
-      </span>
-    {% endif %}
+      {% if caixas.paginator.num_pages %}
+        <span class="current">
+          {{ caixas.number }} de {{ caixas.paginator.num_pages }}
+        </span>
+      {% endif %}
 
-    {% if caixas.has_next %}
-      <a href="?page={{ caixas.next_page_number }}"> <i class="fas fa-arrow-right"></i> </a>
-    {% endif %}
-  </span>
-</div>
-
+      {% if caixas.has_next %}
+        <a href="?page={{ caixas.next_page_number }}"> <i class="fas fa-arrow-right"></i> </a>
+      {% endif %}
+    </span>
+  </div>
 </div>
 {% endblock %}
