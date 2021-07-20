@@ -75,12 +75,15 @@ def devsys(request):
     usuario = request.user
     # select * from Funcionario where usuario_fun = usuario;
     funcionario = Funcionario.objects.filter(usuario_fun=usuario)
-    cliente = Cliente.objects.filter(usuario_cli=usuario)
+    # comentado usuario_cli no models
+    # cliente = Cliente.objects.filter(usuario_cli=usuario)
 
     if funcionario:
         return redirect("/devsys/funcionario")
-    elif cliente:
-        return redirect("/devsys/cliente")
+    else:
+        return HttpResponse('Sistema de cliente desabilitado ou usuario diferente')
+    # elif cliente:
+    #     return redirect("/devsys/cliente")
 
     #return render(request, "devsys.html")
 
@@ -410,16 +413,19 @@ class UploadArqView(CreateView):
 @login_required(login_url="/login/")
 def dados_cliente(request):
     """ Mostra dados do cliente."""
-    usuario_cli = request.user
+    # comentato usuario_cli
+    # usuario_cli = request.user
     try:
         # Mesmo objeto em html
-        cliente = Cliente.objects.filter(usuario_cli=usuario_cli)
+        # cliente = Cliente.objects.filter(usuario_cli=usuario_cli)
         # cliente = Cliente.objects.all()
+        dados = {}
     except Exception:
         raise Http404()
-    if cliente:
+    if usuario:
         # variáveis usadas no html:
-        dados = {"cliente": cliente}
+        # dados = {"cliente": cliente}
+        dados = {}
     else:
         raise Http404()
 
@@ -433,11 +439,13 @@ def cliente(request):
     usuario = request.user
     id_cliente = request.GET.get("id")
     if id_cliente:
-        cliente = Cliente.objects.get(id=id_cliente)
+        # comentado usuario_cli
+        # cliente = Cliente.objects.get(id=id_cliente)
         # se o mesmo cliente.usuario_cliid igual ao usuario
         # solicitando para restringir qualquer user ver os dados com o id
-        if cliente.usuario_cli == usuario:
-            dados["cliente"] = Cliente.objects.get(id=id_cliente)
+        # if cliente.usuario_cli == usuario:
+        #     dados["cliente"] = Cliente.objects.get(id=id_cliente)
+        dados = {}
     return render(request, "cliente.html", dados)
 
 # editar cliente
@@ -451,32 +459,35 @@ def submit_cliente(request):
         cidade = request.POST.get("cidade")
         cep = request.POST.get("cep")
         uf = request.POST.get("uf")
-
-        usuario_cli = request.user
+        # Comentado usuario_cli em models
+        # usuario_cli = request.user
         id_cliente = request.POST.get("id_cliente")
         if id_cliente:
-            cliente = Cliente.objects.get(id=id_cliente)
-            if cliente.usuario_cli == usuario_cli:
-                cliente.nome = nome
-                cliente.celular = celular
-                cliente.endereco = endereco
-                cliente.cidade = cidade
-                cliente.cep = cep
-                cliente.uf = uf
-                cliente.save()
+            # cliente = Cliente.objects.get(id=id_cliente)
+            # if cliente.usuario_cli == usuario_cli:
+            #     cliente.nome = nome
+            #     cliente.celular = celular
+            #     cliente.endereco = endereco
+            #     cliente.cidade = cidade
+            #     cliente.cep = cep
+            #     cliente.uf = uf
+            #     cliente.save()
+            dados = {}
         
     return redirect("/devsys/cliente")
 
 
 @login_required(login_url="/login/")
 def delete_cliente(request, id_cliente):
-    usuario_cli = request.user
+    # Comentado usuario_cli em models
+    # usuario_cli = request.user
     try:
-        cliente = Cliente.objects.get(id=id_cliente)
+        # cliente = Cliente.objects.get(id=id_cliente)
+        dados = {}
     except Exception:
         raise Http404()
-    if usuario_cli == cliente.usuario_cli:
-        cliente.delete()
+    # if usuario_cli == cliente.usuario_cli:
+    #     cliente.delete()
     else:
         raise Http404()
     return redirect("/devsys")
@@ -487,12 +498,15 @@ def delete_cliente(request, id_cliente):
 # @login_required(login_url='/login/')
 def json_lista_cliente(request, id_usuario):
     # request.user
-    usuario_cli = User.objects.get(id=id_usuario)
-    cliente = Cliente.objects.filter(usuario_cli=usuario_cli).values(
-        "id", "nome"
-    )
+
+    # Comentado usuario_cli em models
+    # usuario_cli = User.objects.get(id=id_usuario)
+    # cliente = Cliente.objects.filter(usuario_cli=usuario_cli).values(
+    #     "id", "nome"
+    # )
     # safe=False porque nao é dicionário.
-    return JsonResponse(list(cliente), safe=False)
+    # return JsonResponse(list(cliente), safe=False)
+    return JsonResponse(list(), safe=False)
 
 # boletos clientes - pegar user id
 @login_required(login_url="/login/")
@@ -548,26 +562,29 @@ def bol_list(request):
     usuario = request.user
     dados = {}
     try:
-        cliente = Cliente.objects.filter(usuario_cli=usuario)
+        # cliente = Cliente.objects.filter(usuario_cli=usuario)
+        dados={}
         
     except Exception:
         raise Http404()
-    if cliente:
-        #id pesquisa
-        termo_pesquisa = request.GET.get('pesquisa', None)
-        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
-        if termo_pesquisa:
-            bols = Bol.objects.filter(cliente__in=cliente)
-            #__icontains sem case sensitive
-            bols = bols.filter(titulo__icontains=termo_pesquisa)
-        else:
-            # __in pode manipular querysets maiores que um (múltiplos registros de uma tabela).
-            #Isso pode ser encontrado na seção de relacionamentos django Many-to_one da documentação. 
-            #docs.djangoproject.com/en/2.0/topics/db/examples/many_to_one/
-            bols = Bol.objects.filter(cliente__in=cliente)
+    # if cliente:
+    #     #id pesquisa
+    #     termo_pesquisa = request.GET.get('pesquisa', None)
+    #     # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+    #     if termo_pesquisa:
+    #         bols = Bol.objects.filter(cliente__in=cliente)
+    #         #__icontains sem case sensitive
+    #         bols = bols.filter(titulo__icontains=termo_pesquisa)
+    #     else:
+    #         # __in pode manipular querysets maiores que um (múltiplos registros de uma tabela).
+    #         #Isso pode ser encontrado na seção de relacionamentos django Many-to_one da documentação. 
+    #         #docs.djangoproject.com/en/2.0/topics/db/examples/many_to_one/
+    #         bols = Bol.objects.filter(cliente__in=cliente)
         
-        # se precisar dos dados do cliente
-        dados = {"bols": bols, "cliente": cliente}
+    #     # se precisar dos dados do cliente
+    #     dados = {"bols": bols, "cliente": cliente}
+    if usuario:
+        dados = {}
     else:
         raise Http404()
 
@@ -641,28 +658,31 @@ def chamado_list(request):
     usuario = request.user
     dados = {}
     try:
-        cliente = Cliente.objects.get(usuario_cli=usuario)
+        # cliente = Cliente.objects.get(usuario_cli=usuario)
         # funcionario = Funcionario.objects.all()
+        dados={}
     except Exception:
         raise Http404()
 
     #NÃO ESTÁ PEGANDO O CLIENTE ESPECÍFICO QUE LANÇOU OS CHAMADOS
     # VERIFICAR TAMBÉM EM OUTRA FUNÇÕES
-    if cliente:
-        #id pesquisa
-        termo_pesquisa = request.GET.get('pesquisa', None)
-        # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
-        if termo_pesquisa:
-            chamados = Chamado.objects.filter(cliente=cliente)
-            #__icontains sem case sensitive
-            chamados = chamados.filter(assunto__icontains=termo_pesquisa)
-        else:
-            #OK esta pegando so os chamados referentes ao cliente que criou
-            #***É preciso atribuir automaticamente o cliente_ch***
-            chamados = Chamado.objects.filter(cliente=cliente)
-            #print(cliente.nome)
-        # se precisar dos dados do cliente
-        dados = {"cliente": cliente, "chamados": chamados}
+    # if cliente:
+    #     #id pesquisa
+    #     termo_pesquisa = request.GET.get('pesquisa', None)
+    #     # PESQUISAS DEVEM ESTAR DIRETO EM MODEL PESQUISANDO
+    #     if termo_pesquisa:
+    #         chamados = Chamado.objects.filter(cliente=cliente)
+    #         #__icontains sem case sensitive
+    #         chamados = chamados.filter(assunto__icontains=termo_pesquisa)
+    #     else:
+    #         #OK esta pegando so os chamados referentes ao cliente que criou
+    #         #***É preciso atribuir automaticamente o cliente_ch***
+    #         chamados = Chamado.objects.filter(cliente=cliente)
+    #         #print(cliente.nome)
+    #     # se precisar dos dados do cliente
+    #     dados = {"cliente": cliente, "chamados": chamados}
+    if usuario:
+        dados = {}
     else:
         raise Http404()
 
@@ -701,12 +721,13 @@ def criar_chamado(request):
     """
     usuario = request.user
     # é preciso pegar usuario com 'get' para atribuir em cliente de chamado.
-    usuario_cli = Cliente.objects.get(usuario_cli=usuario)
+    # usuario_cli = Cliente.objects.get(usuario_cli=usuario)
     #print(usuario_cli)
     if request.method == "POST":
         form = ChamadoForm(request.POST, request.FILES)
         if form.is_valid():
-            novo = Chamado(cliente=usuario_cli, **form.cleaned_data)
+            # novo = Chamado(cliente=usuario_cli, **form.cleaned_data)
+
             # titulo = form.cleaned_data['titulo']
             # assunto = form.cleaned_data['assunto']
             # descricao = form.cleaned_data['descricao']
@@ -717,7 +738,7 @@ def criar_chamado(request):
             #     titulo=titulo, assunto=assunto, descricao=descricao,
             #     arquivo=arquivo, funcionario=funcionario, cliente=usuario_cli #aceitar usuario request
             # )
-            novo.save()
+            # novo.save()
             return redirect("chamado_list")
     else:
         form = ChamadoForm()

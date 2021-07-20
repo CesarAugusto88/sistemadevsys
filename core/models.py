@@ -87,16 +87,18 @@ class Cliente(models.Model):
     """ Tabela para cadastro com as informações do cliente."""
 
     referencial = models.IntegerField(blank=True, null=True)
-    nome = models.CharField(max_length=60)
-    razao_social = models.CharField(max_length=60)
-    tipo_pessoa = models.CharField(max_length=1)
-    cpf_cnpj = models.CharField(max_length=20)
-    rg_ie = models.CharField(max_length=20)
-    endereco = models.CharField(max_length=60)
+
+    nome = models.CharField("Nome", max_length=60)
+    razao_social = models.CharField("Razão Social", max_length=60)
+    tipo_pessoa = models.CharField("Tipo Pessoa (F/J)", blank=True, null=True, max_length=1)
+    cpf_cnpj = models.CharField("CPF/CNPJ", max_length=20)
+
+    rg_ie = models.CharField(blank=True, null=True, max_length=20)
+    endereco = models.CharField(blank=True, null=True, max_length=60)
     bairro = models.CharField(blank=True, null=True, max_length=30)
     ref_cidade = models.IntegerField(blank=True, null=True)
-    cep = models.CharField(max_length=9)
-    uf = models.CharField(max_length=2)
+    cep = models.CharField(blank=True, null=True, max_length=9)
+    uf = models.CharField(blank=True, null=True, max_length=2)
     email = models.EmailField(null=False, blank=False)
     endereco_co = models.CharField(blank=True, null=True, max_length=60)
     bairro_co = models.CharField(blank=True, null=True, max_length=30)
@@ -105,7 +107,7 @@ class Cliente(models.Model):
     uf_co = models.CharField(blank=True, null=True, max_length=2)
     obs = models.CharField(blank=True, null=True, max_length=80)
     senha = models.CharField(blank=True, null=True, max_length=16)
-    fone1 = models.CharField(max_length=16)
+    fone1 = models.CharField(blank=True, null=True, max_length=16)
     fone2 = models.CharField(blank=True, null=True, max_length=20)
     contato = models.CharField(blank=True, null=True, max_length=30)
     cidade = models.CharField(blank=True, null=True, max_length=30)
@@ -126,7 +128,7 @@ class Cliente(models.Model):
     fax_r = models.CharField(blank=True, null=True, max_length=16)
     fone1_r = models.CharField(blank=True, null=True, max_length=16)
     fone2_r = models.CharField(blank=True, null=True, max_length=16)
-    bloqueado = models.CharField(max_length=3)
+    bloqueado = models.CharField(blank=True, null=True, max_length=3)
     funcionario_cadastrou = models.IntegerField(blank=True, null=True)
     ativo = models.SmallIntegerField(blank=True, null=True)
     endereco_out = models.CharField(blank=True, null=True, max_length=60)
@@ -168,9 +170,9 @@ class Cliente(models.Model):
     estado_civil = models.CharField(blank=True, null=True, max_length=15)
     senha = models.CharField(blank=True, null=True, max_length=6)
     date_added = models.DateTimeField(auto_now_add=True)
-    usuario_cli = models.ForeignKey(User, on_delete=models.CASCADE)
+    # usuario_cli = models.ForeignKey(User, on_delete=models.CASCADE)
     # varchar 27 para bloquerar
-    chave = models.CharField(max_length=27)
+    # chave = models.CharField(max_length=27)
 
     data_uso = models.DateTimeField(verbose_name="Data Uso (AAAA-MM-DD)")
     # classe Meta serve p modificar nomes para plural

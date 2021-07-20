@@ -64,7 +64,10 @@
             CADASTRAR USUÁRIO
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'account:cadastrar_cliente' %}">CLIENTE</a>
+            {% comment %}
             <a class="dropdown-item" href="{% url 'account:registrar_cliente' %}">CLIENTE</a>
+            {% endcomment %}
             <a class="dropdown-item" href="{% url 'account:registrar_funcionario' %}">FUNCIONÁRIO</a>
             <div class="dropdown-divider"></div>
           </div>

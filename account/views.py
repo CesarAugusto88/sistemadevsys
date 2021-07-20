@@ -38,9 +38,17 @@ def cadastrar_cliente(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
         if form.is_valid():
-            novo = Cliente(**form.cleaned_data)
+            # novo = Cliente(**form.cleaned_data)
+            nome = form.cleaned_data['nome']
+            razao_social = form.cleaned_data['razao_social']
+            cpf_cnpj = form.cleaned_data['cpf_cnpj']
+            data_uso = form.cleaned_data['data_uso']
+            novo = Cliente(
+                nome=nome, razao_social=razao_social,
+                cpf_cnpj=cpf_cnpj, data_uso=data_uso
+            )
             novo.save()
-            return redirect('funcionario')
+            return redirect('list_clientes')
     else:
         form = ClienteForm()
     return render(request, "cadastrar_cliente.html", {"form": form})
