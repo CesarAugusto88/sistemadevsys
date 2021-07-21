@@ -174,7 +174,7 @@ class Cliente(models.Model):
     # varchar 27 para bloquerar
     # chave = models.CharField(max_length=27)
 
-    data_uso = models.DateTimeField(verbose_name="Data Uso (AAAA-MM-DD)")
+    data_uso = models.DateTimeField(verbose_name="Data Uso")
     # classe Meta serve p modificar nomes para plural
     class Meta:
         verbose_name = "Cliente"
