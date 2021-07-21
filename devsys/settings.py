@@ -122,11 +122,11 @@ TIME_ZONE = "America/Sao_Paulo"  #'UTC'
 
 USE_I18N = True
 
-USE_L10N = False
+USE_L10N = True
 
-USE_TZ = False  # True
+USE_TZ = False
 
-DATE_FORMAT = 'd/m/Y'
+# DATE_FORMAT = 'd/m/Y'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
