@@ -99,7 +99,7 @@ class Cliente(models.Model):
     ref_cidade = models.IntegerField(blank=True, null=True)
     cep = models.CharField(blank=True, null=True, max_length=9)
     uf = models.CharField(blank=True, null=True, max_length=2)
-    email = models.EmailField(null=False, blank=False)
+    email = models.EmailField(null=True, blank=True)
     endereco_co = models.CharField(blank=True, null=True, max_length=60)
     bairro_co = models.CharField(blank=True, null=True, max_length=30)
     cidade_co = models.CharField(blank=True, null=True, max_length=30)
