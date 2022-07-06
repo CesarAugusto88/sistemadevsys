@@ -12,7 +12,7 @@ fdb==2.0.1
 firebirdsql==1.1.4
 future==0.18.2
 jsonfield==2.0.0
-lxml==4.6.3
+lxml==4.9.1
 mypy==0.790
 mypy-extensions==0.4.3
 mysqlclient==2.0.1
